@@ -10,6 +10,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    box-sizing: border-box;
+    position: relative;
+    min-height: 100vh;
+}
+
 header {
     display: grid;
     grid-template-columns: 80% 10% 10%;
@@ -21,51 +27,40 @@ header h3 {
     text-align: center;
 }
 
-#login:hover {
-    user-select: none;
-    cursor: pointer;
-    color: aliceblue;
-}
-
-#login-form {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: -250px;
-    height: 100px;    
-    width: 30%;
-    text-align: center;    
-    border: 1px solid black;
-    border-radius: 8px;
-    background-color: aliceblue;
-}
-
-#login-form h2{
-    font-weight: normal;
-    font-size: medium;
+aside {
+    position: absolute;
+    width: 15%;
+    height: calc(100% - 30px - 136px);
+    background-color: red;
+    padding: 20px;
+    white-space: pre-line;
+    font-size: 10pt;
 }
 
 main {
-    margin: 3% auto;
+    background-color: aquamarine;
+    position: absolute;
+    width: calc(85% - 40px);
+    height: calc(100% - 30px - 96px);
+    margin-left: calc(15% + 40px);
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 canvas {
-    background-color: antiquewhite;
+    background-color: beige;
     width: 80%;
-    height: 40%;    
+    height: 80%
 }
 
 footer {
-    width: 100%;
     box-sizing: border-box;
-    height: 60px;
-    padding: 15px;
-    background-color: gray;
     position: absolute;
     bottom: 0;
+    padding: 30px;
+    text-align: center;
+    background-color: gray;
+    width: 100%;    
 }

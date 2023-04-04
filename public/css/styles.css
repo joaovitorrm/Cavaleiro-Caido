@@ -37,6 +37,10 @@ aside {
     font-size: 10pt;
 }
 
+aside li {
+    margin-left: 10px;
+}
+
 main {
     background-color: aquamarine;
     position: absolute;
@@ -55,6 +59,7 @@ main:has( > canvas)
 }
 
 canvas {
+    display: none;
     background-color: beige;
     width: 80%;
     height: 80%

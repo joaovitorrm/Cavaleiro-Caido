@@ -5,6 +5,9 @@ game.height = 720
 
 const ctx = game.getContext('2d')
 
+const playerSprite = new Image()
+playerSprite.src = '../images/cavaleiro.png'
+
 class Player {
     constructor(x, y, w, h) {
         this.x = x;
@@ -17,8 +20,7 @@ class Player {
     }
 
     draw() {
-        ctx.fillStyle = 'white'
-        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.drawImage(playerSprite, this.x, this.y);
     }
 
     check_collision(){
@@ -57,8 +59,8 @@ let player = new Player(20, 20, 40, 40)
 
 function animate(){
     window.requestAnimationFrame(animate)
-    ctx.fillStyle = 'black'
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white'
+    ctx.fillRect(0, 0, game.width, game.height)
     player.update()
     player.draw()
 }    
@@ -82,6 +84,12 @@ document.addEventListener('keydown', (e) => {
             player.direction = 'x'
             player.move = +player.speed
             break
+        case 'p':
+            if (canvas.style.display == 'none'){
+                canvas.style.display = 'block'
+            } else {
+                canvas.style.display = 'none'
+            }
     }
 })
 

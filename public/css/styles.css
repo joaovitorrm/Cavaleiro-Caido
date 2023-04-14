@@ -48,14 +48,33 @@ main {
     height: calc(100% - 30px - 96px);
     margin-left: calc(15% + 40px);
     text-align: center;
-    
 }    
+
+main button {
+    padding: 20px 200px 20px 200px;
+    border-radius: 10px;
+    border-width: 1px;
+    background-color: lightgreen;
+    font-size: larger;
+}
 
 main:has( > canvas) 
 { 
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+main h2{
+    font-size: larger;
+    padding-bottom: 50px;
+}
+
+main p {
+    width: 52%;
+    text-align: justify;
+    padding-bottom: 100px;
 }
 
 canvas {

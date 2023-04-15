@@ -8,6 +8,25 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     vertical-align: baseline;
     background: transparent;
     font-family: Arial, Helvetica, sans-serif;
+    color: var(--main-color)
+}
+
+/* variaveis de cor*/
+:root{
+    /*backgrounds*/
+    --about-bg-color: #141414; 
+    --bio-bg-color: #14213d;
+    --side-bg-color: #533c28;
+    --canva-bg-color: #63543d;
+    /*text*/
+    --main-color: #fca311 ;
+    --main-text-color: #eef4ff ;
+    --misc-text-color: #0f1f3b;
+    /*borders*/
+    --border-color: #ffffff ;
+    --bio-border-color: #0f1f3b;
+
+/*https://coolors.co/palette/000000-14213d-fca311-e5e5e5-ffffff*/
 }
 
 body {
@@ -19,7 +38,7 @@ body {
 header {
     display: grid;
     grid-template-columns: 80% 10% 10%;
-    background-color: gray;
+    background-color: var(--bio-bg-color);
     padding: 15px;
 }
 
@@ -28,13 +47,15 @@ header h3 {
 }
 
 aside {
+    color: var(--misc-text-color);
     position: absolute;
     width: 15%;
     height: calc(100% - 30px - 136px);
-    background-color: red;
+    background-color: var(--side-bg-color);
     padding: 20px;
     white-space: pre-line;
     font-size: 10pt;
+
 }
 
 aside li {
@@ -42,21 +63,24 @@ aside li {
 }
 
 main {
-    background-color: aquamarine;
+    
+    background-color: var(--about-bg-color);
     position: absolute;
     width: calc(85% - 40px);
     height: calc(100% - 30px - 96px);
     margin-left: calc(15% + 40px);
     text-align: center;
+    
 }    
 
 main button {
     padding: 20px 200px 20px 200px;
     border-radius: 10px;
     border-width: 1px;
-    background-color: lightgreen;
+    background-color: var(--main-color);
     font-size: larger;
 }
+
 
 main:has( > canvas) 
 { 
@@ -77,11 +101,17 @@ main p {
     padding-bottom: 100px;
 }
 
+/* canvas do jogo; ele fica transparente até o atributo 'display' ser modificado pelo js (ativado ao clicar no botão)*/
 canvas {
+
+
     display: none;
-    background-color: beige;
+    background-color: var(--canva-bg-color);
     width: 80%;
-    height: 80%
+    height: 80%;
+    border-style:dotted;
+    border-color: var(--bio-bg-color);
+    
 }
 
 footer {
@@ -90,7 +120,7 @@ footer {
     bottom: 0;
     padding: 30px;
     text-align: center;
-    background-color: gray;
+    background-color: var(--bio-bg-color);
     width: 100%;    
 }
 

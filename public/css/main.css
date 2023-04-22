@@ -68,6 +68,21 @@ footer > #redes button{
     border-radius: 50%;
 }
 
+#whats {    
+    background-image: url("../images/whatsapp_logo.jpg");
+    background-size: cover;
+}
+
+#insta {    
+    background-image: url("../images/instagram_logo.jpg");
+    background-size: cover;
+}
+
+#face {    
+    background-image: url("../images/facebook_logo.png");
+    background-size: cover;
+}
+
 footer > #logo {
     display: inline-block;
     align-self: flex-end;

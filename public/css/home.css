@@ -1,0 +1,42 @@
+main {    
+    background-color: var(--about-bg-color);
+    position: relative;
+    text-align: center;
+}
+
+main > #descricao p {
+    width: 60%;
+    margin: auto;
+    text-align: justify;
+}
+
+#descricao > * {
+    padding-bottom: 30px;
+}
+
+main button {
+    padding: 20px 200px 20px 200px;
+    border-radius: 10px;
+    border-width: 1px;
+    background-color: var(--main-color);
+    color: white;
+    font-size: larger;
+}
+
+
+main:has( > canvas)
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+canvas {
+    display: none;
+    background-color: var(--canva-bg-color);
+    max-width: 60%;
+    max-height: 60%;
+    border-style: dotted;
+    border-color: var(--bio-bg-color);
+}

@@ -1,5 +1,6 @@
 //pega o botão
 const play = document.getElementById('playButton');
+const descricao = document.getElementById('descricao');
 //pega o canvas
 const canvas = document.getElementById('game');
 //cria o coiso 2d da API canvas
@@ -62,14 +63,14 @@ class MainGame{
     run(){
         //classe player recebe metade do tamanho x e metade do y para posicionar o personagem no exato centro
     let player = new Player(game.width/2, game.height/2)
-    function animate(){
-        window.requestAnimationFrame(animate)
+    function animate(){        
         //cor background do canvas
         ctx.fillStyle = '#8b6f41'
         //contexto da API do canvas; CTX
         ctx.fillRect(0, 0, game.width, game.height)
         player.move()
         player.draw()
+        window.requestAnimationFrame(animate)
     }
     //roda o método animate (gera o jogo)
     animate()
@@ -98,10 +99,9 @@ class MainGame{
 play.onclick = () => {
     //remove o botão 
     play.style.display = 'none'
+    descricao.style.display = 'none'
     //faz o canvas ser visível
     canvas.style.display = 'block'
-    //centraliza o canvas
-    canvas.style.marginTop = '-20%'
 
     //inicia o jogo
     const start = new MainGame()

@@ -1,0 +1,79 @@
+/* Body Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--main-color)
+}
+
+/* variaveis de cor*/
+:root{
+    /*backgrounds*/
+    --about-bg-color: #141414; 
+    --bio-bg-color: #14213d;
+    --side-bg-color: #533c28;
+    --canva-bg-color: #63543d;
+    /*text*/
+    --main-color: #fca311 ;
+    --main-text-color: #eef4ff ;
+    --misc-text-color: #0f1f3b;
+    /*borders*/
+    --border-color: #ffffff ;
+    --bio-border-color: #0f1f3b;
+
+/*https://coolors.co/palette/000000-14213d-fca311-e5e5e5-ffffff*/
+}
+
+body {
+    min-height: 100vh;
+}
+
+
+header {
+    position: relative;
+    min-height: 10vh;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 80% 10% 10%;
+    background-color: var(--bio-bg-color);
+}
+
+header h3 {
+    text-align: center;
+}
+
+main {
+    box-sizing: border-box;
+    min-height: 80vh;
+}
+
+footer {
+    min-height: 10vh;
+    position: relative; 
+    display: flex;
+    width: 100%;
+    padding: 10px 10px 0px 10px;
+    flex-direction: row;       
+    background-color: var(--bio-bg-color);        
+}
+
+footer div {
+    box-sizing: border-box;
+    flex: auto;
+}
+
+footer > #redes button{
+    padding: 15px;
+    border-radius: 50%;
+}
+
+footer > #logo {
+    display: inline-block;
+    align-self: flex-end;
+    text-align: center;
+}
+
+footer > #info {
+    text-align: right;
+}

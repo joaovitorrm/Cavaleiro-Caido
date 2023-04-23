@@ -13,21 +13,29 @@ addEventListener('load', function(){
     canvas.width = 1280;
     canvas.height = 720;
 
+    // classe que recebe os inputs do jogador
     class InputHandler{
-        constructor(game){
+        constructor(game){            
             this.game = game
+            this.key = []
             window.addEventListener('keydown', e => {
-                this.game.key = e.key
+                if (!this.key.includes(e.key)){
+                    this.key.push(e.key)
+                }
+                
             })
             window.addEventListener('keyup', e =>{
-                if (this.game.key == e.key){
-                    this.game.key = ''
+                if (this.key.includes(e.key)){
+                    let released = this.key.indexOf(e.key)
+                    this.key.splice(released, 1)
                 }
             })
         }
     }
 
+    // classe que contem as propriedades do jogador
     class Player{
+        // definições iniciais
         constructor(game){
             this.game = game
             this.sprite = new Image()
@@ -36,7 +44,8 @@ addEventListener('load', function(){
             this.x = 20
             this.y = 20
         }
-        update(key){
+        // movimento
+        move(key){
             switch (key){
                 case 'w':
                     this.y -= 5
@@ -52,21 +61,27 @@ addEventListener('load', function(){
                     break
             }
         }
+        // sei la
+        update(){
+
+        }
+        // desenhar o player na tela
         draw(context){
             context.drawImage(this.sprite, this.x, this.y, this.size, this.size)
         }
     }
 
+    // classe principal que interliga as outras classes
     class Game{
         constructor(width, height){
             this.width = width;
             this.height = height;
             this.player = new Player(this)
             this.input = new InputHandler(this)
-            this.key = ''
         }
         update(){
-            this.player.update(this.key);
+            this.player.move(this.input.key[this.input.key.length - 1])
+            this.player.update();
         }
         draw(context){
             this.player.draw(context)
@@ -74,13 +89,14 @@ addEventListener('load', function(){
     }
 
     
-    //ação do botão html
+    // ação do botão html
     play.onclick = () => {
-        //remove o botão 
+        // remove o botão 
         play.style.display = 'none'
         descricao.style.display = 'none'
-        //faz o canvas ser visível
+        // faz o canvas ser visível
         canvas.style.display = 'block'
+        // loop principal
         const game = new Game(canvas.width, canvas.height)
         function animate(){
             ctx.clearRect(0, 0, canvas.width, canvas.height)

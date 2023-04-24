@@ -1,5 +1,4 @@
-main {    
-    background-color: var(--about-bg-color);
+main {
     position: relative;
     text-align: center;
 }
@@ -18,7 +17,6 @@ main button {
     padding: 20px 200px 20px 200px;
     border-radius: 10px;
     border-width: 1px;
-    background-color: var(--main-color);
     color: white;
     font-size: larger;
 }

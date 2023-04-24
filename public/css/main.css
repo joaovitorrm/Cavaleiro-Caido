@@ -4,7 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
-    color: var(--main-color)
+    color: var(--main-text-color)
 }
 
 /* variaveis de cor*/
@@ -15,8 +15,8 @@
     --side-bg-color: #533c28;
     --canva-bg-color: #63543d;
     /*text*/
-    --main-color: #fca311 ;
-    --main-text-color: #eef4ff ;
+    --main-color:  orangered;
+    --main-text-color: #E8E8E8;
     --misc-text-color: #0f1f3b;
     /*borders*/
     --border-color: #ffffff ;
@@ -29,27 +29,78 @@ body {
     min-height: 100vh;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
+button {
+    background-color: var(--main-color);
+    border: 1px solid var(--border-color);
+}
 
 header {
     position: relative;
-    min-height: 10vh;
+    padding-right: 1px;
+    min-height: 8vh;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    display: grid;
-    grid-template-columns: 80% 10% 10%;
+    width: 100%;
+    justify-content: space-between;
     background-color: var(--bio-bg-color);
 }
 
-header h3 {
+header > #links {
+    margin-left: 1%;
+}
+
+header > #links > * {    
+    text-decoration: none;
+}
+
+header > #login{
+    display: flex;
+    width: 13%;    
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: 2%;
+}
+
+header > #login button{
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 12vh;
+    overflow: hidden;
+    padding: 5% 0 5% 0;
+    font-weight: bold;
+}
+
+header > #chat{
+    align-self: stretch;
+    display: flex;
+    width:  5%;
+    background-color: var(--main-color);
+    border: 1px solid white;
+}
+
+#chat > * {
+    align-self: center;
+    width: 100%;
     text-align: center;
 }
 
-main {
+#chat:hover{
+    cursor: pointer;
+}
+
+main {    
+    background-color: var(--about-bg-color);
     box-sizing: border-box;
-    min-height: 80vh;
+    min-height: 77vh;    
 }
 
 footer {
-    min-height: 10vh;
+    min-height: 15vh;
     position: relative; 
     display: flex;
     width: 100%;

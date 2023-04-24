@@ -14,21 +14,16 @@ app.get('/', function(req, res){
     res.sendFile(pages + '/home.html');
 });
 
-app.get('/home', function(req, res){
-    res.sendFile(pages + '/home.html');
-});
-
-
-app.get('/gameTest', function(req, res){
-    res.sendFile(pages + '/gameTest.html');
+app.get('/tutoriais', function(req, res){
+    res.sendFile(pages + '/tutoriais.html');
 });
 
 app.get('/cadastro', function(req, res){
     res.sendFile(pages + '/cadastro.html');
 });
 
-app.get('/login', function(req, res){
-    res.sendFile(pages + '/login.html');
+app.get('/entrar', function(req, res){
+    res.sendFile(pages + '/entrar.html');
 });
 
 app.get('/cadastrados', function(req, res){

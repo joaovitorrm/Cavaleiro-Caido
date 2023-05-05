@@ -22,6 +22,9 @@
     --border-color: #ffffff ;
     --bio-border-color: #0f1f3b;
 
+    --header-height: 8vh;
+    --footer-height: 15vh;
+
 /*https://coolors.co/palette/000000-14213d-fca311-e5e5e5-ffffff*/
 }
 
@@ -38,120 +41,121 @@ button {
     border: 1px solid var(--border-color);
 }
 
-header {
+header {    
     position: relative;
+    padding-left: 20px;
     padding-right: 1px;
-    min-height: 8vh;
+    min-height: var(--header-height);
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 100%;
     justify-content: space-between;
     background-color: var(--bio-bg-color);
-}
 
-header > #logo {
-    padding-right: 10px;
-    border-right: 3px solid white;
-}
+    > #logo{        
+        padding-right: 10px;
+        border-right: 3px solid white;
+    }
 
-header > #links > img {    
-    width: 70px;
-    padding: 10px;
-}
+    > #links {
+        margin-left: 1%;
+        display: flex;
 
-header > #links {
-    margin-left: 1%;
-    display: flex;
-    align-items: center;
-}
+        > a > img {    
+            width: 70px;
+            padding: 10px;
+        }
 
-header > #links > * {    
-    text-decoration: none;
-}
+        > * {    
+            text-decoration: none;    
+            display: flex;
+            align-items: center;
+        }
+    }
 
-header > #login{
-    display: flex;
-    width: 13%;    
-    justify-content: space-between;
-    margin-left: auto;
-    margin-right: 2%;
-}
+    > #login{
+        display: flex; 
+        justify-content: space-between;
+        margin-left: auto;
+        margin-right: 2%;
+    }
 
-header > #login button{
-    box-sizing: border-box;
-    border-radius: 4px;
-    width: 12vh;
-    overflow: hidden;
-    padding: 5% 0 5% 0;
-    font-weight: bold;
-}
+    > #login button{
+        box-sizing: border-box;
+        border-radius: 4px;
+        width: 6vw;
+        overflow: hidden;
+        padding: 5% 0 5% 0;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    > #chat{
+        align-self: stretch;
+        display: flex;
+        width:  5%;
+        background-color: var(--main-color);
+        border: 1px solid white;
 
-header > #chat{
-    align-self: stretch;
-    display: flex;
-    width:  5%;
-    background-color: var(--main-color);
-    border: 1px solid white;
-}
+        > * {
+            align-self: center;
+            width: 100%;
+            text-align: center;
+        }
+    }
+    #chat:hover{
+        cursor: pointer;
+    }
+    
+} 
 
-#chat > * {
-    align-self: center;
-    width: 100%;
-    text-align: center;
-}
 
-#chat:hover{
-    cursor: pointer;
-}
+
 
 main {    
     background-color: var(--about-bg-color);
     box-sizing: border-box;
-    min-height: 77vh;    
+    min-height: calc(100vh - var(--header-height) - var(--footer-height));    
 }
 
 footer {
-    min-height: 15vh;
+    min-height: var(--footer-height);
     position: relative; 
     display: flex;
     width: 100%;
     padding: 10px 10px 0px 10px;
     flex-direction: row;       
-    background-color: var(--bio-bg-color);        
-}
-
-footer div {
-    box-sizing: border-box;
-    flex: auto;
-}
-
-footer > #redes button{
-    padding: 15px;
-    border-radius: 50%;
-}
-
-#whats {    
-    background-image: url("../images/whatsapp_logo.jpg");
-    background-size: cover;
-}
-
-#insta {    
-    background-image: url("../images/instagram_logo.jpg");
-    background-size: cover;
-}
-
-#face {    
-    background-image: url("../images/facebook_logo.png");
-    background-size: cover;
-}
-
-footer > #logo {
-    display: inline-block;
-    align-self: flex-end;
-    text-align: center;
-}
-
-footer > #info {
-    text-align: right;
+    background-color: var(--bio-bg-color);     
+    
+    > div {
+        box-sizing: border-box;
+        flex: auto;
+    }
+    > #redes button{
+        padding: 15px;
+        border-radius: 50%;
+    }    
+    > #redes div{
+        > #whats {    
+            background-image: url("../images/whatsapp_logo.jpg");
+            background-size: cover;
+        }
+        > #insta {    
+            background-image: url("../images/instagram_logo.jpg");
+            background-size: cover;
+        }
+        > #face {    
+            background-image: url("../images/facebook_logo.png");
+            background-size: cover;
+    }
+    
+    }
+    > #logo {
+        display: inline-block;
+        align-self: flex-end;
+        text-align: center;
+    }
+    > #info {
+        text-align: right;
+    }
 }

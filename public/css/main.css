@@ -50,8 +50,20 @@ header {
     background-color: var(--bio-bg-color);
 }
 
+header > #logo {
+    padding-right: 10px;
+    border-right: 3px solid white;
+}
+
+header > #links > img {    
+    width: 70px;
+    padding: 10px;
+}
+
 header > #links {
     margin-left: 1%;
+    display: flex;
+    align-items: center;
 }
 
 header > #links > * {    

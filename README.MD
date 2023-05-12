@@ -9,9 +9,9 @@ Falando agora sobre o site, inicialmente, o plano é que tenham pelo menos 4 pá
 problemas/bugs conhecidos:
   
   
-  Problema  | solucionado?  | causa
+  Problema  | status  | causa
 ----------- | ------------- | -----------
-Não abre corretamente em browsers não "google"   |<ul><li> [x] check    | nested CSS muito recente
+Não abre corretamente em browsers não "google"   |<ul><li>[x] item1</li><li>[x] item1</li>    | nested CSS muito recente
 Exemplo 2   | [ ]       | exemplo
 Exemplo 3   | [ ]       | exemplo
 Exemplo 4   | [ ]       | exemplo

@@ -1,5 +1,4 @@
 # Este projeto é um trabalho conjunto entre as disciplinas de projeto integrador e programação em 2023. <h1>
-
 O projeto consiste no desenvolvimento de um jogo, chamado “Cavaleiro Caído”, que será mantido e baseado no sistema Web. Como adicional, também será criado um site para o mesmo, contendo todo conteúdo relacionado ao jogo.
 A história elaborada até o momento é simples: seu personagem acorda, em um estado amnésico, em um laboratório subterrâneo e precisa encarar diversas salas e criaturas para encontrar a saída.
 Conforme o decorrer da campanha  existirão conquistas que o jogador poderá realizar, que são simplesmente objetivos secundários. Algumas dessas conquistas podem conceder recompensas ao jogador, como, por exemplo, skins/roupas.

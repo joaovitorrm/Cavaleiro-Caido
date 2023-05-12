@@ -10,7 +10,7 @@ problemas/bugs conhecidos:
   
   Problema  | status  | causa
 ----------- | ------------- | -----------
-Não abre corretamente em browsers não "google"   |<ul><li>[ ] resolvido</li><li>[x] não resolvido</li><li>[ ] não será resolvido</li><li>[ ] em resolução</li>    | nested CSS muito recente
+Não abre corretamente em browsers não "google"   |<ul><li>[ ] resolvido</li><li>[ ] não será resolvido</li><li>[ ] em resolução</li>    | nested CSS muito recente, funcionalidade prototipada pelo chrome
 Exemplo 2   | [ ]       | exemplo
 Exemplo 3   | [ ]       | exemplo
 Exemplo 4   | [ ]       | exemplo

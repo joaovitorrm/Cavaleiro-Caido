@@ -78,10 +78,13 @@ header {
         display: flex; 
         justify-content: space-between;
         margin-left: auto;
-        margin-right: 2%;
+        margin-right: 2%;        
     }
 
     > #login button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         box-sizing: border-box;
         border-radius: 4px;
         width: 6vw;
@@ -90,17 +93,27 @@ header {
         font-weight: bold;
         margin-right: 10px;
     }
+
+    #login > a > button:hover > #entrar {
+        content: url('../images/porta_2.png')
+    }
+
+
+    > #login img {
+        width: 20px;
+    }
+
+
     > #chat{
-        align-self: stretch;
+        justify-content: center;
+        align-items: center;
         display: flex;
-        width:  5%;
+        width:  var(--header-height);
+        height: var(--header-height);
         background-color: var(--main-color);
         border: 1px solid white;
-
-        > * {
-            align-self: center;
-            width: 100%;
-            text-align: center;
+        > * {         
+            width: 40px;
         }
     }
     #chat:hover{
@@ -109,14 +122,27 @@ header {
     
 } 
 
-
-
-
-main {    
+main {
+    display: grid;      
     background-color: var(--about-bg-color);
     box-sizing: border-box;
-    min-height: calc(100vh - var(--header-height) - var(--footer-height));    
+    min-height: calc(100vh - var(--header-height) - var(--footer-height));
+    grid-template-columns: 90vw 10vw;
 }
+
+
+#descricao {
+    grid-column: 1;
+}
+
+
+#chatAside {
+    grid-column: 2;
+    align-self: start;
+    height: calc(100vh - var(--header-height) - var(--footer-height));
+    background-color: red;    
+}
+
 
 footer {
     min-height: var(--footer-height);

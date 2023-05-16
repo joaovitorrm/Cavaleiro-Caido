@@ -31,9 +31,9 @@ app.get('/cadastrados', function(req, res){
 });
 
 app.get('/contato', function(req, res){
-    res.sendFile(pages + '/cadastrados.html');
+    res.sendFile(pages + '/contato.html');
 });
 
 app.get('/sobre', function(req, res){
-    res.sendFile(pages + '/cadastrados.html');
+    res.sendFile(pages + '/sobre.html');
 });

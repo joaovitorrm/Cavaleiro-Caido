@@ -39,7 +39,7 @@ addEventListener('load', function(){
         constructor(game){
             this.game = game
             this.sprite = new Image()
-            this.sprite.src = "../sprites/cavaleiro.png"
+            this.sprite.src = "../images/sprites/cavaleiro.png"
             this.size = 100
             this.x = 20
             this.y = 20

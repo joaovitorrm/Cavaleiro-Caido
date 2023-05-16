@@ -4,7 +4,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
-    color: var(--main-text-color)
+    color: var(--main-text-color);
+    outline: 1px solid red;
 }
 
 /* variaveis de cor*/
@@ -95,7 +96,7 @@ header {
     }
 
     #login > a > button:hover > #entrar {
-        content: url('../images/porta_2.png')
+        content: url('../images/icones/entrar_2.png')
     }
 
 
@@ -122,25 +123,11 @@ header {
     
 } 
 
-main {
-    display: grid;      
+main {    
+    
     background-color: var(--about-bg-color);
     box-sizing: border-box;
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
-    grid-template-columns: 90vw 10vw;
-}
-
-
-#descricao {
-    grid-column: 1;
-}
-
-
-#chatAside {
-    grid-column: 2;
-    align-self: start;
-    height: calc(100vh - var(--header-height) - var(--footer-height));
-    background-color: red;    
 }
 
 
@@ -163,15 +150,15 @@ footer {
     }    
     > #redes div{
         > #whats {    
-            background-image: url("../images/whatsapp_logo.jpg");
+            background-image: url("../images/logos/whatsapp.jpg");
             background-size: cover;
         }
         > #insta {    
-            background-image: url("../images/instagram_logo.jpg");
+            background-image: url("../images/logos/instagram.jpg");
             background-size: cover;
         }
         > #face {    
-            background-image: url("../images/facebook_logo.png");
+            background-image: url("../images/logos/facebook.png");
             background-size: cover;
     }
     

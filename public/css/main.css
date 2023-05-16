@@ -79,7 +79,10 @@ header {
         display: flex; 
         justify-content: space-between;
         margin-left: auto;
-        margin-right: 2%;        
+        margin-right: 2%;
+        > a {
+            text-decoration: none;
+        }
     }
 
     > #login button{
@@ -123,8 +126,7 @@ header {
     
 } 
 
-main {    
-    
+main {
     background-color: var(--about-bg-color);
     box-sizing: border-box;
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
@@ -175,8 +177,7 @@ footer {
 
 #info > *{
     text-align: right;
-    list-style: none
-
+    list-style: none;    
 }
 
 #info li {
@@ -185,11 +186,17 @@ footer {
     border-color: var(--main-color);
     border-width: 0px 0px 0px 3px ;
     border-radius: 5%;
-    margin:  0vw 70% 0  3px
+    margin:  0vw 70% 0  3px;
+
+    > p {
+        margin-left: 4px;
+        > a {
+            text-decoration: none;
+        }
+    }
 }
-#info li p{
-    margin-left:4px
-}
+
+
 #redes >*{
     margin:  0 0  0 80%
 }

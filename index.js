@@ -29,3 +29,11 @@ app.get('/entrar', function(req, res){
 app.get('/cadastrados', function(req, res){
     res.sendFile(pages + '/cadastrados.html');
 });
+
+app.get('/contato', function(req, res){
+    res.sendFile(pages + '/cadastrados.html');
+});
+
+app.get('/sobre', function(req, res){
+    res.sendFile(pages + '/cadastrados.html');
+});

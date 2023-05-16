@@ -39,37 +39,3 @@ canvas {
     border-style: dotted;
     border-color: var(--bio-bg-color);
 }
-
-#info > *{
-    text-align: right;
-    list-style: none
-
-}
-
-#info li {
-    text-align: left;
-    border-style: solid;
-    border-color: var(--main-color);
-    border-width: 0px 0px 0px 3px ;
-    border-radius: 5%;
-    margin:  0vw 70% 0  3px
-}
-#info li p{
-    margin-left:4px
-}
-#redes >*{
-    margin:  0 0  0 80%
-}
-
-#logo_footer{
-    margin-top: -10px;
-    text-align: center;
-    filter: drop-shadow(2px 1px 0 #000000) saturate(70%) brightness(10%) contrast(80%) opacity(80%) grayscale(100%);
-    border: 1px solid rgb(0, 0, 0);
-    box-shadow: 5px 10px 5px rgb(0, 0, 0) inset;
-    background-color: rgb(114, 114, 114);
-}
-#logo_footer img{
-    margin-top: 10px;
-    filter: drop-shadow(4px 1px 0 #000000)brightness(1000%)
-}

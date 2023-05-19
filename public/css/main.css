@@ -2,33 +2,56 @@
     font-family: 'November';
     src: url('../fonts/november/novem___.ttf') format('truetype');
     /*não tem alguns caracteres, acentos e etc*/
-  }
-  
-  @font-face {
+}
+
+@font-face {
     font-family: 'Pixel Verdana';
     src: url('../fonts/pixel-verdana/PixelFJVerdana12pt.ttf') format('truetype');
     /*corrompida*/
-  }
-  
-  @font-face {
+}
+
+@font-face {
     font-family: 'Pixelated';
     src: url('../fonts/pixelated/pixelated.ttf') format('truetype');
     /*corrompida*/
-  }
-  
-  @font-face {
+}
+
+@font-face {
     font-family: 'Arcade';
     src: url('../fonts/arcade/ARCADECLASSIC.TTF') format('truetype');
     /*fica zoada*/
-  }
-  
+}
+
+@font-face {
+    font-family: 'David Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/David-Sans/David\ Sans.woff') format('woff');
+    /*funciona bem*/
+}
+@font-face {
+    font-family: 'David Sans Condensed';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/David-Sans/David\ Sans\ Condensed.woff') format('woff');
+    /*tem como usar*/
+}
+@font-face{
+    font-family: 'Minecraftia';
+    font-style:normal;
+    font-weight:400;
+    src: url('../fonts/Minecraftia/Minecraftia.woff') format('woff')
+    /*font do mine fica legal*/
+}
+
+
 
 /* Body Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "David Sans Condensed";
     
     /*
     font-family: "November";

@@ -1,11 +1,42 @@
+@font-face {
+    font-family: 'November';
+    src: url('../fonts/november/novem___.ttf') format('truetype');
+    /*não tem alguns caracteres, acentos e etc*/
+  }
+  
+  @font-face {
+    font-family: 'Pixel Verdana';
+    src: url('../fonts/pixel-verdana/PixelFJVerdana12pt.ttf') format('truetype');
+    /*corrompida*/
+  }
+  
+  @font-face {
+    font-family: 'Pixelated';
+    src: url('../fonts/pixelated/pixelated.ttf') format('truetype');
+    /*corrompida*/
+  }
+  
+  @font-face {
+    font-family: 'Arcade';
+    src: url('../fonts/arcade/ARCADECLASSIC.TTF') format('truetype');
+    /*fica zoada*/
+  }
+  
+
 /* Body Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
-    color: var(--main-text-color);
     
+    /*
+    font-family: "November";
+    font-family: "Pixelated";
+    font-family: "Arcade";
+    font-family: "Pixel Verdana";
+    */
+    color: var(--main-text-color);
     /*outline: 1px solid red;*/
 }
 

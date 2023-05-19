@@ -1,6 +1,7 @@
 main {
     position: relative;
     text-align: center;
+    background-image: url(../images/sprites/bghome.png);
 }
 
 main > #descricao p {

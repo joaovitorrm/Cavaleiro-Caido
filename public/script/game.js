@@ -38,26 +38,37 @@ addEventListener('load', function(){
     // classe que contem as propriedades do jogador
     class Player{
         // definições iniciais
-        constructor(playercount=0, game){
+        constructor(game, playercount=1){
             this.game = game
             this.sprite = new Image()
-            this.sprites={
-                cav1:"../images/sprites/cavaleiro.png",
-                cav2:"../images/sprites/caveleiro.png"
-            }
-            this.sprite.src=this.sprites.cav1
+            this.sprites = {
+                skin1:"../images/sprites/cavaleiro.png",
+                skin2:"../images/sprites/cavaleiro_ouro.png"
+            }            
+            this.sprite.src = this.sprites["skin" + playercount.toString()]
             this.size = 100
-            this.x = 20
-            this.y = 20
+
+            this.x = 200
+            this.y = 20            
+
             this.playercount = playercount
+            this.hitbox = {
+                x: this.x,
+                y: this.y,
+                w: this.size / 2,
+                h: this.size / 2,
+                area: 25,
+            }
         }
         
         // movimento
         move(key){
-            if(this.playercount==0){
+            
+            if(this.playercount==1){
                 switch (key){
                     case 'w':
                         this.y -= 5
+                        console.log("a")
                         break
                     case 'a':
                         this.x -= 5
@@ -70,10 +81,11 @@ addEventListener('load', function(){
                         break
                 }
             }
-            if(this.playercount==1){
+            if(this.playercount==2){
                 switch (key){
                     case 'ArrowUp':
                         this.y -= 5
+                        console.log("a")
                         break
                     case 'ArrowLeft':
                         this.x -= 5
@@ -87,13 +99,56 @@ addEventListener('load', function(){
                 }
             }
         }
-        // sei la
+        collisioncheck(){
+            //mapa
+
+            //direita - rodando
+            if (this.x + this.hitbox.w + this.hitbox.area > canvas.width){
+                this.x = canvas.width - this.hitbox.w - this.hitbox.area;
+            } 
+            //esquerda - rodando
+            else if (this.hitbox.x + this.hitbox.w - this.hitbox.area < 0){
+                this.x = 0 - this.hitbox.w + this.hitbox.area;
+            }
+            //baixo
+            if (this.y + this.hitbox.h + this.hitbox.area > canvas.height){
+                this.y = canvas.height - this.hitbox.h - this.hitbox.area;
+            } 
+            //topo
+            else if (this.y + this.hitbox.h - this.hitbox.area < 0){
+                this.y = 0 - this.hitbox.h + this.hitbox.area;
+            }
+
+
+        }
         update(){
+            let goblinx = 680 
+            let gobliny = 95
+            let goblinh = 370
+            let goblinw = 485
+
+            this.hitbox.x = this.x
+            this.hitbox.y = this.y
+
 
         }
         // desenhar o player na tela
         draw(context){
             context.drawImage(this.sprite, this.x, this.y, this.size, this.size)
+        }
+    }
+
+    class Map{
+        constructor(game){
+            this.map = new Image()
+            this.map.src = "../images/mapas/mapa1.png"
+            this.x = 0
+            this.y = 0
+            this.w = 1280
+            this.h = 720
+        }
+        draw(context){
+            context.drawImage(this.map, this.x, this.y, this.w, this.h)
         }
     }
 
@@ -103,14 +158,21 @@ addEventListener('load', function(){
             this.width = width;
             this.height = height;
             this.player = new Player(this)
+            this.player2 = new Player(this, 2)  
             this.input = new InputHandler(this)
+            this.map = new Map(this)
         }
         update(){
             this.player.move(this.input.key[this.input.key.length - 1])
             this.player.update();
+            this.player2.move(this.input.key[this.input.key.length - 1])
+            this.player2.update();
+            this.player.collisioncheck()
         }
         draw(context){
+            this.map.draw(context)
             this.player.draw(context)
+            this.player2.draw(context)            
         }
     }
 

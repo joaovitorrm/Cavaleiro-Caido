@@ -99,27 +99,25 @@ addEventListener('load', function(){
                 }
             }
         }
-        collisioncheck(){
-            //mapa
-
-            //direita - rodando
-            if (this.x + this.hitbox.w + this.hitbox.area > canvas.width){
-                this.x = canvas.width - this.hitbox.w - this.hitbox.area;
-            } 
-            //esquerda - rodando
-            else if (this.hitbox.x + this.hitbox.w - this.hitbox.area < 0){
-                this.x = 0 - this.hitbox.w + this.hitbox.area;
+        collisioncheck(list, tipo="entidade"){
+            if(tipo =="mapa"){
+                //direita - rodando
+                if (this.x + this.hitbox.w + this.hitbox.area > list[2]){
+                    this.x = list[2] - this.hitbox.w - this.hitbox.area;
+                } 
+                //esquerda - rodando
+                else if (this.hitbox.x + this.hitbox.w - this.hitbox.area <list[0]){
+                    this.x = list[0] - this.hitbox.w + this.hitbox.area;
+                }
+                //baixo
+                if (this.y + this.hitbox.h + this.hitbox.area > list[3]){
+                    this.y = list[3] - this.hitbox.h - this.hitbox.area;
+                } 
+                //topo
+                else if (this.y + this.hitbox.h - this.hitbox.area < list[1]){
+                    this.y = list[1] - this.hitbox.h + this.hitbox.area;
+                }
             }
-            //baixo
-            if (this.y + this.hitbox.h + this.hitbox.area > canvas.height){
-                this.y = canvas.height - this.hitbox.h - this.hitbox.area;
-            } 
-            //topo
-            else if (this.y + this.hitbox.h - this.hitbox.area < 0){
-                this.y = 0 - this.hitbox.h + this.hitbox.area;
-            }
-
-
         }
         update(){
             let goblinx = 680 
@@ -129,8 +127,8 @@ addEventListener('load', function(){
 
             this.hitbox.x = this.x
             this.hitbox.y = this.y
-
-
+            this.collisioncheck([0, 0, canvas.width, canvas.height])
+            this.collisioncheck([goblinx,gobliny,goblinw,goblinh])
         }
         // desenhar o player na tela
         draw(context){
@@ -167,7 +165,6 @@ addEventListener('load', function(){
             this.player.update();
             this.player2.move(this.input.key[this.input.key.length - 1])
             this.player2.update();
-            this.player.collisioncheck()
         }
         draw(context){
             this.map.draw(context)

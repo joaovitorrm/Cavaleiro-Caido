@@ -7,6 +7,8 @@ addEventListener('load', function(){
     const descricao = document.getElementById('descricao');
     // elemento canvas
     const canvas = document.getElementById('game');
+    
+
 
     // transforma o canvas em um objeto para manipulador imagens em JS
     const ctx = canvas.getContext('2d');
@@ -36,29 +38,53 @@ addEventListener('load', function(){
     // classe que contem as propriedades do jogador
     class Player{
         // definições iniciais
-        constructor(game){
+        constructor(playercount=0, game){
             this.game = game
             this.sprite = new Image()
-            this.sprite.src = "../images/sprites/cavaleiro.png"
+            this.sprites={
+                cav1:"../images/sprites/cavaleiro.png",
+                cav2:"../images/sprites/caveleiro.png"
+            }
+            this.sprite.src=this.sprites.cav1
             this.size = 100
             this.x = 20
             this.y = 20
+            this.playercount = playercount
         }
+        
         // movimento
         move(key){
-            switch (key){
-                case 'w':
-                    this.y -= 5
-                    break
-                case 'a':
-                    this.x -= 5
-                    break
-                case 's':
-                    this.y += 5
-                    break
-                case 'd':
-                    this.x += 5
-                    break
+            if(this.playercount==0){
+                switch (key){
+                    case 'w':
+                        this.y -= 5
+                        break
+                    case 'a':
+                        this.x -= 5
+                        break   
+                    case 's':
+                        this.y += 5
+                        break
+                    case 'd':
+                        this.x += 5
+                        break
+                }
+            }
+            if(this.playercount==1){
+                switch (key){
+                    case 'ArrowUp':
+                        this.y -= 5
+                        break
+                    case 'ArrowLeft':
+                        this.x -= 5
+                        break
+                    case 'ArrowDown':
+                        this.y += 5
+                        break
+                    case 'ArrowRight':
+                        this.x += 5
+                        break
+                }
             }
         }
         // sei la

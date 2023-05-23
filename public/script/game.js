@@ -34,101 +34,87 @@ addEventListener('load', function(){
             })
         }
     }
-
+    
     // classe que contem as propriedades do jogador
     class Player{
         // definições iniciais
-        constructor(game, playercount=1){
+        constructor(game){
             this.game = game
             this.sprite = new Image()
             this.sprites = {
                 skin1:"../images/sprites/cavaleiro.png",
                 skin2:"../images/sprites/cavaleiro_ouro.png"
             }            
-            this.sprite.src = this.sprites["skin" + playercount.toString()]
+            this.sprite.src = this.sprites["skin" + '1']
             this.size = 100
 
             this.x = 200
             this.y = 20            
 
-            this.playercount = playercount
+            let w = this.size / 2;
+            let h = this.size / 2;
+            let area = 25;
+            
             this.hitbox = {
-                x: this.x,
-                y: this.y,
-                w: this.size / 2,
-                h: this.size / 2,
-                area: 25,
+                right: w + area,
+                left: w - area,
+                top: h - area,
+                bottom: h + area,
+            }
+            this.goblin = {
+                x: 900,
+                y: 185,
+                w: 170,
+                h: 310,
             }
         }
         
         // movimento
-        move(key){
-            
-            if(this.playercount==1){
-                switch (key){
+        move(key){                       
+        
+            switch (key){                    
+                case 'w':
+                    this.y -= 5
+                    break
+                case 'a':
+                    this.x -= 5
+                    break
+                case 's':
+                    this.y += 5
+                    break
+                case 'd':
+                    this.x += 5
+                    break
+            }
+            if (this.checkCollision(this.goblin)){
+                switch (key){                    
                     case 'w':
-                        this.y -= 5
-                        console.log("a")
+                        this.y += 5
                         break
                     case 'a':
-                        this.x -= 5
-                        break   
+                        this.x += 5
+                        break
                     case 's':
-                        this.y += 5
+                        this.y -= 5
                         break
                     case 'd':
-                        this.x += 5
-                        break
-                }
-            }
-            if(this.playercount==2){
-                switch (key){
-                    case 'ArrowUp':
-                        this.y -= 5
-                        console.log("a")
-                        break
-                    case 'ArrowLeft':
                         this.x -= 5
                         break
-                    case 'ArrowDown':
-                        this.y += 5
-                        break
-                    case 'ArrowRight':
-                        this.x += 5
-                        break
                 }
             }
-        }
-        collisioncheck(list, tipo="entidade"){
-            if(tipo =="mapa"){
-                //direita - rodando
-                if (this.x + this.hitbox.w + this.hitbox.area > list[2]){
-                    this.x = list[2] - this.hitbox.w - this.hitbox.area;
-                } 
-                //esquerda - rodando
-                else if (this.hitbox.x + this.hitbox.w - this.hitbox.area <list[0]){
-                    this.x = list[0] - this.hitbox.w + this.hitbox.area;
-                }
-                //baixo
-                if (this.y + this.hitbox.h + this.hitbox.area > list[3]){
-                    this.y = list[3] - this.hitbox.h - this.hitbox.area;
-                } 
-                //topo
-                else if (this.y + this.hitbox.h - this.hitbox.area < list[1]){
-                    this.y = list[1] - this.hitbox.h + this.hitbox.area;
-                }
-            }
-        }
-        update(){
-            let goblinx = 680 
-            let gobliny = 95
-            let goblinh = 370
-            let goblinw = 485
 
-            this.hitbox.x = this.x
-            this.hitbox.y = this.y
-            this.collisioncheck([0, 0, canvas.width, canvas.height])
-            this.collisioncheck([goblinx,gobliny,goblinw,goblinh])
+                
+        }
+
+        checkCollision(entity){
+            if (this.hitbox.right + this.x> entity.x && this.hitbox.left + this.x < entity.x + entity.w 
+                && this.hitbox.bottom + this.y> entity.y && this.hitbox.top + this.y < entity.y + entity.h){
+                    return true
+            }
+
+
+        }
+        update(){            
         }
         // desenhar o player na tela
         draw(context){
@@ -155,21 +141,18 @@ addEventListener('load', function(){
         constructor(width, height){
             this.width = width;
             this.height = height;
-            this.player = new Player(this)
-            this.player2 = new Player(this, 2)  
+            this.player = new Player(this) 
             this.input = new InputHandler(this)
             this.map = new Map(this)
         }
         update(){
             this.player.move(this.input.key[this.input.key.length - 1])
             this.player.update();
-            this.player2.move(this.input.key[this.input.key.length - 1])
-            this.player2.update();
         }
         draw(context){
             this.map.draw(context)
-            this.player.draw(context)
-            this.player2.draw(context)            
+            this.player.draw(context) 
+            context.fillRect(900, 185, 170, 310)                 
         }
     }
 

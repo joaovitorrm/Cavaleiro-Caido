@@ -8,8 +8,6 @@ addEventListener('load', function(){
     // elemento canvas
     const canvas = document.getElementById('game');
     
-
-
     // transforma o canvas em um objeto para manipulador imagens em JS
     const ctx = canvas.getContext('2d');
     canvas.width = 1280;
@@ -37,27 +35,64 @@ addEventListener('load', function(){
             })
         }
     }
+
+    class Entity{
+        //método que checa a colisão com <entity> em relação ao player
+        checkCollision(entity){
+            /*
+            Caso 'true' O comando de movimento na direção solicitada gera uma movimentação igual de sentido oposto, fazendo com que o movimento seja 0
+            ex.:
+            'w' altera a posição x em 5 pixels, ao colidir, ele também altera a posição em -5px
+            */
+            if (this.hitbox.right + this.x> entity.x && this.hitbox.left + this.x < entity.x + entity.w && this.hitbox.bottom + this.y> entity.y && this.hitbox.top + this.y < entity.y + entity.h){
+                return true
+            }
+        }
+    }
+
+    class Enemy extends Entity{
+        constructor(x, y, w, h){
+            super(Entity)
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+        }
+        draw(context){
+            context.drawImage(this.map, this.x, this.y, this.w, this.h)
+        }
+
+    }
     
     // classe que contem as propriedades do jogador
     class Player{
         // definições iniciais
+
         constructor(game){
             this.game = game
-            this.sprite = new Image()
+
+            this.key = undefined;
+
+            //posição do spawn
+            this.x = 200
+            this.y = 20 
+
+            
+
             //skins
             this.sprites = {
                 skin1:"../images/sprites/cavaleiro.png",
                 skin2:"../images/sprites/cavaleiro_ouro.png"
-            }            
-            this.sprite.src = this.sprites["skin" + '1']//seletor de skins
+            } 
+
+            this.sprite_atual = new Image()
+            this.sprite_atual.src = this.sprites["skin" + '1'] //seletor de skins
             
-            this.size = 100 //tamanho sprite (100px x 100px)
+            this.size = 100 //tamanho sprite_atual (100px x 100px)
 
-            //posição do spawn
-            this.x = 200
-            this.y = 20            
+                       
 
-            //define o centro do sprite do player e a área de hitbox
+            //define o centro do sprite_atual do player e a área de hitbox
             let w = this.size / 2;
             let h = this.size / 2;
             let area = 25; //pixels
@@ -69,100 +104,30 @@ addEventListener('load', function(){
                 top: h - area, //centro do player no plano y + 25px para cima
                 bottom: h + area //centro do player no plano y + 25px para baixo
             }
-            //área de hitbox do inimigo placeholder "goblin"
-            this.goblin = {
-                x: 900,
-                y: 185,
-                w: 170,
-                h: 310,
-            }
         }
-        
-        // movimento
-        move(key){                       
-        
-            switch (key){                    
-                case 'w':
-                    this.y -= 5
-                    break
-                case 'a':
-                    this.x -= 5
-                    break
-                case 's':
-                    this.y += 5
-                    break
-                case 'd':
-                    this.x += 5
-                    break
-                //teste pra troca de skins, remover depois
-                case 'e':
-                    this.sprite.src = this.sprites["skin2"]
-                    break
-            }
-            if (this.checkCollision(this.goblin)){
-                switch (key){                    
-                    case 'w':
-                        this.y += 5
-                        break
-                    case 'a':
-                        this.x += 5
-                        break
-                    case 's':
-                        this.y -= 5
-                        break
-                    case 'd':
-                        this.x -= 5
-                        break
-                }
-            }
-            
-        /*
-        ideia: fazer um "if not" no check collision, pra que ele só deixe andar caso não colida, ao invés do codigo atual que anda e "des-anda"
-        move(key){                       
-            if (!this.checkCollision(this.goblin)){ 
-                switch (key){                    
-                    case 'w':
-                        this.y += 5
-                        break
-                    case 'a':
-                        this.x += 5
-                        break
-                    case 's':
-                        this.y -= 5
-                        break
-                    case 'd':
-                        this.x -= 5
-                        break
-                }
-            }   
-        }
-        checkCollision(entity){
-            if (this.hitbox.right + this.x> entity.x && this.hitbox.left + this.x < entity.x + entity.w && this.hitbox.bottom + this.y> entity.y && this.hitbox.top + this.y < entity.y + entity.h){
-                return true
-            }
-        }   
-        
-        */
-       
-        }
-        //método que checa a colisão com <entity> em relação ao player
-        checkCollision(entity){
-            /*
-            Caso 'true' O comando de movimento na direção solicitada gera uma movimentação igual de sentido oposto, fazendo com que o movimento seja 0
-            ex.:
-            'w' altera a posição x em 5 pixels, ao colidir, ele também altera a posição em -5px
-            */
-            if (this.hitbox.right + this.x> entity.x && this.hitbox.left + this.x < entity.x + entity.w && this.hitbox.bottom + this.y> entity.y && this.hitbox.top + this.y < entity.y + entity.h){
-                return true
-            }
 
-
+        moveUp(){
+            this.y -= 5;
         }
-        update(){            
+        moveDown(){
+            this.y += 5
         }
+        move_left(){
+            this.x -= 5;
+        }
+        move_right(){
+            this.x += 5;
+        }
+        
+        update() {
+            if (this.key in this.controls) {
+              this.controls[this.key].call(this);
+            }
+          }
+          
         //desenha o player na tela
         draw(context){ 
-            context.drawImage(this.sprite, this.x, this.y, this.size, this.size)
+            context.drawImage(this.sprite_atual, this.x, this.y, this.size, this.size)
         }
     }
 
@@ -189,12 +154,20 @@ addEventListener('load', function(){
         constructor(width, height){
             this.width = width;
             this.height = height;
-            this.player = new Player(this) 
-            this.input = new InputHandler(this)
-            this.map = new Map(this)
+            this.entity = new Entity(this);
+            this.enemy = new Enemy(this);
+            this.player = new Player(this); 
+            this.player.controls = {
+                'w': this.player.moveUp,   
+                'a': this.player.move_left,
+                's': this.player.moveDown,
+                'd': this.player.move_right,
+            }
+            this.input = new InputHandler(this);
+            this.map = new Map(this);
         }
         update(){
-            this.player.move(this.input.key[this.input.key.length - 1])
+            this.player.key = this.input.key[this.input.key.length - 1]
             this.player.update();
         }
         draw(context){

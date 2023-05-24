@@ -3,19 +3,27 @@ container{
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr ;
 }
+#container_cartoes{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
 #cartoes{
     /*top right bottom left*/
-    margin: 10vh 10vh 10vh 10vh;
+    margin: 8vh 4vw 2vh 4vw;
     border: solid 1px red;
     background-color: white;
-
+   
+    > *{
+        color: black;
+        align-content: center;
+        text-align: center;
+    }
     > img{
         width: 200px;
         height: 200px;
         border-radius: 50%;
-        margin: 10px 10px 10px 10px;
+        margin:auto 50% auto 50%
     }
-    > *{
-        color: black;
-    }
+
 }

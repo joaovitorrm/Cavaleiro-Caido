@@ -38,13 +38,13 @@ addEventListener('load', function(){
 
     class Entity{
         //método que checa a colisão com <entity> em relação ao player
-        checkCollision(entity){
+        checkCollision(xa, ya, wa, ha, xb, yb, wb, hb){
             /*
             Caso 'true' O comando de movimento na direção solicitada gera uma movimentação igual de sentido oposto, fazendo com que o movimento seja 0
             ex.:
             'w' altera a posição x em 5 pixels, ao colidir, ele também altera a posição em -5px
             */
-            if (this.hitbox.right + this.x> entity.x && this.hitbox.left + this.x < entity.x + entity.w && this.hitbox.bottom + this.y> entity.y && this.hitbox.top + this.y < entity.y + entity.h){
+            if (xa + wa > xb && xa < xb + wb && ya + ha > yb && ya < yb + hb){
                 return true
             }
         }
@@ -65,69 +65,87 @@ addEventListener('load', function(){
     }
     
     // classe que contem as propriedades do jogador
-    class Player{
+    class Player extends Entity{
         // definições iniciais
 
         constructor(game){
-            this.game = game
+            super(Entity)
+            this.game = game            
 
-            this.key = undefined;
-
-            //posição do spawn
-            this.x = 200
-            this.y = 20 
-
-            
-
-            //skins
+            // Skins
             this.sprites = {
                 skin1:"../images/sprites/cavaleiro.png",
                 skin2:"../images/sprites/cavaleiro_ouro.png"
             } 
-
+            
+            // Criando e selecionando o Sprite
             this.sprite_atual = new Image()
             this.sprite_atual.src = this.sprites["skin" + '1'] //seletor de skins
-            
-            this.size = 100 //tamanho sprite_atual (100px x 100px)
 
-                       
-
-            //define o centro do sprite_atual do player e a área de hitbox
-            let w = this.size / 2;
-            let h = this.size / 2;
-            let area = 25; //pixels
-            
-            //hitbox do player
-            this.hitbox = {
-                right: w + area, //centro do player no plano x + 25px á direita
-                left: w - area, //centro do player no plano x + 25px á esquerda
-                top: h - area, //centro do player no plano y + 25px para cima
-                bottom: h + area //centro do player no plano y + 25px para baixo
+            // Controles
+            this.key = undefined;
+            this.controls = {
+                'w': this.move_up,   
+                'a': this.move_left,
+                's': this.move_down,
+                'd': this.move_right,
+                'e': this.set_skin
             }
+
+            // Config Player
+            this.x = 200;
+            this.y = 20;
+            this.w = 100;
+            this.h = 100;
+            this.speed = 5;
+
+            // Hitbox do player
+            this.hitbox_w = 20;
+            this.hitbox_h = 50;
+
+            // Centro do Sprite do player
+            this.player_center_x = this.w / 2
+            this.player_center_y = this.h / 2
+
+            // Centro da Hitbox
+            this.hitbox_center_x = this.hitbox_w / 2
+            this.hitbox_center_y = this.hitbox_h / 2
+
+            // Hitbox e Sprite centralizados
+            this.hitbox_x = this.player_center_x - this.hitbox_center_x
+            this.hitbox_y = this.player_center_y - this.hitbox_center_y
         }
 
-        moveUp(){
-            this.y -= 5;
+        move_up(speed){
+            this.y -= speed;
         }
-        moveDown(){
-            this.y += 5
+        move_down(speed){
+            this.y += speed;
         }
-        move_left(){
-            this.x -= 5;
+        move_left(speed){
+            this.x -= speed;
         }
-        move_right(){
-            this.x += 5;
+        move_right(speed){
+            this.x += speed;
         }
-        
-        update() {
+        set_skin(){
+            this.sprite_atual.src = this.sprites["skin" + '2']
+        }
+
+        update(){
             if (this.key in this.controls) {
-              this.controls[this.key].call(this);
+                this.controls[this.key].call(this, this.speed)
             }
-          }
+            if (this.checkCollision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, 900, 185, 170, 310)){
+                this.controls[this.key].call(this, -this.speed)
+            }
+            
+        }
           
         //desenha o player na tela
         draw(context){ 
-            context.drawImage(this.sprite_atual, this.x, this.y, this.size, this.size)
+            context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h)
+            context.fillRect(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)
         }
     }
 
@@ -157,12 +175,6 @@ addEventListener('load', function(){
             this.entity = new Entity(this);
             this.enemy = new Enemy(this);
             this.player = new Player(this); 
-            this.player.controls = {
-                'w': this.player.moveUp,   
-                'a': this.player.move_left,
-                's': this.player.moveDown,
-                'd': this.player.move_right,
-            }
             this.input = new InputHandler(this);
             this.map = new Map(this);
         }

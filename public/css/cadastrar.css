@@ -1,74 +1,107 @@
 main {
     padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     > div {
-    width: 50%;
-    border: 3px solid white;
-    margin: auto;
+        width: 50%;
+        border: 3px solid white;
+        margin: auto;
+        padding: auto;
 
-    #logo {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-bottom: 3px solid white;
-        > img{
-            width: 250px;
-        }
-    }
-
-    & form {       
-        display: flex; 
-        flex-direction: column;
-        align-items: center;
-        > h2 {
-            text-align: center;
-            color: #8a4fff;
-        }
-        & figure {
-            background-color: white;
-            width: 50px;
-            height: 50px;
-            margin: auto;
-            border-radius: 50%;
-            border: 2px solid #8a4fff;
-            overflow: hidden;
-            > img{
-                width: 50px;
-            }
-        }
-        #valores {
-            width: 100%;
+        #logo {
             display: flex;
-            flex-basis: 50%;
-            flex-wrap: wrap;
-            flex-direction: row;
-            padding: 20px;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            > a, p {
-                color: #0cca4a;
-                text-decoration: none;
-            }
-            > input{
-                width: 180px;
-                margin-top: 20px;
-            }
-            > label{
-                padding-top: 20px;
-            }
-            #item3{
-                flex-basis: 90%;
+            border-bottom: 3px solid white;
+            > img{
+                width: 250px;
             }
         }
 
-        & input[type=file]{
-            display: none;
-        }
-        & input[type=submit]{
-            background-color: #8a4fff;
-            padding: 5px;
-            border-radius: 10px;
-            border: 2px solid white;
+        & form {       
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 4/3;
+            > h2 {
+                text-align: center;
+                color: #8a4fff;
+            }    
+            & figure {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+                width: 80px;
+                height: 80px;
+                margin: auto;
+                border-radius: 50%;
+                border: 2px solid #8a4fff;
+                overflow: hidden;
+                > img{
+                    width: 80px;
+                }
+            }
+            #valores {
+                display: flex;            
+                flex-wrap: wrap;
+                width: 100%;
+                padding: 20px;
+                > a, p {
+                    color: #0cca4a;
+                    text-decoration: none;
+                }
+                & input{
+                    color: black;
+                }
+                > .item1, .item2{
+                    margin-bottom: 20px;
+                }
+
+                .item1{
+                    flex: 100%;
+                    display: flex;
+                    justify-content: space-between;                
+                    > div {
+                        flex-basis: 40%;
+                        display: flex;
+                        flex-direction: column;
+                        line-break: strict;
+                    }
+                }
+                .item2{
+                    display: flex;
+                    flex: 100%;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    > input{
+                        width: 50%;
+                    }
+                }
+                .item3{
+                    flex: 100%;
+                    display: flex;
+                    justify-content: space-between;                
+                    > div {
+                        flex-basis: 40%;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+            }
+
+            & input[type=file]{
+                display: none;
+            }
+            & input[type=submit]{
+                background-color: #8a4fff;
+                padding: 5px;
+                border-radius: 10px;
+                border: 2px solid white;
+            }
         }
     }
-}
 }

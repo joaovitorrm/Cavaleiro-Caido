@@ -136,7 +136,7 @@ addEventListener('load', function(){
             if (this.key in this.controls) {
                 this.controls[this.key].call(this, this.speed)
             }
-            else if (this.checkCollision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, 900, 185, 170, 310)){
+            if (this.checkCollision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, 900, 185, 170, 310)){
                 this.controls[this.key].call(this, -this.speed)
             }
             

@@ -2,10 +2,59 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 30px;
     
     > div {
-        width: 50%;
+        width: 40%;
         margin: auto;
         border: 3px solid white;
+        background-color: #141414;
+        > #logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 3px solid white;
+            > img {
+                width: 250px;
+            }
+        }
+    }
+
+    & form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        > h2 {
+            color: #8a4fff;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        > p {
+            text-align: justify;
+            width: 90%;
+            margin-bottom: 20px;
+            
+        }
+        > a  {
+            text-decoration: none;
+            > p {
+                color: #0cca4a;
+            }
+        }
+        > label {
+            margin-top: 20px;
+        }
+        > input {
+            width: 60%;
+        }
+        > input[type=submit]{
+            width: 20%;
+            background-color: #8a4fff;
+            border: 2px solid white;
+            border-radius: 6px;
+            margin: 30px;
+            padding: 5px;
+        }
     }
 }

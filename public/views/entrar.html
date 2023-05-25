@@ -1,16 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
+
 <head>
+
     <meta charset="UTF-8">
-    <link href="../css/main.css" rel="stylesheet"> 
+
     <title>Cavaleiro Caído</title>
+
+    <link href="../css/main.css" rel="stylesheet"> 
     <link rel="icon" href="../images/icones/casa.png">
+
 </head>
+
 <body>
     
     <header>
+
         <div id="logo">            
-            <h1>Cavaleiro Caído</h1>
+            <img src="../images/logos/logo.png">
         </div>
         
         <div id="links">
@@ -27,15 +35,46 @@
         <div id="chat">
             <img src="../images/icones/chat.png">
         </div>
-        
     </header>
 
     <main>
+
+      <div id="boxForms">
+
+        <div id="logo">            
+          <img src="../images/logos/logo.png">
+        </div>
+
+        <hr>
+        
+        <form action="" method="post">
+            
+            <h2>Login</h2>
+
+            <p>
+                Seu progresso no jogo será salvo (incluindo suas skins), você poderá desbloquear
+                conquistar, interagir com a comunidade e muito mais, ao logar-se.
+            </p>
+
+            <label for="E-mail">E-mail:</label>
+            <input type="email" id="emailLogin" required>
+
+            <label for="Senha">Senha:</label>
+            <input type="password" id="senhaLogin" required>
+
+            <a href="/cadastro">
+                <p>Não é cadastrado? Cadastre-se.</p>
+            </a>
+
+            <input type="submit" name="entrar" value="Entrar">
+            
+        </form>
+
+      </div>
     </main>
 
-    
-
     <footer>
+
         <div id="info">
             <li><p><a href="/contato">Contato</a></p></li>
             <li><p><a href="/sobre">Sobre nós</a></p></li>
@@ -47,14 +86,16 @@
         </div>
 
         <div id="redes">
+
             <label>Siga-nos:</label>
+
             <div>
                 <button id="whats"></button>
                 <button id="insta"></button>
                 <button id="face"></button>
             </div>
-        </div>
 
+        </div>
     </footer>
 </body>
 </html>

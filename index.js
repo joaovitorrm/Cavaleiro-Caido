@@ -37,3 +37,7 @@ app.get('/contato', function(req, res){
 app.get('/sobre', function(req, res){
     res.sendFile(pages + '/sobre.html');
 });
+
+app.get('/login_efetuado', function(req, res){
+    res.sendFile(pages + '/login_efetuado.html');
+});

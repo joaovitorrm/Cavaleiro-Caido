@@ -111,10 +111,12 @@ header {
     background-color: var(--bio-bg-color);
 
     & #logo{
+        display: flex;
+        align-items: end;
         padding-right: 10px;
         border-right: 3px solid white;
-        > img {
-            height: calc(var(--header-height) - 4px);
+        > img {            
+            max-height: calc(var(--header-height));
         }
     }
 
@@ -123,7 +125,7 @@ header {
         display: flex;
 
         > a > img {    
-            width: 70px;
+            max-height: calc(var(--header-height));
             padding: 10px;
         }
 

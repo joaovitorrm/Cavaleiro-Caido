@@ -9,6 +9,7 @@
     <title>Cavaleiro Caído</title>
 
     <link href="../css/main.css" rel="stylesheet"> 
+    <link href="../css/cadastrar.css" rel="stylesheet"> 
     <link rel="icon" href="../images/icones/casa.png">
 
 </head>
@@ -44,34 +45,37 @@
         <div id="logo">            
           <img src="../images/logos/logo.png">
         </div>
-
-        <hr>
         
         <form action="" method="post">
             
             <h2>Cadastro</h2>
+            <label>
+                <input type="file" accept="image/*" name="imgPerfil" id="imgPerfil">
+                <figure for="imgPerfil"><img src="../images/icones/marcio.jpg"></figure>
+                <label for="imgPerfil">Imagem de Perfil</label>            
+            </label>
 
-            <label for="imgPerfil">Imagem de Perfil</label>
-            <input type="file" accept="image/*" name="imgPerfil">
+            <div id="valores">
 
-            <label for="Nome">Nome:</label>
-            <input type="text" maxlength="30" name="nome" required>
+                <label for="Nome">Nome:</label>
+                <input type="text" maxlength="30" name="nome" id="item1" required>
 
-            <label for="Data de Nascimento">Data de Nascimento:</label>
-            <input type="date" name="dataNascimento" required>
+                <label for="Data de Nascimento">Data de Nascimento:</label>
+                <input type="date" name="dataNascimento" id="item2" required>
 
-            <label for="E-mail">E-mail:</label>
-            <input type="email" name="emailCadastro" required>
+                <label for="E-mail">E-mail:</label>
+                <input type="email" name="emailCadastro" id="item3" required>
 
-            <label for="Senha">Senha:</label>
-            <input type="password" name="senha" required>
+                <label for="Senha">Senha:</label>
+                <input type="password" name="senha" id="item4" required>
 
-            <label for="Confirmar Senha">Confirmar Senha:</label>
-            <input type="password" name="confirmarSenha" required>
+                <label for="Confirmar Senha">Confirmar Senha:</label>
+                <input type="password" name="confirmarSenha" id="item5" required>
 
-            <a href="/entrar">
-                <p>Já é cadastrado? Faça login.</p>
-            </a>
+                <a href="/entrar">
+                    <p>Já é cadastrado? Faça login.</p>
+                </a>
+            </div>
 
             <input type="submit" name="cadastrar" value="Cadastrar">
 

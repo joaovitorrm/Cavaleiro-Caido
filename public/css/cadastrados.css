@@ -1,0 +1,30 @@
+table{
+    border-collapse: collapse;
+    border: 1px white solid;
+    
+
+}
+tr >*{
+    padding: 0 1vw 0 1vw;
+}
+tr:first-child{
+
+    background-color: rgba(21, 175, 21, 0.514);
+}
+th{
+    border: 1px white solid;
+    border-collapse: collapse;
+    margin: 0px 1vh 1vh 0px;
+}
+td{
+    
+    border-collapse: collapse;
+    border: 1px white solid;
+    width: 10%;  
+    height: 50px;  
+    
+}
+tr>td:first-child{
+    text-align: center;
+    background-color: rgba(191, 238, 162, 0.208);
+}

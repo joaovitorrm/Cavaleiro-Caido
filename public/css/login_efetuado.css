@@ -12,7 +12,7 @@ main {
         > #logo {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center;            
             border-bottom: 3px solid white;
             > img {
                 width: 250px;
@@ -33,6 +33,7 @@ main {
             > figure {
                 border: 2px solid #8a4fff;
                 border-radius: 50%;
+                overflow: hidden;
                 > img {
                     width: 80px;
                 }

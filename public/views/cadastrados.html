@@ -11,7 +11,7 @@
     
     <header>
         <div id="logo">            
-            <h1>Cavaleiro Caído</h1>
+            <img src="../images/logos/logo.png">
         </div>
         
         <div id="links">
@@ -32,37 +32,38 @@
     </header>
 
     <main>
-     <div id="filtro">
-        <input type="text" value="digite seu filtro"></input>
-        <button>aplicar filtro</button>
-     </div>   
-     <div id="acoes">
-            <button>inserir</button>
-            <button>atualizar</button>
-            <button>retirar</button>
-        </ul>
-     </div>
-     <div id="tabela">
-        <table>
-            <tr class="cabecalho">
-                <th>Seleção</th>
-                <th>Nome</th>
-                <th>Permissão</th>
-                <th>Email</th>
-                <th>Senha</th>
-                <th>Data_de_Nascimento</th>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></input></td>
-                <td>Fulano</td>
-                <td>Administrador</td>
-                <td>Fulano@cavaleiro.com</td>
-                <td>@Senha123</td>
-                <td>15/11/2000</td>
-            </tr>
-        </table>
-
-     </div>
+        <div id="boxTable">
+            <div id="opcoes">
+                <div id="filtro">
+                    <input type="text" placeholder="digite seu filtro"></input>
+                    <button>aplicar filtro</button>
+                </div>   
+                <div id="acoes">
+                        <button>inserir</button>
+                        <button>atualizar</button>
+                        <button>retirar</button>
+                    </ul>
+                </div>
+            </div>
+            <table>
+                <tr class="cabecalho">
+                    <th>Seleção</th>
+                    <th>Nome</th>
+                    <th>Permissão</th>
+                    <th>Email</th>
+                    <th>Senha</th>
+                    <th>Data de Nascimento</th>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></input></td>
+                    <td>Fulano</td>
+                    <td>Administrador</td>
+                    <td>Fulano@cavaleiro.com</td>
+                    <td>@Senha123</td>
+                    <td>15/11/2000</td>
+                </tr>
+            </table>
+        </div>
     </main>
 
     
@@ -71,6 +72,7 @@
         <div id="info">
             <li><p><a href="/contato">Contato</a></p></li>
             <li><p><a href="/sobre">Sobre nós</a></p></li>
+            <li><p><a href="/cadastrados">Cadastrados</a></p></li>
             <li><p>Portugues (PT-BR)</p></li>
         </div>
 
@@ -79,11 +81,13 @@
         </div>
 
         <div id="redes">
-            <label>Siga-nos:</label>
             <div>
-                <button id="whats"></button>
-                <button id="insta"></button>
-                <button id="face"></button>
+                <label>Siga-nos:</label>
+                <div>
+                    <button id="whats"></button>
+                    <button id="insta"></button>
+                    <button id="face"></button>
+                </div>
             </div>
         </div>
 

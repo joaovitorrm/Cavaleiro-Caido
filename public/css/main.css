@@ -213,7 +213,7 @@ footer {
         font-size: 14px;
         
         > li {
-            text-align: left;
+            text-align: left; 
             border-style: solid;
             border-color: var(--main-color);
             border-width: 0px 0px 0px 3px ;

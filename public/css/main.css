@@ -178,8 +178,9 @@ header {
         height: var(--header-height);
         background-color: var(--main-color);
         border: 1px solid white;
-        & * {         
+        > img {         
             width: 40px;
+            aspect-ratio: 1/1;
         }
         &:hover {
             cursor: pointer;
@@ -207,7 +208,7 @@ aside {
         background-color: #3f3f3f;
         height: 10%;
         > img {
-            width: 50px;
+            aspect-ratio: 1/1;
             border-radius: 50%;
         }
         > p {

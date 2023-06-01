@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/sobre.css" rel="stylesheet">
+    <script src="../script/chat.js" defer></script>
     <title>Cavaleiro Caído</title>
     <link rel="icon" href="../images/icones/casa.png">
 </head>
@@ -108,6 +109,28 @@
         </container>
     </main>
 
+    <aside id="chat-menu">
+
+        <div id="pessoa">
+            <img src="../images/icones/perfil.png">
+            <p>Fulano de tal</p>
+        </div>
+
+        <div id="conversa">
+            <div class="remetente">
+                <span >Opa mano eai como vai?</span>
+            </div>
+            <div class="destinatario">
+                <span >To bem cara e contigo?</span>
+            </div>
+        </div>
+
+        <div id="mensagem">            
+            <textarea placeholder="Escreva sua mensagem" id="texto"></textarea>
+            <input type="button" value="Enviar" id="enviar-mensagem" for="texto">
+        </div>
+
+    </aside>
     
 
     <footer>

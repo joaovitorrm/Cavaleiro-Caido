@@ -44,7 +44,7 @@ addEventListener('load', function(){
             ex.:
             'w' altera a posição x em 5 pixels, ao colidir, ele também altera a posição em -5px
             */
-            if (xa + wa > xb && xa < xb + wb && ya + ha > yb && ya < yb + hb){
+            if ((xa + wa > xb && xa < xb + wb && ya + ha > yb && ya < yb + hb)||((xa + wa > 0 && xa < canvas.width && ya + ha > 0 && ya < canvas.height))){
                 return true
             }
         }

@@ -38,29 +38,40 @@ addEventListener('load', function(){
 
     class Entity{
         //método que checa a colisão com <entity> em relação ao player
-        checkCollision(xa, ya, wa, ha, xb, yb, wb, hb){
-            /*
-            Caso 'true' O comando de movimento na direção solicitada gera uma movimentação igual de sentido oposto, fazendo com que o movimento seja 0
-            ex.:
-            'w' altera a posição x em 5 pixels, ao colidir, ele também altera a posição em -5px
-            */
-            if (xa + wa > xb && xa < xb + wb && ya + ha > yb && ya < yb + hb){
-                return true
+        checkCollision(xa, ya, wa, ha, xb, yb, wb, hb) {
+            if ((xa + wa > xb && xa < xb + wb && ya + ha > yb && ya < yb + hb)||((xa - wa < 0 || xa + wa > canvas.width || ya < 0 || ya + ha > canvas.height))) {
+              return true;
             }
-        }
+        
+
+            return false;
+          }
     }
 
     class Enemy extends Entity{
-        constructor(x, y, w, h){
+        constructor(x, y, w, h, skin=1){
+            
             super(Entity)
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h;
+            this.sprites = {
+                skin1:"../images/sprites/cavaleiro_ouro.png",
+                skin2:"../images/sprites/cavaleiro_real.png"
+            } 
+            
+            // Criando e selecionando o Sprite
+            this.sprite_atual = new Image()
+            this.sprite_atual.src = this.sprites["skin" + skin.toString()] //seletor de skins
         }
-        draw(context){
-            context.drawImage(this.map, this.x, this.y, this.w, this.h)
+        update() {
         }
+        
+        draw(context) {
+            context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h);
+        }
+        
 
     }
     
@@ -145,7 +156,7 @@ addEventListener('load', function(){
         //desenha o player na tela
         draw(context){ 
             context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h)
-            context.fillRect(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)
+            //context.fillRect(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)
         }
     }
 
@@ -156,7 +167,7 @@ addEventListener('load', function(){
                 map1:"../images/mapas/mapa1.png",
                 map2:"../images/mapas/mapa2.png"
             }
-            this.map.src = this.maps["map" + '1']//seletor de mapas
+            this.map.src = this.maps["map" + '2']//seletor de mapas
             this.x = 0
             this.y = 0
             this.w = 1280
@@ -172,20 +183,34 @@ addEventListener('load', function(){
         constructor(width, height){
             this.width = width;
             this.height = height;
-            this.entity = new Entity(this);
-            this.enemy = new Enemy(this);
             this.player = new Player(this); 
             this.input = new InputHandler(this);
             this.map = new Map(this);
+            this.enemies = [];
+            this.createEnemies();
+        }
+        createEnemies() {
+            // adiciona ao array de inimigos (posições + skin)
+            const enemy1 = new Enemy(500, 300, 50, 50, 2);
+            const enemy2 = new Enemy(800, 400, 50, 50, 2);
+            const enemy3 = new Enemy(200, 400, 50, 50, 2);
+            this.enemies.push(enemy1, enemy2, enemy3);
         }
         update(){
             this.player.key = this.input.key[this.input.key.length - 1]
             this.player.update();
+            //update em cada inimigo
+            for (const enemy of this.enemies) {
+                enemy.update();
+              }              
         }
         draw(context){
             this.map.draw(context)
-            this.player.draw(context) 
-            context.fillRect(900, 185, 170, 310)                 
+            this.player.draw(context)  
+            //draw em cada inimigo
+            for (const enemy of this.enemies) {
+                enemy.draw(context);
+              }                   
         }
     }
 

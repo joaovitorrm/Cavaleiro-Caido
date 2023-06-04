@@ -1,40 +1,43 @@
 main {
-    position: relative;
-    text-align: center;
-}
-
-main > #descricao p {
-    width: 60%;
-    margin: auto;
-    text-align: justify;
-}
-
-#descricao > * {
-    padding-bottom: 30px;
-}
-
-main button {
-    padding: 30px 200px 30px 200px;
-    border-radius: 10px;
-    border-width: 1px;
-    color: white;
-    font-size: larger;
-}
-
-
-main:has( > canvas)
-{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    #descricao{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        & p {
+            width: 60%;
+            margin: auto;
+            text-align: justify;
+        }
+        * {
+            padding-bottom: 30px;
+        }
+    }
+    & button {
+        padding: 30px 200px 30px 200px;
+        border-radius: 10px;
+        border-width: 1px;
+        color: white;
+        font-size: larger;
+    }
+    :has( > canvas){
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    }
+    & canvas {
+        display: none;
+        background-color: var(--canva-bg-color);
+        max-width: 60%;
+        max-height: 60%;
+        border-style: dotted;
+        border-color: var(--bio-bg-color);
+    }
 }
 
-canvas {
-    display: none;
-    background-color: var(--canva-bg-color);
-    max-width: 60%;
-    max-height: 60%;
-    border-style: dotted;
-    border-color: var(--bio-bg-color);
-}

@@ -33,17 +33,22 @@ addEventListener('load', function(){
             this.entity.createEnemy('slime', 100, 100, 50, 50);
             this.entity.createEnemy('slime', 500, 500, 100, 100);
             this.entity.createEnemy('goblin', 500, 500, 80, 100);
+            this.entity.createEnemy('dummy', 50, 200, 80, 80);
         }
-        update(canvas){
+
+        update(can){
             if (this.input.key == 'Escape'){
                 playing = false
+            }
+            if (this.input.key == 'F11'){
+                canvas.requestFullscreen()
             }
             this.player.update();
             for (let e of this.entity.enemies){
                 e.update()
-                e.checkCollision(canvas)
+                e.checkCollision(can)
             }
-            this.player.checkCollisions(canvas, this.entity.enemies)
+            this.player.checkCollisions(can, this.entity.enemies)
         }
         draw(context){
             this.map.draw(context)
@@ -62,7 +67,7 @@ addEventListener('load', function(){
         play.style.display = 'none'
         descricao.style.display = 'none'
         // faz o canvas ser visível
-        canvas.style.display = 'block'
+        canvas.style.display = 'inline-block'
         // loop principal
         const game = new Game(canvas.width, canvas.height)                    
         function animate(){      
@@ -72,8 +77,8 @@ addEventListener('load', function(){
             game.draw(ctx);
             requestAnimationFrame(animate)
             } else {
-                play.style.display = 'inline-block'
-                descricao.style.display = 'block'
+                play.style.display = 'block'
+                descricao.style.display = 'flex'
                 // faz o canvas ser visível
                 canvas.style.display = 'none'
             }                

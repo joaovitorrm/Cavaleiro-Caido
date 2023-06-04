@@ -71,7 +71,6 @@ export class Player extends Entity{
     set_skin(){
         this.sprite_atual.src = this.sprites["skin" + '2']
     }
-
     
     update(){
         // Pega a última tecla pressionada

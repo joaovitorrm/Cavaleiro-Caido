@@ -25,6 +25,7 @@ addEventListener('load', function(){
             this.width = width;
             this.height = height;
             this.player = new Player(this);
+            this.player2 = new Player(this, 2)
             this.input = new InputHandler(this);
             this.map = new Map(this);
             this.entity = new Entity();
@@ -43,12 +44,14 @@ addEventListener('load', function(){
             if (this.input.key == 'F11'){
                 canvas.requestFullscreen()
             }
-            this.player.update();
+            
             for (let e of this.entity.enemies){
                 e.update()
                 e.checkCollision(can)
             }
-            this.player.checkCollisions(can, this.entity.enemies)
+
+            this.player.update();
+            this.player.checkCollisions(can, this.entity.enemies)                        
         }
         draw(context){
             this.map.draw(context)

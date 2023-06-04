@@ -76,7 +76,7 @@ export class Player extends Entity{
         // Pega a última tecla pressionada
         this.key = this.input.key[this.input.key.length - 1];        
 
-        // Checa se a tecla tem utilidade
+        // Checa se a tecla tem utilidade        
         if (this.key in this.controls) {
             this.controls[this.key].call(this, this.speed)            
         }

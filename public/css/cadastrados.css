@@ -49,8 +49,7 @@ main {
 
 table{
     border-collapse: collapse;
-    border: 1px white solid;    
-
+    border: 1px white solid;
 }
 tr:first-child{
     background-color: rgba(21, 175, 21, 0.514);

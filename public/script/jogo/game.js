@@ -1,11 +1,12 @@
 import { Enemy } from './Enemy.js';
+import { Entity } from './Entity.js';
 import { InputHandler } from './InputHandler.js';
 import { Map } from './Map.js';
-import { Player } from './Player.js'
+import { Player } from './Player.js';
 
 // roda após as imagens serem carregadas
 addEventListener('load', function(){
-
+    var playing = true
     // elemento botão
     const play = document.getElementById('playButton');
     // elemento descricao
@@ -23,53 +24,61 @@ addEventListener('load', function(){
         constructor(width, height){
             this.width = width;
             this.height = height;
-            this.player = new Player(this);            
+            this.player = new Player(this);
             this.input = new InputHandler(this);
             this.map = new Map(this);
-            this.enemies = [];
-            this.createEnemies();
+            this.entity = new Entity();
+
+            // tests
+            this.entity.createEnemy('slime', 100, 100, 50, 50);
+            this.entity.createEnemy('slime', 500, 500, 100, 100);
+            this.entity.createEnemy('goblin', 500, 500, 80, 100);
         }
-        createEnemies() {
-            // adiciona ao array de inimigos (posições + skin)
-            const enemy1 = new Enemy(500, 300, 50, 50, 2);
-            const enemy2 = new Enemy(800, 400, 50, 50, 2);
-            const enemy3 = new Enemy(200, 400, 50, 50, 2);
-            this.enemies.push(enemy1, enemy2, enemy3);
-        }
-        update(){
-            this.player.key = this.input.key[this.input.key.length - 1]
+        update(canvas){
+            if (this.input.key == 'Escape'){
+                playing = false
+            }
             this.player.update();
-            //update em cada inimigo
-            for (const enemy of this.enemies) {
-                enemy.update();
-              }              
+            for (let e of this.entity.enemies){
+                e.update()
+                e.checkCollision(canvas)
+            }
+            this.player.checkCollisions(canvas, this.entity.enemies)
         }
         draw(context){
             this.map.draw(context)
-            this.player.draw(context)  
+            this.player.draw(context)
             //draw em cada inimigo
-            for (const enemy of this.enemies) {
-                enemy.draw(context);
-              }                   
+            for (let e of this.entity.enemies){
+                e.draw(context)
+            }
         }
     }
     
     // ação do botão html
     play.onclick = () => {
-        // remove o botão 
+        playing = true;
+        // remove o botão
         play.style.display = 'none'
         descricao.style.display = 'none'
         // faz o canvas ser visível
         canvas.style.display = 'block'
         // loop principal
-        const game = new Game(canvas.width, canvas.height)
-        function animate(){
+        const game = new Game(canvas.width, canvas.height)                    
+        function animate(){      
+            if (playing){          
             ctx.clearRect(0, 0, canvas.width, canvas.height)
-            game.update();
+            game.update(canvas);
             game.draw(ctx);
             requestAnimationFrame(animate)
+            } else {
+                play.style.display = 'inline-block'
+                descricao.style.display = 'block'
+                // faz o canvas ser visível
+                canvas.style.display = 'none'
+            }                
         }
-        animate();
+        animate();        
     }
 })
 

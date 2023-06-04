@@ -2,8 +2,8 @@ export class Map{
     constructor(game){
         this.map = new Image()
         this.maps = {
-            map1:"../../images/mapas/mapa1.png",
-            map2:"../../images/mapas/mapa2.png"
+            map1:"../../images/sprites/mapas/mapa1.png",
+            map2:"../../images/sprites/mapas/mapa2.png"
         }
         this.map.src = this.maps["map" + '2']//seletor de mapas
         this.x = 0

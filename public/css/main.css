@@ -178,8 +178,9 @@ header {
         height: var(--header-height);
         background-color: var(--main-color);
         border: 1px solid white;
-        & * {         
+        > img {         
             width: 40px;
+            aspect-ratio: 1/1;
         }
         &:hover {
             cursor: pointer;
@@ -191,7 +192,7 @@ main {
     background-color: var(--about-bg-color);
     box-sizing: border-box;
     min-height: calc(100vh - var(--header-height) - var(--footer-height));    
-    background-image: url(../images/sprites/bghome.png);
+    background-image: url(../images/outros/bghome.png);
 }
 
 aside {
@@ -207,7 +208,7 @@ aside {
         background-color: #3f3f3f;
         height: 10%;
         > img {
-            width: 50px;
+            aspect-ratio: 1/1;
             border-radius: 50%;
         }
         > p {

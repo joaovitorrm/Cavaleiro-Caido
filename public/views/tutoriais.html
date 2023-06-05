@@ -5,7 +5,7 @@
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/home.css" rel="stylesheet">    
     <title>Cavaleiro Caído</title>
-    <script src="../script/game.js" defer></script>
+    <script src="../script/jogo/game.js" defer></script>
     <link rel="icon" href="../images/icones/casa.png">
 </head>
 <body>
@@ -35,6 +35,28 @@
     <main>
     </main>
 
+    <aside id="chat-menu">
+
+        <div id="pessoa">
+            <img src="../images/icones/perfil.png">
+            <p>Fulano de tal</p>
+        </div>
+
+        <div id="conversa">
+            <div class="remetente">
+                <span >Opa mano eai como vai?</span>
+            </div>
+            <div class="destinatario">
+                <span >To bem cara e contigo?</span>
+            </div>
+        </div>
+
+        <div id="mensagem">            
+            <textarea placeholder="Escreva sua mensagem" id="texto"></textarea>
+            <input type="button" value="Enviar" id="enviar-mensagem" for="texto">
+        </div>
+
+    </aside>
     
 
     <footer>

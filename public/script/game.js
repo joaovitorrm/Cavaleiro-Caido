@@ -38,20 +38,9 @@ addEventListener('load', function(){
 
     class Entity{
         //método que checa a colisão com <entity> em relação ao player
-<<<<<<< HEAD
-        checkCollision(xa, ya, wa, ha, xb, yb, wb, hb){
-            /*
-            Caso 'true' O comando de movimento na direção solicitada gera uma movimentação igual de sentido oposto, fazendo com que o movimento seja 0
-            ex.:
-            'w' altera a posição x em 5 pixels, ao colidir, ele também altera a posição em -5px
-            */
-            if ((xa + wa > xb && xa < xb + wb && ya + ha > yb && ya < yb + hb)||((xa + wa > 0 && xa < canvas.width && ya + ha > 0 && ya < canvas.height))){
-                return true
-=======
         checkCollision(xa, ya, wa, ha, xb, yb, wb, hb) {
             if ((xa + wa > xb && xa < xb + wb && ya + ha > yb && ya < yb + hb)||((xa - wa < 0 || xa + wa > canvas.width || ya < 0 || ya + ha > canvas.height))) {
               return true;
->>>>>>> a765453ad0b6b5f1bf3f271d60d10a84e38492b8
             }
         
 

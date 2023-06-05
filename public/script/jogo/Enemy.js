@@ -4,11 +4,13 @@ export class Enemy extends Entity{
     constructor(config, x, y, w, h){
         super(Entity)
         
-        console.log(config)
+        //console.log(config)
 
         this.config = { 
-            damage: config.damage,
+            physical_damage: config.physical_damage,
             speed: config.speed,
+            maxHealth: config.maxHealth,
+            currentHealth: config.currentHealth,
         };
         this.x = x;
         this.y = y;
@@ -17,6 +19,8 @@ export class Enemy extends Entity{
 
         this.sprite = new Image();
         this.sprite.src = config.sprite;
+        this.maxHealth = 15
+        this.currentHealth = 15;
     }
 
     update() {
@@ -34,6 +38,7 @@ export class Enemy extends Entity{
     }
     
     draw(context) {
+        this.drawLife(context)
         context.drawImage(this.sprite, this.x, this.y, this.w, this.h);
     }
 }

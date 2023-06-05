@@ -30,14 +30,22 @@ export class Player extends Entity{
             'e': this.set_skin
         }
 
-        // Config Player
-        this.maxHealth = 15
-        this.currentHealth = 15;
+        // Config Player 
+        this.config = { 
+            physical_damage: this.entities['player'].physical_damage,
+            speed: this.entities['player'].speed,
+            maxHealth: this.entities['player'].maxHealth,
+            currentHealth: this.entities['player'].currentHealth,
+            armor: this.entities['player'].armor,
+            magic_resistance: this.entities['player'].magic_resistance,
+            magic_damage: this.entities['player'].magic_damage,
+        };
+
         this.x = 200;
         this.y = 20;
         this.w = 100;
         this.h = 100;
-        this.speed = 5;
+
 
         // Hitbox do player
         this.hitbox_w = 20;
@@ -53,21 +61,10 @@ export class Player extends Entity{
 
         // Hitbox e Sprite centralizados
         this.hitbox_x = this.player_center_x - this.hitbox_center_x
-        this.hitbox_y = this.player_center_y - this.hitbox_center_y        
+        this.hitbox_y = this.player_center_y - this.hitbox_center_y    
+          
     }
     // Movimentação
-    move_up(speed){
-        this.y -= speed;
-    }
-    move_down(speed){
-        this.y += speed;
-    }
-    move_left(speed){
-        this.x -= speed;
-    }
-    move_right(speed){
-        this.x += speed;
-    }
 
     // Trocar de Skin
     set_skin(){
@@ -76,58 +73,47 @@ export class Player extends Entity{
     
     update(enemies){
         // Pega a última tecla pressionada
-        if(this.currentHealth <= 0){
-            this.currentHealth = 0
-            return;
-            
-        }
+        this.checkDead()
         this.key = this.input.key[this.input.key.length - 1];     
 
         // Checa se a tecla tem utilidade        
         if (this.key in this.controls) {
-            this.controls[this.key].call(this, this.speed)            
+            this.controls[this.key].call(this, this.config.speed)            
         }
+        //colisão "geral"
         for (let e of enemies){
-            if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h,
-                 e.x, e.y, e.w, e.h)){
-                    this.damage(parseInt(e.config.damage))
+            if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h,e.x, e.y, e.w, e.h)){
+                    e.checkDead()
+                    this.takeDamage(e)
+                    this.dealDamage(e)
                 return;
 
             }
         }
     }
+    
 
     checkCollisions(canvas, enemies){
 
         if (this.controls[this.key] != undefined){
             // Checa colisão com a tela
             if (this.checkScreenCollision(canvas, this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)){
-                this.controls[this.key].call(this, -this.speed)
+                this.controls[this.key].call(this, -this.config.speed)
             }
 
             // Checa colisão com os inimigos
             for (let e of enemies){
                 if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, e.x, e.y, e.w, e.h)){
-                    this.controls[this.key].call(this, -this.speed)
+                    this.controls[this.key].call(this, -this.config.speed)
 
                 }
             }
         }
     }
-    damage(damage){
-        console.log(damage)
-        this.currentHealth = this.currentHealth - parseInt(damage)
-    }
     // Desenha o player na tela
-    draw(context){       
-        context.fillStyle = "red";
-        context.fillRect(this.x , this.y, this.w, this.h/10)  
-        context.fillStyle = "green";    
-        context.fillRect(this.x , this.y, 1/(this.maxHealth/this.currentHealth) * this.w, this.h/10)
-        
-        context.font = "15px serif";
-        context.fillText(`${this.maxHealth}/${this.currentHealth}`,this.x +2, this.y + 2);
-        context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h)
-        // context.fillRect(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)
+    
+    draw(context) {
+        this.drawLife(context)
+        context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h);
     }
 }

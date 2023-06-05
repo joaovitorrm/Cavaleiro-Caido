@@ -41,16 +41,16 @@ addEventListener('load', function(){
             if (this.input.key == 'Escape'){
                 playing = false
             }
-            if (this.input.key == 'F11'){
+            if (this.input.key == 'f'){
                 canvas.requestFullscreen()
             }
             
             for (let e of this.entity.enemies){
                 e.update()
-                e.checkCollision(can)
+                e.checkCollision(can, this.player)
             }
 
-            this.player.update();
+            this.player.update(this.entity.enemies);
             this.player.checkCollisions(can, this.entity.enemies)                        
         }
         draw(context){

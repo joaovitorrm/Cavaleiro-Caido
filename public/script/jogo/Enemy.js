@@ -1,42 +1,35 @@
 import { Entity } from './Entity.js'
 
 export class Enemy extends Entity{
-    constructor(enemy, x, y, w, h){
+    constructor(config, x, y, w, h){
         super(Entity)
-        this.enemy = enemy;
+        
+        console.log(config)
+
+        this.config = { 
+            damage: config.damage,
+            speed: config.speed,
+        };
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
 
-        this.entities = {
-            'slime': {
-                sprite: '../../images/sprites/enemies/slime.png',
-                speed: 2,
-                damage: 2,
-            },
-            'goblin': {
-                sprite: '../../images/sprites/enemies/goblin.png',
-                speed: 4,
-                damage: 5,
-            },
-            'dummy': {
-                sprite: '../../images/icones/tutorial.png',
-                speed: 0,
-                damage: 0,
-            }
-        }
         this.sprite = new Image();
-        this.sprite.src = this.entities[this.enemy].sprite;
+        this.sprite.src = config.sprite;
     }
 
     update() {
-        this.x += this.entities[this.enemy].speed;
+        this.x += this.config.speed;
     }
 
-    checkCollision(canvas){
+    checkCollision(canvas, player){
         if (this.checkScreenCollision(canvas, this.x, this.y, this.w, this.h)){
-            this.entities[this.enemy].speed *= -1;
+            this.config.speed *= -1;
+        }
+        if (this.check2Collision(player.x + player.hitbox_x, player.y + player.hitbox_y, player.hitbox_w, player.hitbox_h, this.x, this.y, this.w, this.h)){
+            this.config.speed = 0;
+            return;
         }
     }
     

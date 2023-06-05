@@ -31,6 +31,8 @@ export class Player extends Entity{
         }
 
         // Config Player
+        this.maxHealth = 15
+        this.currentHealth = 15;
         this.x = 200;
         this.y = 20;
         this.w = 100;
@@ -72,17 +74,31 @@ export class Player extends Entity{
         this.sprite_atual.src = this.sprites["skin" + '2']
     }
     
-    update(){
+    update(enemies){
         // Pega a última tecla pressionada
-        this.key = this.input.key[this.input.key.length - 1];        
+        if(this.currentHealth <= 0){
+            this.currentHealth = 0
+            return;
+            
+        }
+        this.key = this.input.key[this.input.key.length - 1];     
 
         // Checa se a tecla tem utilidade        
         if (this.key in this.controls) {
             this.controls[this.key].call(this, this.speed)            
         }
+        for (let e of enemies){
+            if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h,
+                 e.x, e.y, e.w, e.h)){
+                    this.damage(parseInt(e.config.damage))
+                return;
+
+            }
+        }
     }
 
     checkCollisions(canvas, enemies){
+
         if (this.controls[this.key] != undefined){
             // Checa colisão com a tela
             if (this.checkScreenCollision(canvas, this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)){
@@ -93,13 +109,24 @@ export class Player extends Entity{
             for (let e of enemies){
                 if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, e.x, e.y, e.w, e.h)){
                     this.controls[this.key].call(this, -this.speed)
+
                 }
             }
         }
     }
-    
+    damage(damage){
+        console.log(damage)
+        this.currentHealth = this.currentHealth - parseInt(damage)
+    }
     // Desenha o player na tela
-    draw(context){         
+    draw(context){       
+        context.fillStyle = "red";
+        context.fillRect(this.x , this.y, this.w, this.h/10)  
+        context.fillStyle = "green";    
+        context.fillRect(this.x , this.y, 1/(this.maxHealth/this.currentHealth) * this.w, this.h/10)
+        
+        context.font = "15px serif";
+        context.fillText(`${this.maxHealth}/${this.currentHealth}`,this.x +2, this.y + 2);
         context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h)
         // context.fillRect(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)
     }

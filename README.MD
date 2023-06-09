@@ -9,7 +9,7 @@ problemas/bugs conhecidos:
 
 | Problema                                         | status                                                                                                    | causa                                                            |
 | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| Colide na esquerda e vai para a direita no mapa 1 | [ ] resolvido [x] não será resolvido [ ] em resolução | código |
+| Colide na esquerda e vai para a direita no mapa 1 | <ul><li>[ ] resolvido</li> [x] não será resolvido [ ] em resolução | código |</ul>
 | Exemplo 2                                        | [ ]                                                                                                       | exemplo                                                          |
 | Exemplo 3                                        | [ ]                                                                                                       | exemplo                                                          |
 | Exemplo 4                                        | [ ]                                                                                                       | exemplo                                                          |

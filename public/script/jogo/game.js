@@ -39,6 +39,17 @@ addEventListener('load', function(){
         }
 
         update(can){
+            //trocar tela
+            if(this.player.x +this.player.w >= canvas.width){
+                this.map.map.src = this.map.maps["map" + '1']
+                this.player.x = 15
+            }
+            if(this.player.x + this.player.w <= 100){
+                console.log("a")
+                this.map.map.src = this.map.maps["map" + '2']
+                this.player.x = 1100
+            }
+
             if (this.input.key == 'Escape'){
                 playing = false
             }

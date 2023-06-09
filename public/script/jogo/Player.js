@@ -100,7 +100,7 @@ export class Player extends Entity{
         //colisão "geral"
         for (let e of enemies){
             if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h,e.x, e.y, e.w, e.h)){
-                console.log(e)
+                
                 if(e.checkDead() == true){
                     e.sprite.src = '../../images/logos/whatsapp.jpg'
                     e.config.speed = 0
@@ -112,11 +112,14 @@ export class Player extends Entity{
                     return
                     
                 }
-                if((e.checkDead() == true )||(e.config.sprite == '../../images/sprites/enemies/cavaleiro_real.png')){
-                    console.log("aa")
+                if((e.checkDead() == true )&&(e.config.sprite == '../../images/sprites/enemies/cavaleiro_real.png')){
                     e.sprite.src = '../../images/logos/logo.png'
-                    return
+                    return  
                 }
+                this.takeDamage(e)
+                this.dealDamage(e)
+
+                return;
                 this.takeDamage(e)
                 this.dealDamage(e)
 

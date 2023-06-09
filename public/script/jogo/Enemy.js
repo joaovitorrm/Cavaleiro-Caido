@@ -32,7 +32,8 @@ export class Enemy extends Entity{
 
     checkCollision(canvas, player){
         if (this.checkScreenCollision(canvas, this.x, this.y, this.w, this.h)){
-            this.config.speed *= -1;
+            //this.config.speed *= -1;
+            this.x = 0
         }
         if (this.check2Collision(player.x + player.hitbox_x, player.y + player.hitbox_y, player.hitbox_w, player.hitbox_h, this.x, this.y, this.w, this.h)){
             this.config.speed = 0;

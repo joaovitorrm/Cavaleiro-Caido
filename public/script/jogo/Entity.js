@@ -4,7 +4,7 @@ export class Entity{
   // Definições das entidades
   constructor(){
     this.enemies = []
-    this.entities = {
+    this.entities = { //valor concedido de exp ao morrer é o currentExp
       'player': {
         armor: 0,
         magic_resist: 0,
@@ -22,6 +22,8 @@ export class Entity{
         magic_resist: 0,
         maxHealth: 10,
         currentHealth: 10,
+        maxExp: 15,
+        currentExp: 15,
         speed: 2,
         physical_damage: 2,
         magic_damage: 0
@@ -31,6 +33,8 @@ export class Entity{
         armor: 0,
         magic_resist: 0,
         maxHealth: 20,
+        maxExp: 15,
+        currentExp: 5,
         currentHealth: 10,
         speed: 4,
         physical_damage: 5,
@@ -42,6 +46,8 @@ export class Entity{
         magic_resist: 0,
         maxHealth: 100,
         currentHealth: 10,
+        maxExp: 10,
+        currentExp: 5,
         speed: 0,
         physical_damage: 0,
         magic_damage: 0
@@ -52,11 +58,12 @@ export class Entity{
         magic_resist: 0,
         maxHealth: 1500,
         currentHealth: 1500,
+        maxExp: 15,
+        currentExp: 5,
         speed: 0,
         physical_damage: 10,
         magic_damage: 0
       }
-      
       
       
     }

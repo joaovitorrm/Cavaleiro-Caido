@@ -76,19 +76,21 @@ export class Player extends Entity{
     }
     
     update(enemies){
-        //levelUp só funciona uma vez
+        //levelUp só funciona uma vez(?);TODO
         if(this.config.currentExp >= this.config.maxExp){
-            this.config.currentExp -= this.maxExp
+            this.set_skin()
+            this.config.currentExp -= this.config.maxExp
             this.config.maxExp += 5
             this.config.maxHealth +=50
             this.config.currentHealth = this.config.maxHealth
             this.config.physical_damage += 75
         }
-        // Pega a última tecla pressionada
+
         if(this.checkDead()){
             this.config.speed = 0
             this.config.damage = 0
         }
+        // Pega a última tecla pressionada
         this.key = this.input.key[this.input.key.length - 1];     
 
         // Checa se a tecla tem utilidade        
@@ -98,18 +100,26 @@ export class Player extends Entity{
         //colisão "geral"
         for (let e of enemies){
             if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h,e.x, e.y, e.w, e.h)){
-                    if(e.checkDead() == true){
-                        e.sprite.src = '../../images/logos/whatsapp.jpg'
-                        e.config.speed = 0
-                        e.config.damage = 0
-                        this.config.currentExp +=10
-                        e.h = 0
-                        e.w = 0
-                        return
-                        
-                    }
-                    this.takeDamage(e)
-                    this.dealDamage(e)
+                console.log(e)
+                if(e.checkDead() == true){
+                    e.sprite.src = '../../images/logos/whatsapp.jpg'
+                    e.config.speed = 0
+                    e.config.damage = 0
+                    e.x = -200
+                    e.h = 0
+                    e.w = 0
+                    this.config.currentExp += e.config.currentExp
+                    return
+                    
+                }
+                if((e.checkDead() == true )||(e.config.sprite == '../../images/sprites/enemies/cavaleiro_real.png')){
+                    console.log("aa")
+                    e.sprite.src = '../../images/logos/logo.png'
+                    return
+                }
+                this.takeDamage(e)
+                this.dealDamage(e)
+
                 return;
 
             }

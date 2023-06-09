@@ -12,6 +12,8 @@ export class Enemy extends Entity{
             speed: config.speed,
             maxHealth: config.maxHealth,
             currentHealth: config.currentHealth,
+            maxExp: config.maxExp,
+            currentExp: config.currentExp,
         };
         this.x = x;
         this.y = y;

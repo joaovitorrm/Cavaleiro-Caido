@@ -27,7 +27,8 @@ export class Player extends Entity{
             'a': this.move_left,
             's': this.move_down,
             'd': this.move_right,
-            'e': this.set_skin
+            'e': this.set_skin,
+            //'': this.swapstats,
         }
 
         // Config Player 
@@ -36,9 +37,12 @@ export class Player extends Entity{
             speed: this.entities['player'].speed,
             maxHealth: this.entities['player'].maxHealth,
             currentHealth: this.entities['player'].currentHealth,
+            maxExp: this.entities['player'].maxExp,
+            currentExp:this.entities['player'].currentExp,
             armor: this.entities['player'].armor,
             magic_resistance: this.entities['player'].magic_resistance,
             magic_damage: this.entities['player'].magic_damage,
+            
         };
 
         this.x = 200;
@@ -72,8 +76,19 @@ export class Player extends Entity{
     }
     
     update(enemies){
+        //levelUp só funciona uma vez
+        if(this.config.currentExp >= this.config.maxExp){
+            this.config.currentExp -= this.maxExp
+            this.config.maxExp += 5
+            this.config.maxHealth +=50
+            this.config.currentHealth = this.config.maxHealth
+            this.config.physical_damage += 75
+        }
         // Pega a última tecla pressionada
-        this.checkDead()
+        if(this.checkDead()){
+            this.config.speed = 0
+            this.config.damage = 0
+        }
         this.key = this.input.key[this.input.key.length - 1];     
 
         // Checa se a tecla tem utilidade        
@@ -83,7 +98,16 @@ export class Player extends Entity{
         //colisão "geral"
         for (let e of enemies){
             if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h,e.x, e.y, e.w, e.h)){
-                    e.checkDead()
+                    if(e.checkDead() == true){
+                        e.sprite.src = '../../images/logos/whatsapp.jpg'
+                        e.config.speed = 0
+                        e.config.damage = 0
+                        this.config.currentExp +=10
+                        e.h = 0
+                        e.w = 0
+                        return
+                        
+                    }
                     this.takeDamage(e)
                     this.dealDamage(e)
                 return;
@@ -114,6 +138,7 @@ export class Player extends Entity{
     
     draw(context) {
         this.drawLife(context)
+        this.drawExp(context)
         context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h);
     }
 }

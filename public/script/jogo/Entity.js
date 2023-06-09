@@ -8,8 +8,10 @@ export class Entity{
       'player': {
         armor: 0,
         magic_resist: 0,
-        maxHealth: 1500,
-        currentHealth: 1500,
+        maxHealth: 150,
+        currentHealth: 150,
+        maxExp: 15,
+        currentExp: 5,
         speed: 5,
         physical_damage: 2,
         magic_damage: 0
@@ -43,7 +45,20 @@ export class Entity{
         speed: 0,
         physical_damage: 0,
         magic_damage: 0
+      },
+      'cavaleiro_boss': {
+        sprite: '../../images/sprites/enemies/cavaleiro_real.png',
+        armor: 0,
+        magic_resist: 0,
+        maxHealth: 1500,
+        currentHealth: 1500,
+        speed: 0,
+        physical_damage: 10,
+        magic_damage: 0
       }
+      
+      
+      
     }
   }
   move_up(speed){
@@ -58,7 +73,30 @@ export class Entity{
   move_right(speed){
       this.x += speed;
   }
+  //ideia skill para o player
+  swapstats(target){
+    //let config = target.config
+    let x = target.x
+    let y = target.y
+    let h = target.h
+    let w = target.w
 
+    //target.config = this.config
+    target.x = this.x
+    target.y = this.y
+    target.h = this.h
+    target.w = this.w
+    //this.config = config
+    this.x = x
+    this.y = y
+    this.h = h
+    this.w = w
+        
+  }
+  drawText(context,text, x, y, color="rgb(255,255,255)") {
+    context.fillStyle = color;
+    context.fillText(text, x, y);
+  }
   drawStrokedText(context, text, x, y) {
     context.fillStyle = "rgb(0,0,0)";
     context.fillText(text, x - 1, y - 1);
@@ -67,22 +105,30 @@ export class Entity{
     context.fillText(text, x + 1, y);
     context.fillText(text, x - 1, y + 1);
     context.fillText(text, x + 1, y + 1);
-    context.fillStyle = "rgb(255,255,255)";
-    context.fillText(text, x, y);
+    this.drawText(context, text, x, y)
   }
-  drawText(context, text, x, y) {
-    context.fillStyle = "rgb(255,255,255)";
-    context.fillText(text, x, y);
-  }
+
   drawLife(context){
-    
     context.fillStyle = "red";
     context.fillRect(this.x, this.y, this.w, this.h / 10);
     context.fillStyle = "green";
     context.fillRect(this.x, this.y, 1 / (this.config.maxHealth / this.config.currentHealth) * this.w, this.h / 10);
     this.drawStrokedText(context, `${this.config.currentHealth}/${this.config.maxHealth}`, this.x + 5, this.y - 5);
   }
+
+  drawExp(context){
+    context.fillStyle = "grey";
+    context.fillRect(this.x, this.y+ this.h/20, this.w, this.h / 20);
+    context.fillStyle = "blue";
+    context.fillRect(this.x, this.y+ this.h/20, 1 / (this.config.maxExp / this.config.currentExp) * this.w, this.h / 20);
+    this.drawStrokedText(context, `${this.config.currentExp}/${this.config.maxExp}`, this.x + 80, this.y - 5);
+  return
+  }
+
   dealDamage(target){
+    if(this.config.currentHealth <= 0){
+      return
+    }
     if (target.config.currentHealth <= this.config.physical_damage){
       target.config.currentHealth = 0
       return
@@ -99,8 +145,10 @@ export class Entity{
   }
   checkDead(){
     if(this.config.currentHealth <= 0){
-      this.config.speed = 0
+      return(true)
+    return(false)
   }
+
   }
 
   // Cria os inimigos

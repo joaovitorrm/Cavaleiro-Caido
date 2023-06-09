@@ -35,6 +35,7 @@ addEventListener('load', function(){
             this.entity.createEnemy('slime', 500, 500, 100, 100);
             this.entity.createEnemy('goblin', 500, 500, 80, 100);
             this.entity.createEnemy('dummy', 50, 200, 80, 80);
+            this.entity.createEnemy('cavaleiro_boss', 1000, 200, 200, 250);
         }
 
         update(can){

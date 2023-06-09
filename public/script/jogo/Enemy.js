@@ -7,6 +7,7 @@ export class Enemy extends Entity{
         //console.log(config)
 
         this.config = { 
+            sprite: config.sprite,
             physical_damage: config.physical_damage,
             speed: config.speed,
             maxHealth: config.maxHealth,

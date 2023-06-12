@@ -67,11 +67,13 @@ addEventListener('load', function(){
         }
         draw(context){
             this.map.draw(context)
+            this.map.drawEnemies(context)
             this.player.draw(context)
             //draw em cada inimigo
             for (let e of this.entity.enemies){
                 e.draw(context)
             }
+
         }
     }
     

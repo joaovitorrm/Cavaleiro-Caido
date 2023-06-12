@@ -12,7 +12,7 @@ export class Entity{
         currentHealth: 150,
         maxExp: 15,
         currentExp: 5,
-        speed: 5,
+        speed: 10,
         physical_damage: 2,
         magic_damage: 0
       },
@@ -132,23 +132,13 @@ export class Entity{
   return
   }
 
-  dealDamage(target){
-    if(this.config.currentHealth <= 0){
-      return
-    }
-    if (target.config.currentHealth <= this.config.physical_damage){
+  dealDamage(source, target, amount=source.config.physical_damage){
+    if (target.config.currentHealth <= source.config.physical_damage){
       target.config.currentHealth = 0
       return
     }
     target.config.currentHealth = target.config.currentHealth - this.config.physical_damage
 
-  }
-  takeDamage(dealer){
-    if (this.config.currentHealth <= dealer.config.physical_damage){
-      this.config.currentHealth = 0
-      return
-    }
-    this.config.currentHealth = this.config.currentHealth - dealer.config.physical_damage
   }
   checkDead(){
     if(this.config.currentHealth <= 0){

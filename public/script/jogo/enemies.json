@@ -1,0 +1,12 @@
+{
+    "Slime": {
+        "sprite": "../../images/sprites/enemies/slime.png",
+        "armor": 0,
+        "magic_resist": 0,
+        "maxHealth": 10,
+        "currentHealth": 10,
+        "speed": 2,
+        "physical_damage": 2,
+        "magic_damage": 0
+    }
+}

@@ -132,12 +132,24 @@ export class Entity{
   return
   }
 
-  dealDamage(source, target, amount=source.config.physical_damage){
+  dealDamage(source, target, amount=source.config.physical_damage, who="both"){
     if (target.config.currentHealth <= source.config.physical_damage){
       target.config.currentHealth = 0
       return
     }
-    target.config.currentHealth = target.config.currentHealth - this.config.physical_damage
+    switch(who){
+      case "both":
+        target.config.currentHealth = target.config.currentHealth - amount
+        source.config.currentHealth = source.config.currentHealth - target.config.physical_damage
+        break;
+      case "first":
+        target.config.currentHealth = target.config.currentHealth - amount
+        break;
+      case "second":
+        source.config.currentHealth = source.config.currentHealth - target.config.physical_damage
+        break;
+    }
+
 
   }
   checkDead(){

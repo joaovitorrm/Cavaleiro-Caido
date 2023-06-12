@@ -116,13 +116,7 @@ export class Player extends Entity{
                     e.sprite.src = '../../images/logos/logo.png'
                     return  
                 }
-                this.takeDamage(e)
-                this.dealDamage(e)
-
-                return;
-                this.takeDamage(e)
-                this.dealDamage(e)
-
+                this.dealDamage(e,this)
                 return;
 
             }

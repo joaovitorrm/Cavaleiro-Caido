@@ -17,11 +17,12 @@ export class Map{
     createEnemies(){
         for (let x of this.maps.enemies){
         this.enemies.push([this.entities[this.maps.enemies[0]], 20, 20])
+        }
     }
 
     draw(context){
         context.drawImage(this.map, this.x, this.y, this.w, this.h)
-    }
+    };
     drawEnemies(context){
         for (let x of this.enemies){
             context.drawImage(this.enemies[this.maps.enemies[0]], 20, 20)

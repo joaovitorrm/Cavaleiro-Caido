@@ -1,12 +1,12 @@
 main { 
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 30px;
+    align-items: center;  
+    height: calc(18vh - 11vh - 100vh);
     
     > div {
+        transform: scale(0.8);
         width: 40%;
-        margin: auto;
         border: 3px solid white;
         background-color: #141414;
         > #logo {
@@ -28,13 +28,12 @@ main {
         > h2 {
             color: #8a4fff;
             margin-bottom: 20px;
-            margin-top: 20px;
+            margin-top: 20px;            
         }
         > p {
             text-align: justify;
             width: 90%;
-            margin-bottom: 20px;
-            
+            margin-bottom: 20px;            
         }
         > a  {
             text-decoration: none;

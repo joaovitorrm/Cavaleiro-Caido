@@ -1,12 +1,13 @@
 main {
-    padding: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    > div {
+    height: calc(18vh - 11vh - 100vh);
+    > #boxForms {
         width: 40%;
         border: 3px solid white;        
         background-color: #141414;
+        transform: scale(0.8);
 
         #logo {
             display: flex;
@@ -25,8 +26,8 @@ main {
             justify-content: center;
             > h2 {
                 text-align: center;
-                color: #8a4fff;                
-                margin-top: 20px;
+                color: #8a4fff;
+                margin-top: 10px;
             }    
             & figure {
                 display: flex;
@@ -55,8 +56,8 @@ main {
                 & input{
                     color: black;
                 }
-                > .item1, .item2{
-                    margin-bottom: 20px;
+                .item1, .item2 {
+                    margin-bottom: 10px;
                 }
 
                 .item1{

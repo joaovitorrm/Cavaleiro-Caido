@@ -24,7 +24,7 @@ export class Enemy extends Entity{
     }
 
     update() {
-        this.x += this.config.speed;
+        this.move_right(this.config.speed);
     }
 
     checkCollision(canvas, player){

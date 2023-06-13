@@ -25,11 +25,10 @@ addEventListener('load', function(){
             this.width = width;
             this.height = height;
             this.player = new Player(this);
-            this.player2 = new Player(this, 2)
+            this.player2 = new Player(this)
             this.input = new InputHandler(this);
-            this.map = new Map(this);
+            this.map = new Map(this, this.level);
             this.entity = new Entity();
-
             /*// tests
             this.entity.createEnemy('slime', 100, 100, 50, 50);
             this.entity.createEnemy('slime', 500, 500, 100, 100);
@@ -41,20 +40,26 @@ addEventListener('load', function(){
 
         update(can){
             if (this.player.x > canvas.width - 100){
-                this.player.x = 50;
-                this.map.changeMap('right');
+                
+                if (this.map.changeMap('right')){
+                    this.player.x = 50;
+                };
             }
-            if (this.player.x < 20){
-                this.player.x = canvas.width - 150;
-                this.map.changeMap('left');
+            if (this.player.x < 20){                
+                if (this.map.changeMap('left')){
+                    this.player.x = canvas.width - 150;
+                }
             }
             if (this.player.y > canvas.height - 100){
-                this.player.y = 50;
-                this.map.changeMap('down');
+                
+                if (this.map.changeMap('down')){
+                    this.player.y = 50;
+                }
             }
-            if (this.player.y < 20){
-                this.player.y = canvas.height - 150;
-                this.map.changeMap('up');
+            if (this.player.y < 20){                
+                if (this.map.changeMap('up')){
+                    this.player.y = canvas.height - 150;
+                }
             }
 
             if (this.input.key == 'Escape'){
@@ -64,17 +69,16 @@ addEventListener('load', function(){
                 canvas.requestFullscreen()
             }
             
-            for (let e of this.entity.enemies){
+            for (let e of this.map.enemies){
                 e.update()
                 e.checkCollision(can, this.player)
             }
 
-            this.player.update(this.entity.enemies);
-            this.player.checkCollisions(can, this.entity.enemies)                        
+            this.player.update(this.map.enemies);
+            this.player.checkCollisions(can, this.map.enemies)                        
         }
         draw(context){
             this.map.draw(context)
-            //this.map.drawEnemies(context)
             this.player.draw(context)
             //draw em cada inimigo
             for (let e of this.entity.enemies){

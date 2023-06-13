@@ -20,12 +20,11 @@ export class Enemy extends Entity{
 
         this.sprite = new Image();
         this.sprite.src = config.sprite;
-        this.maxHealth = 15
-        this.currentHealth = 15;
+;
     }
 
     update() {
-        this.x += this.config.speed;
+        this.move_right(this.config.speed);
     }
 
     checkCollision(canvas, player){

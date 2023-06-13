@@ -30,23 +30,31 @@ addEventListener('load', function(){
             this.map = new Map(this);
             this.entity = new Entity();
 
-            // tests
+            /*// tests
             this.entity.createEnemy('slime', 100, 100, 50, 50);
             this.entity.createEnemy('slime', 500, 500, 100, 100);
             this.entity.createEnemy('goblin', 500, 500, 80, 100);
             this.entity.createEnemy('dummy', 50, 200, 80, 80);
             this.entity.createEnemy('cavaleiro_boss', 1000, 200, 200, 250);
+            */
         }
 
         update(can){
-            //trocar tela
+            
+            if(this.map.mapa_atual >= 1){
+            //trocar tela esquerda
+                if(this.player.x + this.player.w <= 100){
+                    this.map = new Map(this, 0);
+                    this.map.map.src = this.map.maps[this.map.mapa_atual].sprite
+                    this.player.x = 1100
+                }
+            }
+            //trocar tela direita
             if(this.player.x + this.player.w >= canvas.width){
+                this.map = new Map(this, 1);
+                this.map.mapa_atual +=1
                 this.map.map.src = this.map.maps[this.map.mapa_atual].sprite
                 this.player.x = 15
-            }
-            if(this.player.x + this.player.w <= 100){
-                this.map.map.src = this.map.maps[this.map.mapa_atual -1].sprite
-                this.player.x = 1100
             }
 
             if (this.input.key == 'Escape'){

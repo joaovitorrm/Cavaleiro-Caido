@@ -3,10 +3,10 @@ import { Enemy } from './Enemy.js';
 import maps from './maps.json' assert {type: 'json'}
 
 export class Map{
-    constructor(game){
+    constructor(game, level=0){
         this.entities = new Entity;
         this.maps = maps.maps
-        this.mapa_atual = 1
+        this.mapa_atual = level
         this.map = new Image()
         this.map.src = this.maps[this.mapa_atual].sprite//seletor de mapas
         this.x = 0
@@ -26,9 +26,9 @@ export class Map{
         context.drawImage(this.map, this.x, this.y, this.w, this.h)
     };
     createEnemies(){
-        for (let x of this.maps[0]["enemies"]){
+        for (let x of this.maps[this.mapa_atual]["enemies"]){
             console.log(x[1])
-            this.enemies.push(new Enemy(this.entities.entities[x[0]], x[1][0], x[1][1], 20, 20))
+            this.enemies.push(new Enemy(this.entities.entities[x[0]], x[1][0], x[1][1], x[1][2], x[1][3]))
         }
         //console.log(this.enemies)
         console.log(this.enemies)

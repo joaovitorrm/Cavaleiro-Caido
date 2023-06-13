@@ -3,15 +3,22 @@
     [
         {
             "sprite": "../../images/sprites/mapas/mapa1.png",
-            "enemies": [["slime", [50, 50, 50, 50]], ["goblin", [50, 500, 50, 50]], ["goblin", [50, 560, 50, 50]] ]
+            "enemies": [
+            ["slime", [100, 100, 50, 50]],
+            ["slime", [500, 500, 100, 100]], 
+            ["goblin", [500, 600, 80, 100]],
+            ["dummy", [50, 200, 80, 80]],
+            ["cavaleiro_boss", [1000, 200, 200, 250]]]
         },
         {
             "sprite": "../../images/sprites/mapas/mapa2.png",
-            "enemies": [["slime", [50, 50, 50, 50]], ["goblin", [50, 500, 50, 50]]]
+            "enemies": [["slime", [50, 50, 50, 50]],
+            ["goblin", [50, 500, 50, 50]]]
         },
         {
             "sprite": "../../images/sprites/mapas/mapa2.png",
-            "enemies": [["slime", [50, 50, 50, 50]], ["goblin", [50, 50, 50, 50]]]
+            "enemies": [["slime", [50, 50, 50, 50]],
+            ["goblin", [50, 50, 50, 50]]]
         }
         
     ]

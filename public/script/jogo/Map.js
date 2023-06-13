@@ -1,11 +1,12 @@
 import { Entity } from './Entity.js'
 import { Enemy } from './Enemy.js';
 import maps from './maps.json' assert {type: 'json'}
+console.log(maps)
 
 export class Map{
     constructor(game){
         this.entities = new Entity;
-        this.maps = maps.maps
+        this.maps = maps
         this.mapa_atual = 1
         this.map = new Image()
         this.map.src = this.maps[this.mapa_atual].sprite//seletor de mapas

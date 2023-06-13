@@ -1,18 +1,15 @@
-{
-    "maps":
-    [
-        {
-            "sprite": "../../images/sprites/mapas/mapa1.png",
-            "enemies": [["slime", [50, 50, 50, 50]], ["goblin", [50, 500, 50, 50]], ["goblin", [50, 560, 50, 50]] ]
-        },
-        {
-            "sprite": "../../images/sprites/mapas/mapa2.png",
-            "enemies": [["slime", [50, 50, 50, 50]], ["goblin", [50, 500, 50, 50]]]
-        },
-        {
-            "sprite": "../../images/sprites/mapas/mapa2.png",
-            "enemies": [["slime", [50, 50, 50, 50]], ["goblin", [50, 50, 50, 50]]]
-        }
-        
-    ]
-}
+[
+    {
+        "sprite": "../../images/sprites/mapas/mapa1.png",
+        "enemies": [["slime", [50, 50, 50, 50]], ["goblin", [50, 500, 50, 50]], ["goblin", [50, 560, 50, 50]] ]
+    },
+    {
+        "sprite": "../../images/sprites/mapas/mapa2.png",
+        "enemies": [["slime", [50, 50, 50, 50]], ["goblin", [50, 500, 50, 50]]]
+    },
+    {
+        "sprite": "../../images/sprites/mapas/mapa2.png",
+        "enemies": [["slime", [50, 50, 50, 50]], ["goblin", [50, 50, 50, 50]]]
+    }
+    
+]

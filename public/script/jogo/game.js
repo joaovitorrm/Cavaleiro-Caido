@@ -40,13 +40,12 @@ addEventListener('load', function(){
 
         update(can){
             //trocar tela
-            if(this.player.x +this.player.w >= canvas.width){
-                this.map.map.src = this.map.maps["map" + '1']
+            if(this.player.x + this.player.w >= canvas.width){
+                this.map.map.src = this.map.maps[this.map.mapa_atual].sprite
                 this.player.x = 15
             }
             if(this.player.x + this.player.w <= 100){
-                console.log("a")
-                this.map.map.src = this.map.maps["map" + '2']
+                this.map.map.src = this.map.maps[this.map.mapa_atual -1].sprite
                 this.player.x = 1100
             }
 
@@ -67,10 +66,13 @@ addEventListener('load', function(){
         }
         draw(context){
             this.map.draw(context)
-            this.map.drawEnemies(context)
+            //this.map.drawEnemies(context)
             this.player.draw(context)
             //draw em cada inimigo
             for (let e of this.entity.enemies){
+                e.draw(context)
+            }
+            for (let e of this.map.enemies){
                 e.draw(context)
             }
 

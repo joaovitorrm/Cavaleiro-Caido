@@ -8,12 +8,10 @@ export class Enemy extends Entity{
 
         this.config = { 
             sprite: config.sprite,
-            physical_damage: config.physical_damage,
+            physicalDamage: config.physicalDamage,
             speed: config.speed,
             maxHealth: config.maxHealth,
             currentHealth: config.currentHealth,
-            maxExp: config.maxExp,
-            currentExp: config.currentExp,
         };
         this.x = x;
         this.y = y;

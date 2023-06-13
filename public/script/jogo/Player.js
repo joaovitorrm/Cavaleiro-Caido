@@ -33,15 +33,13 @@ export class Player extends Entity{
 
         // Config Player 
         this.config = { 
-            physical_damage: this.entities['player'].physical_damage,
+            physicalDamage: this.entities['player'].physicalDamage,
             speed: this.entities['player'].speed,
             maxHealth: this.entities['player'].maxHealth,
             currentHealth: this.entities['player'].currentHealth,
-            maxExp: this.entities['player'].maxExp,
-            currentExp:this.entities['player'].currentExp,
             armor: this.entities['player'].armor,
-            magic_resistance: this.entities['player'].magic_resistance,
-            magic_damage: this.entities['player'].magic_damage,
+            magicResistance: this.entities['player'].magicResistance,
+            magicDamage: this.entities['player'].magicDamage,
             
         };
 
@@ -76,19 +74,10 @@ export class Player extends Entity{
     }
     
     update(enemies){
-        //levelUp só funciona uma vez(?);TODO
-        if(this.config.currentExp >= this.config.maxExp){
-            this.set_skin()
-            this.config.currentExp -= this.config.maxExp
-            this.config.maxExp += 5
-            this.config.maxHealth +=50
-            this.config.currentHealth = this.config.maxHealth
-            this.config.physical_damage += 75
-        }
 
-        if(this.checkDead()){
+        if(this.config.currentHealth <= 0){
             this.config.speed = 0
-            this.config.damage = 0
+            this.config.physicalDamage = 0
         }
         // Pega a última tecla pressionada
         this.key = this.input.key[this.input.key.length - 1];     
@@ -101,18 +90,23 @@ export class Player extends Entity{
         for (let e of enemies){
             if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h,e.x, e.y, e.w, e.h)){
                 
-                if(e.checkDead() == true){
+                if(e.config.currentHealth <= 0){
                     e.sprite.src = '../../images/logos/whatsapp.jpg'
                     e.config.speed = 0
-                    e.config.damage = 0
-                    e.x = -200
+                    e.config.physicalDamage = 0
                     e.h = 0
                     e.w = 0
-                    this.config.currentExp += e.config.currentExp
+                    e.x = -10
+                    e.y = -10
+                    /* teste remoção de inimigos do array ao matar
+                    console.log(enemies)
+                    enemies.splice(e, 1)
+                    console.log(enemies)
+                    */
                     return
                     
                 }
-                if((e.checkDead() == true )&&(e.config.sprite == '../../images/sprites/enemies/cavaleiro_real.png')){
+                if((e.config.currentHealth <= 0)&&(e.config.sprite == '../../images/sprites/enemies/cavaleiro_real.png')){
                     e.sprite.src = '../../images/logos/logo.png'
                     return  
                 }
@@ -145,7 +139,6 @@ export class Player extends Entity{
     
     draw(context) {
         this.drawLife(context)
-        this.drawExp(context)
         context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h);
     }
 }

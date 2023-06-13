@@ -15,4 +15,5 @@ export class Utils{
         context.fillText(text, x + 1, y + 1);
         this.drawText(context, text, x, y)
     }
+    
 }

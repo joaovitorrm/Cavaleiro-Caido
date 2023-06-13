@@ -7,62 +7,52 @@ export class Entity{
     this.entities = { //valor concedido de exp ao morrer é o currentExp
       'player': {
         armor: 0,
-        magic_resist: 0,
+        magicResistance: 0,
         maxHealth: 150,
         currentHealth: 150,
-        maxExp: 15,
-        currentExp: 5,
         speed: 10,
-        physical_damage: 2,
-        magic_damage: 0
+        physicalDamage: 2,
+        magicDamage: 0
       },
       'slime': {
         sprite: '../../images/sprites/enemies/slime.png',
         armor: 0,
-        magic_resist: 0,
+        magicResistance: 0,
         maxHealth: 10,
         currentHealth: 10,
-        maxExp: 15,
-        currentExp: 15,
         speed: 2,
-        physical_damage: 2,
-        magic_damage: 0
+        physicalDamage: 2,
+        magicDamage: 0
       },
       'goblin': {
         sprite: '../../images/sprites/enemies/goblin.png',
         armor: 0,
-        magic_resist: 0,
+        magicResistance: 0,
         maxHealth: 20,
-        maxExp: 15,
-        currentExp: 5,
         currentHealth: 10,
         speed: 4,
-        physical_damage: 5,
-        magic_damage: 0
+        physicalDamage: 5,
+        magicDamage: 0
       },
       'dummy': {
         sprite: '../../images/icones/tutorial.png',
         armor: 0,
-        magic_resist: 0,
+        magicResistance: 0,
         maxHealth: 100,
         currentHealth: 10,
-        maxExp: 10,
-        currentExp: 5,
         speed: 0,
-        physical_damage: 0,
-        magic_damage: 0
+        physicalDamage: 0,
+        magicDamage: 0
       },
       'cavaleiro_boss': {
         sprite: '../../images/sprites/enemies/cavaleiro_real.png',
         armor: 0,
-        magic_resist: 0,
+        magicResistance: 0,
         maxHealth: 1500,
         currentHealth: 1500,
-        maxExp: 15,
-        currentExp: 5,
         speed: 0,
-        physical_damage: 10,
-        magic_damage: 0
+        physicalDamage: 10,
+        magicDamage: 0
       }
       
       
@@ -116,6 +106,9 @@ export class Entity{
   }
 
   drawLife(context){
+    if(this.currentHealth <= 0){
+      return
+    }
     context.fillStyle = "red";
     context.fillRect(this.x, this.y, this.w, this.h / 10);
     context.fillStyle = "green";
@@ -123,40 +116,24 @@ export class Entity{
     this.drawStrokedText(context, `${this.config.currentHealth}/${this.config.maxHealth}`, this.x + 5, this.y - 5);
   }
 
-  drawExp(context){
-    context.fillStyle = "grey";
-    context.fillRect(this.x, this.y+ this.h/20, this.w, this.h / 20);
-    context.fillStyle = "blue";
-    context.fillRect(this.x, this.y+ this.h/20, 1 / (this.config.maxExp / this.config.currentExp) * this.w, this.h / 20);
-    this.drawStrokedText(context, `${this.config.currentExp}/${this.config.maxExp}`, this.x + 80, this.y - 5);
-  return
-  }
-
-  dealDamage(source, target, amount=source.config.physical_damage, who="both"){
-    if (target.config.currentHealth <= source.config.physical_damage){
+  dealDamage(source, target, who="both", amount=source.config.physicalDamage){
+    if (target.config.currentHealth <= source.config.physicalDamage){
       target.config.currentHealth = 0
       return
     }
     switch(who){
       case "both":
         target.config.currentHealth = target.config.currentHealth - amount
-        source.config.currentHealth = source.config.currentHealth - target.config.physical_damage
+        source.config.currentHealth = source.config.currentHealth - target.config.physicalDamage
         break;
       case "first":
         target.config.currentHealth = target.config.currentHealth - amount
         break;
       case "second":
-        source.config.currentHealth = source.config.currentHealth - target.config.physical_damage
+        source.config.currentHealth = source.config.currentHealth - target.config.physicalDamage
         break;
     }
 
-
-  }
-  checkDead(){
-    if(this.config.currentHealth <= 0){
-      return(true)
-    return(false)
-  }
 
   }
 

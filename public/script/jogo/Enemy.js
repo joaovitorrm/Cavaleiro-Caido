@@ -20,8 +20,7 @@ export class Enemy extends Entity{
 
         this.sprite = new Image();
         this.sprite.src = config.sprite;
-        this.maxHealth = 15
-        this.currentHealth = 15;
+;
     }
 
     update() {

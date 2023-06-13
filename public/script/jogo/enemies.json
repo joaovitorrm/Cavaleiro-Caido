@@ -9,4 +9,14 @@
         "physicalDamage": 2,
         "magicDamage": 0
     }
+    "goblin": {
+        sprite: "../../images/sprites/enemies/goblin.png",
+        armor: 0,
+        magicResistance: 0,
+        maxHealth: 20,
+        currentHealth: 10,
+        speed: 4,
+        physicalDamage: 5,
+        magicDamage: 0
+      }
 }

@@ -1,9 +1,10 @@
 import { Enemy } from "./Enemy.js";
+import enemies from './enemies.json' assert {type: 'json'}
 
 export class Entity{
   // Definições das entidades
   constructor(){
-    this.enemies = []
+    
     this.entities = { //valor concedido de exp ao morrer é o currentExp
       'player': {
         armor: 0,
@@ -57,7 +58,10 @@ export class Entity{
       
       
     }
+  console.log(enemies)
+  console.log(this.entities['slime'])
   }
+  
   move_up(speed){
     this.y -= speed;
   }
@@ -70,26 +74,8 @@ export class Entity{
   move_right(speed){
       this.x += speed;
   }
-  //ideia skill para o player
-  swapstats(target){
-    //let config = target.config
-    let x = target.x
-    let y = target.y
-    let h = target.h
-    let w = target.w
 
-    //target.config = this.config
-    target.x = this.x
-    target.y = this.y
-    target.h = this.h
-    target.w = this.w
-    //this.config = config
-    this.x = x
-    this.y = y
-    this.h = h
-    this.w = w
-        
-  }
+
   drawText(context,text, x, y, color="rgb(255,255,255)") {
     context.fillStyle = color;
     context.fillText(text, x, y);
@@ -135,11 +121,6 @@ export class Entity{
     }
 
 
-  }
-
-  // Cria os inimigos
-  createEnemy(enemy, x, y, w, h){
-    this.enemies.push(new Enemy(this.entities[enemy], x, y, w, h))
   }
 
   // método que checa a colisão com <entity> em relação ao player

@@ -51,6 +51,16 @@
         "speed": 0,
         "physicalDamage": 10,
         "magicDamage": 0
+    },
+    "fantasma": {
+        "sprite": "../../images/sprites/enemies/fantasma.png",
+        "armor": 0,
+        "magicResistance": 0,
+        "maxHealth": 20,
+        "currentHealth": 20,
+        "speed": 1,
+        "physicalDamage": 2,
+        "magicDamage": 0
     }
 }
     

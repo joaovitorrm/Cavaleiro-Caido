@@ -3,12 +3,12 @@ import { Enemy } from './Enemy.js';
 import maps from './json/maps.json' assert {type: 'json'}
 
 export class Map{
-    constructor(game, level=[0, 0]){
+    constructor(game, level=[1, 1]){
         this.entities = new Entity;
         this.maps = []
         this.mapa_atual = []
-        console.log(level)
         this.levelAtual = level
+        this.objects = []
         this.createMap(this.levelAtual)        
         this.map = new Image()
         this.map.src = this.mapa_atual.sprite //seletor de mapas
@@ -23,66 +23,67 @@ export class Map{
         
 
     }
-    draw(context){
+    draw(context){        
         context.drawImage(this.map, this.x, this.y, this.w, this.h)
+        for (let x in this.objects){
+            x = this.objects[x]
+            let img = new Image()
+            img.src = x.sprite
+            context.drawImage(img, x.pos.x, x.pos.y, x.pos.w, x.pos.h)
+        }
     };
 
     createMap(level){
         this.maps = [
 
-            [maps.mapa1, maps.mapa2, maps.mapa3],
-            [maps.mapa3, maps.mapa4],
-            [maps.mapa5, maps.mapa1]
+            [maps.mapa1, maps.mapa2, maps.mapa6],
+            [maps.mapa3, maps.mapa4, maps.mapa3],
+            [maps.mapa5, maps.mapa7]
 
         ]
 
         this.mapa_atual = this.maps[level[0]][level[1]]
+        this.objects = this.mapa_atual.objects
 
     }
 
     changeMap(direction){
+        let changed = false
 
         if (direction == 'right'){
-            console.log(this.levelAtual)
             if (this.maps[this.levelAtual[0]][this.levelAtual[1] + 1]){
                 this.levelAtual = [this.levelAtual[0], this.levelAtual[1] + 1]
-                this.mapa_atual = this.maps[this.levelAtual[0]][this.levelAtual[1]]
-                this.map.src = this.mapa_atual.sprite
-                this.enemies = this.createEnemies()
-                return true
+                changed = true
             }            
         }
         else if (direction == 'left'){
             if (this.maps[this.levelAtual[0]][this.levelAtual[1] - 1]){
                 this.levelAtual = [this.levelAtual[0], this.levelAtual[1] - 1]
-                this.mapa_atual = this.maps[this.levelAtual[0]][this.levelAtual[1]]
-                this.map.src = this.mapa_atual.sprite
-                this.enemies = this.createEnemies()
-                return true
+                changed = true
             }            
         }
         if (this.levelAtual[0] < this.maps.length -1)
             if (direction == 'down'){
-                console.log(this.levelAtual)
                 if (this.maps[this.levelAtual[0] + 1][this.levelAtual[1]]){
                     this.levelAtual = [this.levelAtual[0] + 1, this.levelAtual[1]]
-                    this.mapa_atual = this.maps[this.levelAtual[0]][this.levelAtual[1]]
-                    this.map.src = this.mapa_atual.sprite
-                    this.enemies = this.createEnemies()
-                    return true
+                    changed = true
                 }            
             }
         if (this.levelAtual[0] > 0){
             if (direction == 'up'){
                 if (this.maps[this.levelAtual[0] - 1][this.levelAtual[1]]){
                     this.levelAtual = [this.levelAtual[0] - 1, this.levelAtual[1]]
-                    this.mapa_atual = this.maps[this.levelAtual[0]][this.levelAtual[1]]
-                    this.map.src = this.mapa_atual.sprite
-                    this.enemies = this.createEnemies()
-                    return true
+                    changed = true
                 }
                 
             }
+        }
+        if (changed){            
+            this.mapa_atual = this.maps[this.levelAtual[0]][this.levelAtual[1]]
+            this.map.src = this.mapa_atual.sprite
+            this.enemies = this.createEnemies()
+            this.objects = this.mapa_atual.objects
+            return true
         }
         return false
 
@@ -95,4 +96,8 @@ export class Map{
         }
         return(createdEnemies)
     };
+
+    update(playerPos, canvas){
+        
+    }
 }

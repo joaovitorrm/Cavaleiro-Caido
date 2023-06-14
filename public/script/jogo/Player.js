@@ -116,24 +116,26 @@ export class Player extends Entity{
             }
         }
     }
-    
-
-    checkCollisions(canvas, enemies){
-
+    checkScreenCollisions(canvas){
         if (this.controls[this.key] != undefined){
             // Checa colisão com a tela
             if (this.checkScreenCollision(canvas, this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)){
                 this.controls[this.key].call(this, -this.config.speed)
             }
-
-            // Checa colisão com os inimigos
-            for (let e of enemies){
-                if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, e.x, e.y, e.w, e.h)){
-                    this.controls[this.key].call(this, -this.config.speed)
-
-                }
-            }
         }
+    }
+
+    checkCollisions(e){
+        if (this.controls[this.key] != undefined){
+            // Checa colisão com os inimigos
+            if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, e.x, e.y, e.w, e.h)){
+                this.controls[this.key].call(this, -this.config.speed)
+                return true
+            }
+            return false
+            
+        }
+
     }
     // Desenha o player na tela
     

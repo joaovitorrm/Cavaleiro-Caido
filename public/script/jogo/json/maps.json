@@ -5,8 +5,28 @@
             ["slime", [100, 100, 50, 50]],
             ["slime", [500, 500, 100, 100]], 
             ["goblin", [500, 600, 80, 100]],
-            ["dummy", [50, 200, 80, 80]]]
-    },
+            ["dummy", [50, 200, 80, 80]]],
+        "objects": 
+            {
+                "doorLeft": {
+                    "pos": {"x": 60, "y": 300, "w": 100, "h": 150},
+                    "sprite": "../../images/sprites/objetos/doors/doorLeft.png"
+                }, 
+                "doorDown": {
+                    "pos": {"x": 590, "y": 500, "w": 150, "h": 100},
+                    "sprite": "../../images/sprites/objetos/doors/doorDown.png"
+                },           
+                "chest": {
+                    "pos": {"x": 290, "y": 300, "w": 100, "h": 30},
+                    "sprite": "../../images/icones/casa.png"
+                },
+                "doorRight": {
+                    "pos": {"x": 1120, "y": 300, "w": 100, "h": 150},
+                    "sprite": "../../images/sprites/objetos/doors/doorRight.png"
+                }
+            }
+        },
+    
 
     "mapa2": {
         "sprite": "../../images/sprites/mapas/mapa2.png",
@@ -14,7 +34,8 @@
             ["slime", [100, 100, 50, 50]],
             ["slime", [500, 500, 100, 100]], 
             ["goblin", [500, 600, 80, 100]],
-            ["dummy", [50, 400, 80, 80]]]
+            ["dummy", [50, 400, 80, 80]],
+            ["fantasma", [800, 600, 80, 80]]]
     },
 
     "mapa3": {
@@ -27,7 +48,26 @@
         "sprite": "../../images/sprites/mapas/mapa4.png",
         "enemies": [
             ["dummy", [50, 10, 80, 80]],
-            ["cavaleiro_boss", [1000, 200, 200, 250]]]
+            ["cavaleiro_boss", [1000, 200, 200, 250]]],
+            "objects": 
+            {
+                "doorLeft": {
+                    "pos": {"x": 60, "y": 300, "w": 100, "h": 150},
+                    "sprite": "../../images/sprites/objetos/doors/doorLeft.png"
+                }, 
+                "doorDown": {
+                    "pos": {"x": 590, "y": 500, "w": 150, "h": 100},
+                    "sprite": "../../images/sprites/objetos/doors/doorDown.png"
+                },           
+                "doorUp": {
+                    "pos": {"x": 290, "y": 300, "w": 100, "h": 30},
+                    "sprite": "../../images/sprites/objetos/doors/doorUp.png"
+                },
+                "doorRight": {
+                    "pos": {"x": 1120, "y": 300, "w": 100, "h": 150},
+                    "sprite": "../../images/sprites/objetos/doors/doorRight.png"
+                }
+            }
     },
 
     "mapa5": {
@@ -35,5 +75,37 @@
         "enemies": [
             ["slime", [50, 50, 50, 50]],
             ["goblin", [50, 50, 50, 50]]]
-    }
+    },
+    "mapa6": {
+        "sprite": "../../images/sprites/mapas/mapa6.png",
+        "enemies": [
+            ["slime", [450, 350, 100, 100]],
+            ["slime", [250, 50, 50, 50]],
+            ["goblin", [550, 300, 55, 55]]
+        ]
+    },
+    "mapa7": {
+        "sprite": "../../images/sprites/mapas/mapa1.png",
+        "enemies": [
+            ["slime", [100, 100, 50, 50]],
+            ["slime", [500, 500, 100, 100]], 
+            ["goblin", [500, 600, 80, 100]],
+            ["dummy", [50, 200, 80, 80]]],
+        "objects": 
+            {
+                "door": {
+                    "pos": {"x": 60, "y": 300, "w": 100, "h": 100},
+                    "sprite": "../../images/icones/entrar_1.png"
+                },            
+                "chest": {
+                    "pos": {"x": 300, "y": 300, "w": 250, "h": 250},
+                    "sprite": "../../images/icones/casa.png"
+                },
+                "door2": {
+                    "pos": {"x": 1120, "y": 300, "w": 100, "h": 100},
+                    "sprite": "../../images/icones/entrar_1.png"
+                }
+            }
+        }
+
 }

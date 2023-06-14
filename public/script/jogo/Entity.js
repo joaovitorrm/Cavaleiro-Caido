@@ -1,65 +1,12 @@
 import { Enemy } from "./Enemy.js";
-import enemies from './enemies.json' assert {type: 'json'}
+
+import enemiesJson from './json/enemies.json' assert {type: 'json'}
 
 export class Entity{
   // Definições das entidades
   constructor(){
-    
-    this.entities = { //valor concedido de exp ao morrer é o currentExp
-      'player': {
-        armor: 0,
-        magicResistance: 0,
-        maxHealth: 150,
-        currentHealth: 150,
-        speed: 10,
-        physicalDamage: 2,
-        magicDamage: 0
-      },
-      'slime': {
-        sprite: '../../images/sprites/enemies/slime.png',
-        armor: 0,
-        magicResistance: 0,
-        maxHealth: 10,
-        currentHealth: 10,
-        speed: 2,
-        physicalDamage: 2,
-        magicDamage: 0
-      },
-      'goblin': {
-        sprite: '../../images/sprites/enemies/goblin.png',
-        armor: 0,
-        magicResistance: 0,
-        maxHealth: 20,
-        currentHealth: 10,
-        speed: 4,
-        physicalDamage: 5,
-        magicDamage: 0
-      },
-      'dummy': {
-        sprite: '../../images/icones/tutorial.png',
-        armor: 0,
-        magicResistance: 0,
-        maxHealth: 100,
-        currentHealth: 10,
-        speed: 0,
-        physicalDamage: 0,
-        magicDamage: 0
-      },
-      'cavaleiro_boss': {
-        sprite: '../../images/sprites/enemies/cavaleiro_real.png',
-        armor: 0,
-        magicResistance: 0,
-        maxHealth: 1500,
-        currentHealth: 1500,
-        speed: 0,
-        physicalDamage: 10,
-        magicDamage: 0
-      }
-      
-      
-    }
-  console.log(enemies)
-  console.log(this.entities['slime'])
+    this.enemies = []
+    this.entities = enemiesJson
   }
   
   move_up(speed){

@@ -22,7 +22,6 @@ addEventListener('load', function(){
     // classe principal que interliga as outras classes
     class Game{
         constructor(width, height){
-            this.level = 0
             this.width = width;
             this.height = height;
             this.player = new Player(this);
@@ -40,22 +39,27 @@ addEventListener('load', function(){
         }
 
         update(can){
-            
-            if(this.map.mapa_atual >= 1){
-            //trocar tela esquerda
-                if(this.player.x + this.player.w <= 100 && this.player.y + this.player.h <=canvas.height/2 +100 && this.player.y + this.player.h >=canvas.height/2 -100){
-                    this.level -= 1
-                    this.map = new Map(this, this.level);  
-                    //this.map.map.src = this.map.maps[this.map.mapa_atual].sprite
-                    this.player.x = 1100
+            if (this.player.x > canvas.width - 100){
+                
+                if (this.map.changeMap('right')){
+                    this.player.x = 50;
+                };
+            }
+            if (this.player.x < 20){                
+                if (this.map.changeMap('left')){
+                    this.player.x = canvas.width - 150;
                 }
             }
-            //trocar tela direita
-            if(this.player.x + this.player.w >= canvas.width && this.player.y + this.player.h <=canvas.height/2 +100 && this.player.y + this.player.h >=canvas.height/2 -100){
-                this.level +=1
-                this.map = new Map(this, this.level);
-                //this.map.map.src = this.map.maps[this.map.mapa_atual].sprite
-                this.player.x = 15
+            if (this.player.y > canvas.height - 100){
+                
+                if (this.map.changeMap('down')){
+                    this.player.y = 50;
+                }
+            }
+            if (this.player.y < 20){                
+                if (this.map.changeMap('up')){
+                    this.player.y = canvas.height - 150;
+                }
             }
 
             if (this.input.key == 'Escape'){

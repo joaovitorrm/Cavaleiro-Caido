@@ -80,7 +80,7 @@ export class Entity{
 
   //método que checa a colisão com a parede
   checkScreenCollision(canvas, xa, ya, wa, ha){
-    if(xa < 0 || xa + wa > canvas.width || ya < 0 || ya + ha > canvas.height){
+    if(xa < 0 + 150 || xa + wa > canvas.width - 150 || ya < 0 + 100|| ya + ha > canvas.height - 100){
       return true;
     }
     return false;

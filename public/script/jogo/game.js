@@ -39,28 +39,6 @@ addEventListener('load', function(){
         }
 
         update(can){
-            /*
-            if (this.player.x > canvas.width){                
-                if (this.map.changeMap('right')){
-                    this.player.x = canvas.width/8;
-                };
-            }
-            else if (this.player.x < 20){                
-                if (this.map.changeMap('left')){
-                    this.player.x = canvas.width-canvas.width/6;
-                }
-            }
-            else if (this.player.y > canvas.height - 100){            
-                if (this.map.changeMap('down')){
-                    this.player.y = canvas.height/8;
-                }
-            }
-            else if (this.player.y < 20){                
-                if (this.map.changeMap('up')){
-                    this.player.y = canvas.height - canvas.height/4;
-                }
-            }
-            */
             if (this.input.key == 'Escape'){
                 playing = false
             }
@@ -74,38 +52,47 @@ addEventListener('load', function(){
             }
 
             this.player.update(this.map.enemies);
-            this.player.checkScreenCollisions(can)
             for (let x of this.map.enemies){
                 this.player.checkCollisions(x)
             }
             for (let x in this.map.objects){
-                console.log(this.map.objects[x])
                 if(this.player.checkCollisions(this.map.objects[x].pos)){
                     if(x =="doorUp"){
-                        this.map.changeMap('up')
-                        return
+                        if (this.map.changeMap('up')){
+                            this.player.y = canvas.height - canvas.height/3
+                            return
+                        }
+                        
                     }
                     else if(x=="doorRight"){
-                        this.map.changeMap('right')
-                        return
+                        if (this.map.changeMap('right')){
+                            this.player.x = canvas.width/8;
+                            return
+                        }
+                        
                     }
                     else if(x=="doorLeft"){
-                        this.map.changeMap('left')
-                        return
+                        if (this.map.changeMap('left')){
+                            this.player.x = canvas.width-canvas.width/6;
+                            return
+                        }
+                        
                     }
                     else if(x=="doorDown"){
-                        this.map.changeMap('down')  
-                        return 
+                        if (this.map.changeMap('down')){
+                            this.player.y = canvas.height/7;
+                            return
+                        }                        
+                         
                     }
                     else{
                         return
                     }
                 }
-
             }
+
             
-
-
+            this.player.checkScreenCollisions(can)
         }
         draw(context){
             this.map.draw(context)

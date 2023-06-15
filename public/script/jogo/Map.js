@@ -1,6 +1,7 @@
 import { Entity } from './Entity.js'
 import { Enemy } from './Enemy.js';
 import maps from './json/maps.json' assert {type: 'json'}
+import objects from './json/objects.json' assert {type: 'json'}
 
 export class Map{
     constructor(game, level=[1, 1]){
@@ -34,15 +35,37 @@ export class Map{
     };
 
     createMap(level){
+
         this.maps = [
-
-            [maps.mapa1, maps.mapa2, maps.mapa6],
-            [maps.mapa3, maps.mapa4, maps.mapa3],
-            [maps.mapa5, maps.mapa7]
-
+            [{...maps.mapa1}, {...maps.mapa2}, {...maps.mapa3}],
+            [{...maps.mapa4}, {...maps.mapa5}, {...maps.mapa5}],
+            [{...maps.mapa7}, {...maps.mapa1}]
         ]
+        
+        for (let y of this.maps){            
+            for (let x of y){
+                x.objects = {}
+                if (this.maps[this.maps.indexOf(y) - 1]){
+                    if (this.maps[this.maps.indexOf(y) - 1][y.indexOf(x)]){
+                        x.objects["doorUp"] = objects.doors.doorUp;
+                    }
+                    
+                }
+                if (this.maps[this.maps.indexOf(y) + 1]){
+                    if (this.maps[this.maps.indexOf(y) + 1][y.indexOf(x)]){
+                        x.objects["doorDown"] = objects.doors.doorDown;
+                    }                    
+                }
+                if (y[y.indexOf(x) - 1]){
+                    x.objects["doorLeft"] = objects.doors.doorLeft;
+                }
+                if (y[y.indexOf(x) + 1]){
+                    x.objects["doorRight"] = objects.doors.doorRight;
+                }                                
+            }
+        }        
 
-        this.mapa_atual = this.maps[level[0]][level[1]]
+        this.mapa_atual = this.maps[level[0]][level[1]]        
         this.objects = this.mapa_atual.objects
 
     }

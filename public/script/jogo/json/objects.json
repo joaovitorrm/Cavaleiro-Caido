@@ -1,0 +1,20 @@
+{
+    "doors": {
+        "doorLeft": {
+            "pos": {"x": 55, "y": 300, "w": 100, "h": 100},
+            "sprite": "../../images/sprites/objetos/doors/doorLeft.png"
+        }, 
+        "doorDown": {
+            "pos": {"x": 580, "y": 610, "w": 100, "h": 100},
+            "sprite": "../../images/sprites/objetos/doors/doorDown.png"
+        },           
+        "doorUp": {
+            "pos": {"x": 580, "y": 35, "w": 100, "h": 100},
+            "sprite": "../../images/sprites/objetos/doors/doorUp.png"
+        },
+        "doorRight": {
+            "pos": {"x": 1135, "y": 300, "w": 100, "h": 100},
+            "sprite": "../../images/sprites/objetos/doors/doorRight.png"
+        }
+    }
+}

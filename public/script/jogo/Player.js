@@ -44,7 +44,7 @@ export class Player extends Entity{
         };
 
         this.x = 200;
-        this.y = 20;
+        this.y = 120;
         this.w = 100;
         this.h = 100;
 

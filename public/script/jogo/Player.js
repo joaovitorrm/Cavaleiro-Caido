@@ -8,6 +8,7 @@ export class Player extends Entity{
     constructor(game){
         super(Entity)
         this.game = game
+
         // Pegar os inputs do jogador
         this.input = new InputHandler()
 
@@ -28,20 +29,18 @@ export class Player extends Entity{
             's': this.move_down,
             'd': this.move_right,
             'e': this.set_skin,
-            //'': this.swapstats,
         }
 
-        // Config Player 
-        this.config = { 
-            physicalDamage: this.entities['player'].physicalDamage,
-            speed: this.entities['player'].speed,
-            maxHealth: this.entities['player'].maxHealth,
-            currentHealth: this.entities['player'].currentHealth,
-            armor: this.entities['player'].armor,
-            magicResistance: this.entities['player'].magicResistance,
-            magicDamage: this.entities['player'].magicDamage,
-            
-        };
+        // Config Player         
+        this.config = {
+            armor: 0,
+            magicResistance: 0,
+            maxHealth: 150,
+            currentHealth: 150,
+            speed: 10,
+            physicalDamage: 2,
+            magicDamage: 0
+        },
 
         this.x = 200;
         this.y = 120;
@@ -137,8 +136,7 @@ export class Player extends Entity{
         }
 
     }
-    // Desenha o player na tela
-    
+    // Desenha o player na tela    
     draw(context) {
         this.drawLife(context)
         context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h);

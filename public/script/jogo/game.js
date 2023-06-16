@@ -7,7 +7,6 @@ import { Player } from './Player.js';
 
 // roda após as imagens serem carregadas
 addEventListener('load', function(){
-    var playing = true
     // elemento botão
     const play = document.getElementById('playButton');
     // elemento descricao
@@ -25,28 +24,27 @@ addEventListener('load', function(){
         constructor(width, height){
             this.width = width;
             this.height = height;
+
             this.player = new Player(this);
-            this.player2 = new Player(this)
             this.input = new InputHandler(this);
             this.map = new Map(this);
-            this.map.createMap([1, 1])
-            this.entity = new Entity();
-            /*// tests
-            this.entity.createEnemy('slime', 100, 100, 50, 50);
-            this.entity.createEnemy('slime', 500, 500, 100, 100);
-            this.entity.createEnemy('goblin', 500, 500, 80, 100);
-            this.entity.createEnemy('dummy', 50, 200, 80, 80);
-            this.entity.createEnemy('cavaleiro_boss', 1000, 200, 200, 250);
-            */
+            this.entity = new Entity(this);
+            
+            this.map.createMap([1, 1]);
+            this.enemies = [];
         }
 
-        update(can){
+        checkInput(){
             if (this.input.key == 'Escape'){
                 playing = false
             }
             if (this.input.key == 'f'){
                 canvas.requestFullscreen()
             }
+        }
+
+        update(can){
+            this.checkInput()
             
             for (let e of this.map.enemies){
                 e.update()
@@ -64,28 +62,24 @@ addEventListener('load', function(){
                             this.player.y = canvas.height - canvas.height/3
                             return
                         }
-                        
                     }
                     else if(x=="doorRight"){
                         if (this.map.changeMap('right')){
                             this.player.x = canvas.width/8;
                             return
                         }
-                        
                     }
                     else if(x=="doorLeft"){
                         if (this.map.changeMap('left')){
                             this.player.x = canvas.width-canvas.width/6;
                             return
                         }
-                        
                     }
                     else if(x=="doorDown"){
                         if (this.map.changeMap('down')){
                             this.player.y = canvas.height/7;
                             return
-                        }                        
-                         
+                        }
                     }
                     else{
                         return
@@ -109,20 +103,23 @@ addEventListener('load', function(){
     
     // ação do botão html
     play.onclick = () => {
-        playing = true;
+
         // remove o botão
         play.style.display = 'none'
         descricao.style.display = 'none'
         // faz o canvas ser visível
         canvas.style.display = 'inline-block'
+
         // loop principal
-        const game = new Game(canvas.width, canvas.height)                    
-        function animate(){      
+        var playing = true;
+        const game = new Game(canvas.width, canvas.height)
+
+        function animate(){
             if (playing){          
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
-            game.update(canvas);
-            game.draw(ctx);
-            requestAnimationFrame(animate)
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                game.update(canvas);
+                game.draw(ctx);
+                requestAnimationFrame(animate)
             } else {
                 play.style.display = 'block'
                 descricao.style.display = 'flex'

@@ -10,16 +10,6 @@
         "magicDamage": 0
     },
 
-    "player": {
-        "armor": 0,
-        "magicResistance": 0,
-        "maxHealth": 150,
-        "currentHealth": 150,
-        "speed": 10,
-        "physicalDamage": 2,
-        "magicDamage": 0
-    },
-
     "goblin": {
         "sprite": "../../images/sprites/enemies/goblin.png",
         "armor": 0,

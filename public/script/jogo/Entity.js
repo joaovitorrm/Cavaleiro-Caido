@@ -1,52 +1,34 @@
 import { Enemy } from "./Enemy.js";
-
+import { Utils } from "./Utils.js";
 import enemiesJson from './json/enemies.json' assert {type: 'json'}
 
 export class Entity{
   // Definições das entidades
-  constructor(){
-    this.enemies = []
-    this.entities = enemiesJson
+  constructor(game){
+    this.game = game;
+    this.utils = new Utils();
+    this.entities = enemiesJson;
   }
   
   move_up(speed){
     this.y -= speed;
   }
   move_down(speed){
-      this.y += speed;
+    this.y += speed;
   }
   move_left(speed){
-      this.x -= speed;
+    this.x -= speed;
   }
   move_right(speed){
-      this.x += speed;
-  }
-
-
-  drawText(context,text, x, y, color="rgb(255,255,255)") {
-    context.fillStyle = color;
-    context.fillText(text, x, y);
-  }
-  drawStrokedText(context, text, x, y) {
-    context.fillStyle = "rgb(0,0,0)";
-    context.fillText(text, x - 1, y - 1);
-    context.fillText(text, x + 1, y - 1);
-    context.fillText(text, x - 1, y);
-    context.fillText(text, x + 1, y);
-    context.fillText(text, x - 1, y + 1);
-    context.fillText(text, x + 1, y + 1);
-    this.drawText(context, text, x, y)
+    this.x += speed;
   }
 
   drawLife(context){
-    if(this.currentHealth <= 0){
-      return
-    }
     context.fillStyle = "red";
     context.fillRect(this.x, this.y, this.w, this.h / 10);
     context.fillStyle = "green";
     context.fillRect(this.x, this.y, 1 / (this.config.maxHealth / this.config.currentHealth) * this.w, this.h / 10);
-    this.drawStrokedText(context, `${this.config.currentHealth}/${this.config.maxHealth}`, this.x + 5, this.y - 5);
+    this.utils.drawStrokedText(context, `${this.config.currentHealth}/${this.config.maxHealth}`, this.x + 5, this.y - 5);
   }
 
   dealDamage(source, target, who="both", amount=source.config.physicalDamage){
@@ -66,8 +48,6 @@ export class Entity{
         source.config.currentHealth = source.config.currentHealth - target.config.physicalDamage
         break;
     }
-
-
   }
 
   // método que checa a colisão com <entity> em relação ao player

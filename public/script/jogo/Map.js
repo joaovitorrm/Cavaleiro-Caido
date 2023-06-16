@@ -25,24 +25,23 @@ export class Map{
     draw(context){
         context.drawImage(this.mapaAtual.sprite, this.x, this.y, this.w, this.h);
         for (const [y, x] of Object.entries(this.objects)) {
-            console.log(x)
             context.drawImage(x.img, x.pos.x, x.pos.y, x.pos.w, x.pos.h)
-        }
-        
+        }        
     };
 
     createMap(level){
 
         // {...} => Cria uma cópia do json
         this.mapsLayout = [
-            [{"map": this.mapsJSON.mapa1, "objects": {}}, {"map": this.mapsJSON.mapa2, "objects": {}}, {"map": this.mapsJSON.mapa7, "objects": {}}],
-            [{"map": this.mapsJSON.mapa3, "objects": {}}, {"map": this.mapsJSON.mapa4, "objects": {}}, {"map": this.mapsJSON.mapa1, "objects": {}}],
-            [{"map": this.mapsJSON.mapa5, "objects": {}}, {"map": this.mapsJSON.mapa6, "objects": {}}, {"map": this.mapsJSON.mapa1, "objects": {}}]
+            [{"map": this.mapsJSON.mapa1, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa2, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa7, "objects": {}, "enemies": []}],
+            [{"map": this.mapsJSON.mapa3, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa4, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa1, "objects": {}, "enemies": []}],
+            [{"map": this.mapsJSON.mapa5, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa6, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa1, "objects": {}, "enemies": []}]
         ]
 
         // Criação das portas
         this.mapsLayout.forEach((y, indexY) => {
             y.forEach((x, indexX) => {
+
                 // Adiciona os objetos do maps.json
                 for (const [objName, objConfig] of Object.entries(x.map.objects)){
                     this.mapsLayout[indexY][indexX].objects[objName] = objConfig
@@ -51,75 +50,61 @@ export class Map{
                     this.mapsLayout[indexY][indexX].objects[objName]["img"] = img;
                 }
 
-                // Adicionar as portas dinamicas
+                // Adiciona os inimigos do maps.json
+                for (const e of x.map.enemies){
+                    x.enemies.push(e)
+                }
+
+                // Adiciona as portas dinamicas
+                let doors = []
                 if (this.mapsLayout[indexY - 1]){
                     if (this.mapsLayout[indexY - 1][indexX]){
-                        x.objects["doorUp"] = this.objectsJSON.doors.doorUp;
-                        let img = new Image();
-                        img.src = this.objectsJSON.doors.doorUp.sprite;
-                        x.objects["doorUp"]["img"] = img;
-                    }
-                }
+                        doors.push("doorUp")}}
+
                 if (this.mapsLayout[indexY + 1]){
                     if (this.mapsLayout[indexY + 1][indexX]){
-                        x.objects["doorDown"] = this.objectsJSON.doors.doorDown;
-                        let img = new Image();
-                        img.src = this.objectsJSON.doors.doorDown.sprite;
-                        x.objects["doorDown"]["img"] =  img;
-                    }
-                }
+                        doors.push("doorDown")}}
+
                 if (y[indexX - 1]){
-                    x.objects["doorLeft"] = this.objectsJSON.doors.doorLeft;
-                    let img = new Image();
-                    img.src = this.objectsJSON.doors.doorLeft.sprite;
-                    x.objects["doorLeft"]["img"] =  img;
-                }
+                    doors.push("doorLeft")}
+                    
                 if (y[indexX + 1]){
-                    x.objects["doorRight"] = this.objectsJSON.doors.doorRight;
+                    doors.push("doorRight")}
+                
+                for (let d of doors){
+                    x.objects[d] = this.objectsJSON.doors[d];
                     let img = new Image();
-                    img.src = this.objectsJSON.doors.doorRight.sprite;
-                    x.objects["doorRight"]["img"] =  img;
+                    img.src = this.objectsJSON.doors[d].sprite;
+                    x.objects[d]["img"] =  img;
                 }
             })
-        })        
-                
-        this.enemies = this.createEnemies()
+        })
+        
         this.mapaAtual.map = this.mapsLayout[level[0]][level[1]].map
         this.mapaAtual.sprite.src = this.mapaAtual.map.sprite
         this.objects = this.mapsLayout[level[0]][level[1]].objects
+        this.enemies = this.createEnemies()
     }
 
     changeMap(direction){
-        let changed = false
+        let changed = true
 
         if (direction == 'right'){
-            if (this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1] + 1]){
-                this.mapaAtual.level = [this.mapaAtual.level[0], this.mapaAtual.level[1] + 1]
-                changed = true
-            }            
+            this.mapaAtual.level = [this.mapaAtual.level[0], this.mapaAtual.level[1] + 1]
         }
         else if (direction == 'left'){
-            if (this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1] - 1]){
-                this.mapaAtual.level = [this.mapaAtual.level[0], this.mapaAtual.level[1] - 1]
-                changed = true
-            }            
+            this.mapaAtual.level = [this.mapaAtual.level[0], this.mapaAtual.level[1] - 1]
         }
-        if (this.mapaAtual.level[0] < this.mapsLayout.length -1)
-            if (direction == 'down'){
-                if (this.mapsLayout[this.mapaAtual.level[0] + 1][this.mapaAtual.level[1]]){
-                    this.mapaAtual.level = [this.mapaAtual.level[0] + 1, this.mapaAtual.level[1]]
-                    changed = true
-                }            
-            }
-        if (this.mapaAtual.level[0] > 0){
-            if (direction == 'up'){
-                if (this.mapsLayout[this.mapaAtual.level[0] - 1][this.mapaAtual.level[1]]){
-                    this.mapaAtual.level = [this.mapaAtual.level[0] - 1, this.mapaAtual.level[1]]
-                    changed = true
-                }
-                
-            }
+        else if (direction == 'down'){
+            this.mapaAtual.level = [this.mapaAtual.level[0] + 1, this.mapaAtual.level[1]]
         }
+        else if (direction == 'up'){
+            this.mapaAtual.level = [this.mapaAtual.level[0] - 1, this.mapaAtual.level[1]]
+        }
+        else {
+            changed = false
+        }
+        
         if (changed){
             this.mapaAtual.map = this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]].map
             this.mapaAtual.sprite.src = this.mapaAtual.map.sprite
@@ -128,18 +113,13 @@ export class Map{
             return true
         }
         return false
-
     }
 
     createEnemies(){
         let createdEnemies = [];
-        for (let x of this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]]["map"]["enemies"]){
-            createdEnemies.push(new Enemy(this.entities.entities[x[0]], x[1][0], x[1][1], x[1][2], x[1][3]))
+        for (const x of this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]]["enemies"]){
+            createdEnemies.push(new Enemy(this.entities.entities[x.sprite], x.pos.x, x.pos.y, x.pos.w, x.pos.h))
         }
         return(createdEnemies)
-    };
-
-    update(playerPos, canvas){
-        
     }
-};
+}

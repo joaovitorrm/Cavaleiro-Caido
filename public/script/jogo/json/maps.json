@@ -2,10 +2,10 @@
     "mapa1": {
         "sprite": "../../images/sprites/mapas/mapa1.png",
         "enemies": [
-            ["slime", [100, 100, 50, 50]],
-            ["slime", [500, 500, 100, 100]], 
-            ["goblin", [500, 600, 80, 100]],
-            ["dummy", [50, 200, 80, 80]]],
+            {"sprite": "slime", "pos": {"x": 300, "y": 300, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 500, "y": 500, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 300, "y": 200, "w": 50, "h": 50}}
+        ],
         "objects":
             {
                 "stone": {
@@ -19,11 +19,10 @@
     "mapa2": {
         "sprite": "../../images/sprites/mapas/mapa2.png",
         "enemies": [
-            ["slime", [100, 100, 50, 50]],
-            ["slime", [500, 500, 100, 100]], 
-            ["goblin", [500, 600, 80, 100]],
-            ["dummy", [50, 400, 80, 80]],
-            ["fantasma", [800, 600, 80, 80]]],
+            {"sprite": "slime", "pos": {"x": 300, "y": 300, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 500, "y": 500, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 300, "y": 200, "w": 50, "h": 50}}
+        ],
         "objects": 
         {
         }
@@ -32,7 +31,10 @@
     "mapa3": {
         "sprite": "../../images/sprites/mapas/mapa3.png",
         "enemies": [
-            ["dummy", [50, 100, 80, 80]]],
+            {"sprite": "slime", "pos": {"x": 300, "y": 300, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 500, "y": 500, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 300, "y": 200, "w": 50, "h": 50}}
+        ],
         "objects": 
         {
         }
@@ -41,8 +43,10 @@
     "mapa4": {
         "sprite": "../../images/sprites/mapas/mapa4.png",
         "enemies": [
-            ["dummy", [50, 10, 80, 80]],
-            ["cavaleiro_boss", [800, 100, 200, 250]]],
+            {"sprite": "slime", "pos": {"x": 300, "y": 300, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 500, "y": 500, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 300, "y": 200, "w": 50, "h": 50}}
+        ],
         "objects": 
         {
         }
@@ -51,8 +55,10 @@
     "mapa5": {
         "sprite": "../../images/sprites/mapas/mapa5.png",
         "enemies": [
-            ["slime", [50, 50, 50, 50]],
-            ["goblin", [50, 50, 50, 50]]],
+            {"sprite": "slime", "pos": {"x": 300, "y": 300, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 500, "y": 500, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 300, "y": 200, "w": 50, "h": 50}}
+        ],
         "objects": 
             {
             }
@@ -60,9 +66,9 @@
     "mapa6": {
         "sprite": "../../images/sprites/mapas/mapa6.png",
         "enemies": [
-            ["slime", [450, 350, 100, 100]],
-            ["slime", [250, 50, 50, 50]],
-            ["goblin", [550, 300, 55, 55]]
+            {"sprite": "slime", "pos": {"x": 300, "y": 300, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 500, "y": 500, "w": 50, "h": 50}},
+            {"sprite": "slime", "pos": {"x": 300, "y": 200, "w": 50, "h": 50}}
         ],
         "objects": 
             {
@@ -71,10 +77,10 @@
     "mapa7": {
         "sprite": "../../images/sprites/mapas/mapa_novo_base.png",
         "enemies": [
-            ["slime", [100, 100, 50, 50]],
-            ["slime", [500, 500, 100, 100]], 
-            ["goblin", [500, 600, 80, 100]],
-            ["dummy", [50, 200, 80, 80]]],
+            {"sprite": "slime", "pos": {"x": 300, "y": 300, "w": 50, "h": 50}},
+            {"sprite": "goblin", "pos": {"x": 500, "y": 500, "w": 50, "h": 50}},
+            {"sprite": "fantasma", "pos": {"x": 300, "y": 200, "w": 50, "h": 50}}
+        ],
         "objects": 
             {   
             }

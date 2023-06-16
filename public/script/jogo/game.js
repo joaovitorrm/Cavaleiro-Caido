@@ -4,6 +4,7 @@ import { InputHandler } from './InputHandler.js';
 import { Map } from './Map.js';
 import { Player } from './Player.js';
 
+
 // roda após as imagens serem carregadas
 addEventListener('load', function(){
     var playing = true
@@ -27,7 +28,8 @@ addEventListener('load', function(){
             this.player = new Player(this);
             this.player2 = new Player(this)
             this.input = new InputHandler(this);
-            this.map = new Map(this, this.level);
+            this.map = new Map(this);
+            this.map.createMap([1, 1])
             this.entity = new Entity();
             /*// tests
             this.entity.createEnemy('slime', 100, 100, 50, 50);

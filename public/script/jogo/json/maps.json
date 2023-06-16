@@ -6,8 +6,12 @@
             ["slime", [500, 500, 100, 100]], 
             ["goblin", [500, 600, 80, 100]],
             ["dummy", [50, 200, 80, 80]]],
-        "objects": 
-            {                
+        "objects":
+            {
+                "stone": {
+                    "pos": {"x": 800, "y": 200, "w": 64, "h": 64},
+                    "sprite": "../../images/sprites/objetos/stones/stone1.png"
+                }
             }
         },
     
@@ -39,9 +43,9 @@
         "enemies": [
             ["dummy", [50, 10, 80, 80]],
             ["cavaleiro_boss", [800, 100, 200, 250]]],
-            "objects": 
-            {
-            }
+        "objects": 
+        {
+        }
     },
 
     "mapa5": {
@@ -65,7 +69,7 @@
             }
     },
     "mapa7": {
-        "sprite": "../../images/sprites/mapas/mapa1.png",
+        "sprite": "../../images/sprites/mapas/mapa_novo_base.png",
         "enemies": [
             ["slime", [100, 100, 50, 50]],
             ["slime", [500, 500, 100, 100]], 
@@ -74,6 +78,6 @@
         "objects": 
             {   
             }
-        }
+    }
 
 }

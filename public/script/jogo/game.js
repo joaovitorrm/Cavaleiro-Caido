@@ -44,47 +44,18 @@ addEventListener('load', function(){
             }
         }
 
-        update(can){
+        update(){
             this.checkInput()
-            
-            for (let e of this.enemies){
-                e.update()
-                e.checkCollision(can, this.player)
-            }
 
-            this.player.update(this.map.enemies);
-            
-            const enemyCollided =  this.player.checkCollisions(this.enemies, "enemies")
-            if (enemyCollided[0]){
-                const dead = this.player.attack(enemyCollided[1])
-                if (dead[0]){
-                    this.map.removeEnemy(dead[1])
-                }
-                this.player.cancelMove()
-            }
+            this.player.update(this.enemies);
 
-            const objectCollided = this.player.checkCollisions(this.map.objects, "objects")
-            if (objectCollided[0]){
-                if (this.map.doors.includes(objectCollided[1])){
-                    this.player = this.map.changeMap(objectCollided[1], this.player)
-                }
-                else {
-                    this.player.cancelMove()
-                }
-            }
-            
-            if (this.player.checkScreenCollisions()){
-                this.player.cancelMove()
-            }
+            this.enemies.forEach((e) => e.update())
         }
 
         draw(context){
             this.map.draw(context)
-            this.player.draw(context)
-            //draw em cada inimigo
-            for (let e of this.enemies){
-                e.draw(context)
-            }
+            this.player.draw(context)            
+            this.enemies.forEach((e) => e.draw(context))
         }
     }
     

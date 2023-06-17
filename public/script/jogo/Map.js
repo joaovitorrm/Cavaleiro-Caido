@@ -20,24 +20,23 @@ export class Map{
         this.mapsLayout = []; // Grid de mapas
         this.mapaAtual = {"map": "", "sprite": new Image(), "level": level}; // Definições do mapa        
         this.objects = {}; // Objetos na tela    
-        this.doors = ["doorUp", "doorRight", "doorDown", "doorLeft"] // Deficinição das portas
+        this.doors = ["doorUp", "doorRight", "doorDown", "doorLeft"] // Definição das portas
     }
 
     draw(context){
+        // Desenha o mapa na tela
         context.drawImage(this.mapaAtual.sprite, this.x, this.y, this.w, this.h);
+        // Desenha os objetos do mapa
         for (const [y, x] of Object.entries(this.objects)) {
             context.drawImage(x.img, x.pos.x, x.pos.y, x.pos.w, x.pos.h)
         }
     };
 
     removeEnemy(enemyIndex){
-        this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]]["enemies"].splice(
-            this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]]["enemies"].indexOf(enemyIndex), 1)
+        this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]]["enemies"].splice(enemyIndex, 1)
     }
 
     createMap(level){
-
-        // {...} => Cria uma cópia do json
         this.mapsLayout = [
             [{"map": this.mapsJSON.mapa1, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa2, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa7, "objects": {}, "enemies": []}],
             [{"map": this.mapsJSON.mapa3, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa4, "objects": {}, "enemies": []}, {"map": this.mapsJSON.mapa1, "objects": {}, "enemies": []}],
@@ -92,37 +91,37 @@ export class Map{
         this.game.enemies = this.createEnemies()
     }
 
-    changeMap(direction, player){
-        const newPlayer = player
+    changeMap(direction, playerPos){
+        const newPlayerPos = playerPos
 
         if (direction == 'doorRight'){
             this.mapaAtual.level = [this.mapaAtual.level[0], this.mapaAtual.level[1] + 1]
-            newPlayer.x = this.game.canvas.width/8;
+            newPlayerPos[0] = this.game.canvas.width/8;
         }
         else if (direction == 'doorLeft'){
             this.mapaAtual.level = [this.mapaAtual.level[0], this.mapaAtual.level[1] - 1]            
-            newPlayer.x = this.game.canvas.width - this.game.canvas.width/6;
+            newPlayerPos[0] = this.game.canvas.width - this.game.canvas.width/5;
         }
         else if (direction == 'doorDown'){
             this.mapaAtual.level = [this.mapaAtual.level[0] + 1, this.mapaAtual.level[1]]
-            newPlayer.y = this.game.canvas.height/7;
+            newPlayerPos[1] = this.game.canvas.height/6;
         }
         else if (direction == 'doorUp'){
             this.mapaAtual.level = [this.mapaAtual.level[0] - 1, this.mapaAtual.level[1]]
-            newPlayer.y = this.game.canvas.height - this.game.canvas.height/3
+            newPlayerPos[1] = this.game.canvas.height - this.game.canvas.height/3
         }
 
         this.mapaAtual.map = this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]].map
         this.mapaAtual.sprite.src = this.mapaAtual.map.sprite
         this.game.enemies = this.createEnemies()            
         this.objects = this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]].objects
-        return newPlayer
+        return newPlayerPos
     }
 
     createEnemies(){
         let createdEnemies = [];
         for (const x of this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]]["enemies"]){
-            createdEnemies.push(new Enemy(this.entities.entities[x.sprite], x.pos.x, x.pos.y, x.pos.w, x.pos.h))
+            createdEnemies.push(new Enemy(this.game, this.entities.entities[x.sprite], x.pos.x, x.pos.y, x.pos.w, x.pos.h))
         }
         return(createdEnemies)
     }

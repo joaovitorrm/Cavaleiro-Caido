@@ -1,9 +1,11 @@
 import { Entity } from './Entity.js'
 
 export class Enemy extends Entity{
-    constructor(config, x, y, w, h){
+    constructor(game, config, x, y, w, h){
         super(Entity)
         
+        this.game = game;
+
         this.config = { 
             sprite: config.sprite,
             physicalDamage: config.physicalDamage,
@@ -21,17 +23,16 @@ export class Enemy extends Entity{
         this.sprite.src = config.sprite;
     }
 
-    
-
     update() {
-        this.move_right(this.config.speed);
+        this.move_right(this.config.speed);        
+        this.checkCollision();
     }
 
-    checkCollision(canvas, player){
-        if (this.checkScreenCollision(canvas, this.x, this.y, this.w, this.h)){
+    checkCollision(){
+        if (this.checkScreenCollision(this.game.canvas, this.x, this.y, this.w, this.h)){
             this.config.speed *= -1;            
         }
-        if (this.check2Collision(player.x + player.hitbox_x, player.y + player.hitbox_y, player.hitbox_w, player.hitbox_h, this.x, this.y, this.w, this.h)){
+        if (this.check2Collision(this.game.player.x + this.game.player.hitbox_x, this.game.player.y + this.game.player.hitbox_y, this.game.player.hitbox_w, this.game.player.hitbox_h, this.x, this.y, this.w, this.h)){
             this.config.speed = 0;
             return;
         }

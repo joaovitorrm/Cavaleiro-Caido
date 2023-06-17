@@ -72,7 +72,7 @@ export class Player extends Entity{
         this.sprite_atual.src = this.sprites["skin" + '2']
     }
     
-    update(enemies){
+    update(){
 
         if(this.config.currentHealth <= 0){
             this.config.speed = 0
@@ -85,13 +85,44 @@ export class Player extends Entity{
         if (this.key in this.controls) {
             this.controls[this.key].call(this, this.config.speed)            
         }
+
+        // [Colidiu(true/false), No que colidiu, Inimigo ou Objeto]
+        const collided = this.checkCollisions()            
+        if (collided[0]){
+            if (collided[2] == "enemy"){
+
+                // Checa se morreu apos ser atacado
+                const checkDead = this.attack(collided[1])
+
+                // Se morreu, remove do mapa para sempre
+                if (checkDead[0]){
+                    this.game.map.removeEnemy(checkDead[1])
+                }
+            }
+            if (collided[2] == "object"){
+
+                // Checa se é uma porta
+                if (this.game.map.doors.includes(collided[1])){
+                    const newPos = this.game.map.changeMap(collided[1], [this.x, this.y])
+                    this.x = newPos[0]
+                    this.y = newPos[1]
+                }
+            }
+            // Para de mover o player caso tenha colidido
+            this.cancelMove()
+        }
+
+        if (this.checkScreenCollisions()){
+            this.cancelMove()
+        }
     }
 
     attack(e){        
         this.dealDamage(e,this)
         if(e.config.currentHealth <= 0){
-            this.game.enemies.splice(this.game.enemies.indexOf(e), 1)
-            return [true, this.game.enemies.indexOf(e)]
+            const index = this.game.enemies.indexOf(e)
+            this.game.map.removeEnemy(index)
+            this.game.enemies.splice(index, 1)
         }
         return false
     }
@@ -110,22 +141,24 @@ export class Player extends Entity{
         return false
     }
 
-    checkCollisions(collisions, type){
-        if (type=="enemies"){
-            for (const enemy of collisions){
+    checkCollisions(){
+        // Checa colisão com os inimigos
+        if (this.game.enemies.length > 0){
+            for (const enemy of this.game.enemies){
                 if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, enemy.x, enemy.y, enemy.w, enemy.h)){
-                    return [true, enemy]
+                    return [true, enemy, "enemy"]
                 }
             }
         }
-        // Checa colisão com os inimigos
-        if (type=="objects") {
-            for (const [name, value] of Object.entries(collisions)){
+        
+        // Checa colisão com os objetos
+        if (Object.keys(this.game.map.objects).length > 0){
+            for (const [name, value] of Object.entries(this.game.map.objects)){
                 if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, value.pos.x, value.pos.y, value.pos.w, value.pos.h)){                    
-                    return [true, name]
+                    return [true, name, "object"]
                 }
-            }            
-        }        
+            }
+        }
         return false
     }
 

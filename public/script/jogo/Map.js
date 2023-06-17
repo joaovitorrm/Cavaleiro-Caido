@@ -4,7 +4,8 @@ import objectsJSON from './json/objects.json' assert {type: 'json'}
 import mapsJSON from './json/maps.json' assert {type: 'json'}
 
 export class Map{    
-    constructor(game, level=[1, 1]){        
+    constructor(game, level=[1, 1]){
+        this.game = game
         this.entities = new Entity;
         this.mapsJSON = mapsJSON;
         this.objectsJSON = objectsJSON;
@@ -18,16 +19,21 @@ export class Map{
         // Configurações do mapa
         this.mapsLayout = []; // Grid de mapas
         this.mapaAtual = {"map": "", "sprite": new Image(), "level": level}; // Definições do mapa        
-        this.objects = {}; // Objetos na tela
-        this.enemies = []; // Lista de inimigos no mapa
+        this.objects = {}; // Objetos na tela    
+        this.doors = ["doorUp", "doorRight", "doorDown", "doorLeft"] // Deficinição das portas
     }
 
     draw(context){
         context.drawImage(this.mapaAtual.sprite, this.x, this.y, this.w, this.h);
         for (const [y, x] of Object.entries(this.objects)) {
             context.drawImage(x.img, x.pos.x, x.pos.y, x.pos.w, x.pos.h)
-        }        
+        }
     };
+
+    removeEnemy(enemyIndex){
+        this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]]["enemies"].splice(
+            this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]]["enemies"].indexOf(enemyIndex), 1)
+    }
 
     createMap(level){
 
@@ -83,36 +89,34 @@ export class Map{
         this.mapaAtual.map = this.mapsLayout[level[0]][level[1]].map
         this.mapaAtual.sprite.src = this.mapaAtual.map.sprite
         this.objects = this.mapsLayout[level[0]][level[1]].objects
-        this.enemies = this.createEnemies()
+        this.game.enemies = this.createEnemies()
     }
 
-    changeMap(direction){
-        let changed = true
+    changeMap(direction, player){
+        const newPlayer = player
 
-        if (direction == 'right'){
+        if (direction == 'doorRight'){
             this.mapaAtual.level = [this.mapaAtual.level[0], this.mapaAtual.level[1] + 1]
+            newPlayer.x = this.game.canvas.width/8;
         }
-        else if (direction == 'left'){
-            this.mapaAtual.level = [this.mapaAtual.level[0], this.mapaAtual.level[1] - 1]
+        else if (direction == 'doorLeft'){
+            this.mapaAtual.level = [this.mapaAtual.level[0], this.mapaAtual.level[1] - 1]            
+            newPlayer.x = this.game.canvas.width - this.game.canvas.width/6;
         }
-        else if (direction == 'down'){
+        else if (direction == 'doorDown'){
             this.mapaAtual.level = [this.mapaAtual.level[0] + 1, this.mapaAtual.level[1]]
+            newPlayer.y = this.game.canvas.height/7;
         }
-        else if (direction == 'up'){
+        else if (direction == 'doorUp'){
             this.mapaAtual.level = [this.mapaAtual.level[0] - 1, this.mapaAtual.level[1]]
+            newPlayer.y = this.game.canvas.height - this.game.canvas.height/3
         }
-        else {
-            changed = false
-        }
-        
-        if (changed){
-            this.mapaAtual.map = this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]].map
-            this.mapaAtual.sprite.src = this.mapaAtual.map.sprite
-            this.enemies = this.createEnemies()            
-            this.objects = this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]].objects
-            return true
-        }
-        return false
+
+        this.mapaAtual.map = this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]].map
+        this.mapaAtual.sprite.src = this.mapaAtual.map.sprite
+        this.game.enemies = this.createEnemies()            
+        this.objects = this.mapsLayout[this.mapaAtual.level[0]][this.mapaAtual.level[1]].objects
+        return newPlayer
     }
 
     createEnemies(){

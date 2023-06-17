@@ -21,17 +21,18 @@ addEventListener('load', function(){
 
     // classe principal que interliga as outras classes
     class Game{
-        constructor(width, height){
-            this.width = width;
-            this.height = height;
+        constructor(canvas){
+            this.canvas = canvas;
+            this.width = canvas.width;
+            this.height = canvas.height;
+            this.enemies = [];
 
             this.player = new Player(this);
             this.input = new InputHandler(this);
             this.map = new Map(this);
             this.entity = new Entity(this);
             
-            this.map.createMap([1, 1]);
-            this.enemies = [];
+            this.map.createMap([1, 1]);            
         }
 
         checkInput(){
@@ -46,58 +47,44 @@ addEventListener('load', function(){
         update(can){
             this.checkInput()
             
-            for (let e of this.map.enemies){
+            for (let e of this.enemies){
                 e.update()
                 e.checkCollision(can, this.player)
             }
 
             this.player.update(this.map.enemies);
-            for (let x of this.map.enemies){
-                this.player.checkCollisions(x)
-            }
-            for (let x in this.map.objects){
-                if(this.player.checkCollisions(this.map.objects[x].pos)){
-                    if(x =="doorUp"){
-                        if (this.map.changeMap('up')){
-                            this.player.y = canvas.height - canvas.height/3
-                            return
-                        }
-                    }
-                    else if(x=="doorRight"){
-                        if (this.map.changeMap('right')){
-                            this.player.x = canvas.width/8;
-                            return
-                        }
-                    }
-                    else if(x=="doorLeft"){
-                        if (this.map.changeMap('left')){
-                            this.player.x = canvas.width-canvas.width/6;
-                            return
-                        }
-                    }
-                    else if(x=="doorDown"){
-                        if (this.map.changeMap('down')){
-                            this.player.y = canvas.height/7;
-                            return
-                        }
-                    }
-                    else{
-                        return
-                    }
+            
+            const enemyCollided =  this.player.checkCollisions(this.enemies, "enemies")
+            if (enemyCollided[0]){
+                const dead = this.player.attack(enemyCollided[1])
+                if (dead[0]){
+                    this.map.removeEnemy(dead[1])
                 }
+                this.player.cancelMove()
             }
 
+            const objectCollided = this.player.checkCollisions(this.map.objects, "objects")
+            if (objectCollided[0]){
+                if (this.map.doors.includes(objectCollided[1])){
+                    this.player = this.map.changeMap(objectCollided[1], this.player)
+                }
+                else {
+                    this.player.cancelMove()
+                }
+            }
             
-            this.player.checkScreenCollisions(can)
+            if (this.player.checkScreenCollisions()){
+                this.player.cancelMove()
+            }
         }
+
         draw(context){
             this.map.draw(context)
             this.player.draw(context)
             //draw em cada inimigo
-            for (let e of this.map.enemies){
+            for (let e of this.enemies){
                 e.draw(context)
             }
-
         }
     }
     
@@ -112,10 +99,10 @@ addEventListener('load', function(){
 
         // loop principal
         var playing = true;
-        const game = new Game(canvas.width, canvas.height)
+        const game = new Game(canvas)
 
         function animate(){
-            if (playing){          
+            if (playing){
                 ctx.clearRect(0, 0, canvas.width, canvas.height)
                 game.update(canvas);
                 game.draw(ctx);

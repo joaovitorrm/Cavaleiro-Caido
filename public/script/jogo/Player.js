@@ -85,57 +85,50 @@ export class Player extends Entity{
         if (this.key in this.controls) {
             this.controls[this.key].call(this, this.config.speed)            
         }
-        //colisão "geral"
-        for (let e of enemies){
-            if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h,e.x, e.y, e.w, e.h)){
-                
-                if(e.config.currentHealth <= 0){
-                    e.sprite.src = '../../images/logos/whatsapp.jpg'
-                    e.config.speed = 0
-                    e.config.physicalDamage = 0
-                    e.h = 0
-                    e.w = 0
-                    e.x = -10
-                    e.y = -10
-                    /* teste remoção de inimigos do array ao matar
-                    console.log(enemies)
-                    enemies.splice(e, 1)
-                    console.log(enemies)
-                    */
-                    return
-                    
-                }
-                if((e.config.currentHealth <= 0)&&(e.config.sprite == '../../images/sprites/enemies/cavaleiro_real.png')){
-                    e.sprite.src = '../../images/logos/logo.png'
-                    return  
-                }
-                this.dealDamage(e,this)
-                return;
-
-            }
-        }
     }
-    checkScreenCollisions(canvas){
+
+    attack(e){        
+        this.dealDamage(e,this)
+        if(e.config.currentHealth <= 0){
+            this.game.enemies.splice(this.game.enemies.indexOf(e), 1)
+            return [true, this.game.enemies.indexOf(e)]
+        }
+        return false
+    }
+
+    cancelMove(){
         if (this.controls[this.key] != undefined){
-            // Checa colisão com a tela
-            if (this.checkScreenCollision(canvas, this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)){
-                this.controls[this.key].call(this, -this.config.speed)
-            }
+            this.controls[this.key].call(this, -this.config.speed)
         }
     }
 
-    checkCollisions(e){
-        if (this.controls[this.key] != undefined){
-            // Checa colisão com os inimigos
-            if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, e.x, e.y, e.w, e.h)){
-                this.controls[this.key].call(this, -this.config.speed)
-                return true
-            }
-            return false
-            
+    checkScreenCollisions(){
+        // Checa colisão com a tela
+        if (this.checkScreenCollision(this.game.canvas, this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h)){
+            return true
         }
-
+        return false
     }
+
+    checkCollisions(collisions, type){
+        if (type=="enemies"){
+            for (const enemy of collisions){
+                if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, enemy.x, enemy.y, enemy.w, enemy.h)){
+                    return [true, enemy]
+                }
+            }
+        }
+        // Checa colisão com os inimigos
+        if (type=="objects") {
+            for (const [name, value] of Object.entries(collisions)){
+                if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, value.pos.x, value.pos.y, value.pos.w, value.pos.h)){                    
+                    return [true, name]
+                }
+            }            
+        }        
+        return false
+    }
+
     // Desenha o player na tela    
     draw(context) {
         this.drawLife(context)

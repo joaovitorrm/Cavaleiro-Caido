@@ -53,7 +53,7 @@
     },
 
     "mapa5": {
-        "sprite": "../../images/sprites/mapas/mapa5.png",
+        "sprite": "../../images/sprites/mapas/mapa_novo_base.png",
         "enemies": [
             {"sprite": "slime", "pos": {"x": 300, "y": 300, "w": 50, "h": 50}},
             {"sprite": "slime", "pos": {"x": 500, "y": 500, "w": 50, "h": 50}},
@@ -64,7 +64,7 @@
             }
     },
     "mapa6": {
-        "sprite": "../../images/sprites/mapas/mapa6.png",
+        "sprite": "../../images/sprites/mapas/mapa5.png",
         "enemies": [
             {"sprite": "slime", "pos": {"x": 300, "y": 300, "w": 50, "h": 50}},
             {"sprite": "slime", "pos": {"x": 500, "y": 500, "w": 50, "h": 50}},

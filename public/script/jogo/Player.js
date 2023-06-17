@@ -9,29 +9,16 @@ export class Player extends Entity{
         super(Entity)
         this.game = game
 
-        // Pegar os inputs do jogador
-        this.input = new InputHandler()
+        this.x = 200;
+        this.y = 120;
+        this.w = 100;
+        this.h = 100;
 
-        // Skins
-        this.sprites = {
-            skin1:"../../images/sprites/player/cavaleiro.png",
-            skin2:"../../images/sprites/player/cavaleiro_ouro.png"
-        } 
-        
-        // Criando e selecionando o Sprite
-        this.sprite_atual = new Image()
-        this.sprite_atual.src = this.sprites["skin" + '1'] //seletor de skins
+        this.hitbox_w = this.w/5;
+        this.hitbox_h = this.h/2;
+        this.hitbox_x = this.w / 2 - this.hitbox_w / 2
+        this.hitbox_y = this.h / 2 - this.hitbox_h / 2   
 
-        // Controles        
-        this.controls = {
-            'w': this.move_up,   
-            'a': this.move_left,
-            's': this.move_down,
-            'd': this.move_right,
-            'e': this.set_skin,
-        }
-
-        // Config Player         
         this.config = {
             armor: 0,
             magicResistance: 0,
@@ -42,34 +29,25 @@ export class Player extends Entity{
             magicDamage: 0
         },
 
-        this.x = 200;
-        this.y = 120;
-        this.w = 100;
-        this.h = 100;
+        // Inputs e controles
+        this.input = new InputHandler()    
+        this.controls = {
+            'w': this.move_up,   
+            'a': this.move_left,
+            's': this.move_down,
+            'd': this.move_right,
+        }
+
+        // Skins
+        this.sprites = {
+            skin1:"../../images/sprites/player/cavaleiro.png",
+            skin2:"../../images/sprites/player/cavaleiro_ouro.png"
+        }
+        this.sprite_atual = new Image()
+        this.sprite_atual.src = this.sprites["skin" + '1'] //seletor de skins
 
 
-        // Hitbox do player
-        this.hitbox_w = 20;
-        this.hitbox_h = 50;
-
-        // Centro do Sprite do player
-        this.player_center_x = this.w / 2
-        this.player_center_y = this.h / 2
-
-        // Centro da Hitbox
-        this.hitbox_center_x = this.hitbox_w / 2
-        this.hitbox_center_y = this.hitbox_h / 2
-
-        // Hitbox e Sprite centralizados
-        this.hitbox_x = this.player_center_x - this.hitbox_center_x
-        this.hitbox_y = this.player_center_y - this.hitbox_center_y    
           
-    }
-    // Movimentação
-
-    // Trocar de Skin
-    set_skin(){
-        this.sprite_atual.src = this.sprites["skin" + '2']
     }
     
     update(){
@@ -77,27 +55,30 @@ export class Player extends Entity{
         if(this.config.currentHealth <= 0){
             this.config.speed = 0
             this.config.physicalDamage = 0
+            this.sprite_atual.src = "../../images/sprites/enemies/fantasma.png";
         }
         // Pega a última tecla pressionada
+        // e checa se a tecla tem utilidade  
         this.key = this.input.key[this.input.key.length - 1];     
-
-        // Checa se a tecla tem utilidade        
         if (this.key in this.controls) {
             this.controls[this.key].call(this, this.config.speed)            
         }
 
-        // [Colidiu(true/false), No que colidiu, Inimigo ou Objeto]
+        // collided = [Colidiu(true/false), objeto colidido, tipo do objeto colidido] ex: [true, slime:{...}, "enemy"]
         const collided = this.checkCollisions()            
         if (collided[0]){
             if (collided[2] == "enemy"){
 
-                // Checa se morreu apos ser atacado
+                // ataca e retorna se morreu ou não
                 const checkDead = this.attack(collided[1])
 
                 // Se morreu, remove do mapa para sempre
-                if (checkDead[0]){
-                    this.game.map.removeEnemy(checkDead[1])
+                if (checkDead){
+                    const index = this.game.enemies.indexOf(collided[1])
+                    this.game.map.removeEnemy(index)
+                    this.game.enemies.splice(index, 1)
                 }
+                
             }
             if (collided[2] == "object"){
 
@@ -120,9 +101,7 @@ export class Player extends Entity{
     attack(e){        
         this.dealDamage(e,this)
         if(e.config.currentHealth <= 0){
-            const index = this.game.enemies.indexOf(e)
-            this.game.map.removeEnemy(index)
-            this.game.enemies.splice(index, 1)
+            return true
         }
         return false
     }

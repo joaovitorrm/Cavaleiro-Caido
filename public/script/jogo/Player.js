@@ -117,8 +117,8 @@ export class Player extends Entity{
         }
     }
 
-    attack(e){        
-        this.dealDamage(e,this)
+    attack(e){
+        this.dealDamage(e, this)
         if(e.config.currentHealth <= 0){
             const index = this.game.enemies.indexOf(e)
             this.game.map.removeEnemy(index)

@@ -6,15 +6,15 @@ export class InputHandler{
         
         // adiciona as teclas ao array
         window.addEventListener('keydown', e => {
-            if (!this.key.includes(e.key)){
-                this.key.push(e.key)
+            if (!this.key.includes(e.key.toLowerCase())){
+                this.key.push(e.key.toLowerCase())
             }
             
         })
         // retira as teclas ao array
         window.addEventListener('keyup', e =>{
-            if (this.key.includes(e.key)){
-                this.key.splice(this.key.indexOf(e.key), 1)
+            if (this.key.includes(e.key.toLowerCase())){
+                this.key.splice(this.key.indexOf(e.key.toLowerCase()), 1)
             }
         })
     }

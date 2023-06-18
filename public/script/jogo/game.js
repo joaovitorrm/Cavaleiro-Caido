@@ -22,6 +22,7 @@ addEventListener('load', function(){
     // classe principal que interliga as outras classes
     class Game{
         constructor(canvas){
+            this.playing = true;
             this.canvas = canvas;
             this.width = canvas.width;
             this.height = canvas.height;
@@ -36,8 +37,8 @@ addEventListener('load', function(){
         }
 
         checkInput(){
-            if (this.input.key == 'Escape'){
-                playing = false
+            if (this.input.key == 'escape'){
+                this.playing = false
             }
             if (this.input.key == 'f'){
                 canvas.requestFullscreen()
@@ -46,9 +47,7 @@ addEventListener('load', function(){
 
         update(){
             this.checkInput()
-
-            this.player.update(this.enemies);
-
+            this.player.update();
             this.enemies.forEach((e) => e.update())
         }
 
@@ -61,7 +60,6 @@ addEventListener('load', function(){
     
     // ação do botão html
     play.onclick = () => {
-
         // remove o botão
         play.style.display = 'none'
         descricao.style.display = 'none'
@@ -69,11 +67,10 @@ addEventListener('load', function(){
         canvas.style.display = 'inline-block'
 
         // loop principal
-        var playing = true;
         const game = new Game(canvas)
 
         function animate(){
-            if (playing){
+            if (game.playing){
                 ctx.clearRect(0, 0, canvas.width, canvas.height)
                 game.update(canvas);
                 game.draw(ctx);

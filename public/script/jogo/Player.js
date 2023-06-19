@@ -98,8 +98,8 @@ export class Player extends Entity{
         }
     }
 
-    attack(e){        
-        this.dealDamage(e,this)
+    attack(e){
+        this.dealDamage(e, this)
         if(e.config.currentHealth <= 0){
             return true
         }

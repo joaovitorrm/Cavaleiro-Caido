@@ -65,7 +65,7 @@ export class Player extends Entity{
         }
 
         // collided = [Colidiu(true/false), objeto colidido, tipo do objeto colidido] ex: [true, slime:{...}, "enemy"]
-        const collided = this.checkCollisions()            
+        const collided = this.checkPlayerCollisions()            
         if (collided[0]){
             if (collided[2] == "enemy"){
 
@@ -120,11 +120,11 @@ export class Player extends Entity{
         return false
     }
 
-    checkCollisions(){
+    checkPlayerCollisions(){
         // Checa colisão com os inimigos
         if (this.game.enemies.length > 0){
             for (const enemy of this.game.enemies){
-                if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, enemy.x, enemy.y, enemy.w, enemy.h)){
+                if (this.checkCollision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, enemy.x, enemy.y, enemy.w, enemy.h)){
                     return [true, enemy, "enemy"]
                 }
             }
@@ -133,7 +133,7 @@ export class Player extends Entity{
         // Checa colisão com os objetos
         if (Object.keys(this.game.map.objects).length > 0){
             for (const [name, value] of Object.entries(this.game.map.objects)){
-                if (this.check2Collision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, value.pos.x, value.pos.y, value.pos.w, value.pos.h)){                    
+                if (this.checkCollision(this.x + this.hitbox_x, this.y + this.hitbox_y, this.hitbox_w, this.hitbox_h, value.pos.x, value.pos.y, value.pos.w, value.pos.h)){                    
                     return [true, name, "object"]
                 }
             }

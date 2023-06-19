@@ -51,7 +51,7 @@ export class Entity{
   }
 
   // método que checa a colisão com <entity> em relação ao player
-  check2Collision(xa, ya, wa, ha, xb, yb, wb, hb) {
+  checkCollision(xa, ya, wa, ha, xb, yb, wb, hb) {
     if ((xa + wa > xb && xa < xb + wb && ya + ha > yb && ya < yb + hb)) {
       return true;
     }

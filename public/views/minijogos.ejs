@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/home.css" rel="stylesheet">    
+    <title>Cavaleiro Caído</title>
+    <script src="../script/jogo/game.js" type="module" defer></script>
+    <script src="../script/paginas/chat.js" defer></script>
+    <link rel="icon" href="../images/icones/casa.png">
+</head>
+<body>
+    
+    <%- include('header.html')%>
+    
+    <main>
+    </main>
+
+    <aside id="chat-menu">
+
+        <div id="pessoa">
+            <img src="../images/icones/perfil.png">
+            <p>Fulano de tal</p>
+        </div>
+
+        <div id="conversa">
+        </div>
+
+        <div id="mensagem">            
+            <textarea placeholder="Escreva sua mensagem" id="texto"></textarea>
+            <input type="button" value="Enviar" id="enviar-mensagem" for="texto">
+        </div>
+
+    </aside>
+
+    <%- include('aside.html') %>
+    
+    <%- include('footer.html') %>
+    
+</body>
+</html>

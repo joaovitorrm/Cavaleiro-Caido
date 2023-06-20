@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Cavaleiro Caído</title>
+
+    <link href="../css/main.css" rel="stylesheet"> 
+    <link href="../css/entrar.css" rel="stylesheet">
+    <link rel="icon" href="../images/icones/casa.png">
+
+</head>
+
+<body>
+    
+    <%- include('header.html')%>
+
+    <main>
+
+      <div id="boxForms">
+
+        <div id="logo">            
+          <img src="../images/logos/logo.png">
+        </div>
+        
+        <form action="" method="post">
+            
+            <h2>Login</h2>
+
+            <p>
+                Seu progresso no jogo será salvo (incluindo suas skins), você poderá desbloquear
+                conquistar, interagir com a comunidade e muito mais, ao logar-se.
+            </p>
+
+            <label for="E-mail">E-mail:</label>
+            <input type="email" id="emailLogin" required>
+
+            <label for="Senha">Senha:</label>
+            <input type="password" id="senhaLogin" required>
+
+            <a href="/cadastro">
+                <p>Não é cadastrado? Cadastre-se.</p>
+            </a>
+
+            <input type="submit" name="entrar" value="Entrar">
+            
+        </form>
+
+      </div>
+    </main>
+
+    <%- include('aside.html') %>
+    
+    <%- include('footer.html') %>
+    
+</body>
+</html>

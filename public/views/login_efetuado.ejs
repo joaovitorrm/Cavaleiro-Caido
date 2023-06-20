@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Cavaleiro Caído</title>
+
+    <link href="../css/main.css" rel="stylesheet"> 
+    <link href="../css/login_efetuado.css" rel="stylesheet"> 
+    <link rel="icon" href="../images/icones/casa.png">
+
+</head>
+
+<body>
+    
+    <%- include('header.html')%>
+
+    <main>
+
+      <div id="boxForms">        
+        <div id="logo">            
+          <img src="../images/logos/logo.png">
+        </div>
+
+        <div>
+            <h2>Bem-Vindo De Volta!</h2>
+            
+            <figure>
+                <img src="../images/icones/perfil.png" alt="Imagem de Perfil">
+            </figure>
+
+            <p>Nome de Usuário</p>
+            
+            <a href="/" id="button">
+                <input type="button" name="continuar" value="Continuar">
+            </a>
+
+            <a href="/entrar">
+                <p>Entrar com outra conta</p>
+            </a>
+        </div>    
+            
+      </div>
+    </main>
+
+    <%- include('aside.html') %>
+    
+    <%- include('footer.html') %>
+    
+</body>
+</html>

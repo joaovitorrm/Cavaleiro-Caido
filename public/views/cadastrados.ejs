@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/main.css" rel="stylesheet"> 
+    <link href="../css/cadastrados.css" rel="stylesheet"> 
+    <title>Cavaleiro Caído</title>
+    <link rel="icon" href="../images/icones/casa.png">
+</head>
+<body>
+    
+    <%- include('header.html')%>
+
+    <main>
+        <div id="boxTable">
+            <div id="opcoes">
+                <div id="filtro">
+                    <input type="text" placeholder="digite seu filtro"></input>
+                    <button>aplicar filtro</button>
+                </div>   
+                <div id="acoes">
+                    <button>inserir</button>
+                    <button>atualizar</button>
+                    <button>retirar</button>
+                </div>
+            </div>
+            <table>
+                <tr class="cabecalho">
+                    <th>Seleção</th>
+                    <th>Nome</th>
+                    <th>Permissão</th>
+                    <th>Email</th>
+                    <th>Senha</th>
+                    <th>Data de Nascimento</th>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></input></td>
+                    <td>Filipe</td>
+                    <td>Administrador</td>
+                    <td>Fulano@cavaleiro.com</td>
+                    <td>@Senha123</td>
+                    <td>15/11/2000</td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></input></td>
+                    <td>João Vitor Rodrigues Morrudo</td>
+                    <td>Administrador</td>
+                    <td>Fulano@cavaleiro.com</td>
+                    <td>@Senha123</td>
+                    <td>15/11/2000</td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></input></td>
+                    <td>Andrey</td>
+                    <td>Administrador</td>
+                    <td>Fulano@cavaleiro.com</td>
+                    <td>@Senha123</td>
+                    <td>15/11/2000</td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></input></td>
+                    <td>Christian</td>
+                    <td>Administrador</td>
+                    <td>Fulano@cavaleiro.com</td>
+                    <td>@Senha123</td>
+                    <td>15/11/2000</td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></input></td>
+                    <td>Gustavo</td>
+                    <td>Administrador</td>
+                    <td>Fulano@cavaleiro.com</td>
+                    <td>@Senha123</td>
+                    <td>15/11/2000</td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></input></td>
+                    <td>Victor</td>
+                    <td>Administrador</td>
+                    <td>Fulano@cavaleiro.com</td>
+                    <td>@Senha123</td>
+                    <td>15/11/2000</td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></input></td>
+                    <td>João Pedro</td>
+                    <td>Administrador</td>
+                    <td>Fulano@cavaleiro.com</td>
+                    <td>@Senha123</td>
+                    <td>15/11/2000</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+    <%- include('aside.html') %>
+    
+    <%- include('footer.html') %>
+    
+</body>
+</html>

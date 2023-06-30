@@ -10,10 +10,13 @@ import irish from '../../idiomas/irish.json' assert {type:"json"}
 let spans = document.querySelectorAll("span");
 let idioma = document.getElementById("idiomas");
 
-
+if (localStorage.getItem('idioma')){
+    idioma.value = localStorage.getItem('idioma')
+    translate(eval(localStorage.getItem('idioma')))
+}
 
 function translate(language){
-    for (const divId in language) {
+    for (const divId in language){
         let divs = document.getElementById(divId);
         for (let span of spans) {
             let c = 0
@@ -27,4 +30,7 @@ function translate(language){
     }
 }
 
-idioma.addEventListener("change", () => translate(eval(idioma.value)))
+idioma.addEventListener("change", () => {
+    localStorage.setItem("idioma", idioma.value)
+    translate(eval(idioma.value))}    
+)

@@ -276,19 +276,17 @@ footer {
     > div {
         width: 100%;
     }
-
-    & select, select option{
-        background-color: var(--bio-bg-color);
-        border-radius: 5%;
-        
-    }
+    
     & #info {
         padding: 10px;
         list-style: none;  
         font-size: 14px;
+        display: flex;
+        flex-direction: column;
         
         > li {
-            text-align: left; 
+            padding: 3px;
+            text-align: left;
             border-style: solid;
             border-color: var(--main-color);
             border-width: 0px 0px 0px 3px ;
@@ -301,6 +299,25 @@ footer {
                 }
             }
         }
+    }
+    #idiomaDiv {
+        height: 50%;
+        display: flex;
+        align-items: end;
+        > div {
+            display: flex;            
+        }
+        #idiomaIcone {
+            width: 40px;
+        }        
+    }
+
+    & select, select option{
+        border: none;
+        outline: none;
+        background-color: var(--bio-bg-color);
+        border-radius: 5%;
+        font-size: 15px;
     }
 
     & #logo_footer{        

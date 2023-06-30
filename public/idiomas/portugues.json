@@ -1,0 +1,21 @@
+{
+    "links": [
+        "Início",
+        "Tutoriais",
+        "Mini Jogos"
+    ],
+    "login": [
+        "Entrar",
+        "Registrar"
+    ],
+    "info": [
+        "Contato",
+        "Sobre nós"
+    ],
+    "rotuloRedes": "Siga-nos",
+    "descricao": [
+        "Bem-vindo ao nosso site!",
+        "Bem-vindo à equipe responsável pelo desenvolvimento do projeto 'Cavaleiro Caído'. Este projeto é baseado no desenvolvimento de um jogo e um site com o mesmo nome, que conta a história de um personagem que acorda em um estado amnésico em um laboratório ambiental e precisa enfrentar desafios e criaturas para sair de lá, ao mesmo tempo em que encontrará pistas sobre o que é aquele lugar, quem ele é ou até mesmo por que está lá...",
+        "JOGAR"
+    ]
+}

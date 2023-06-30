@@ -6,6 +6,7 @@ import hebrew from '../../idiomas/hebrew.json' assert {type: "json"}
 import simp_chinese from '../../idiomas/simp_chinese.json' assert {type: "json"}
 import greek from '../../idiomas/greek.json' assert {type: "json"}
 import irish from '../../idiomas/irish.json' assert {type:"json"}
+import espanol from '../../idiomas/irish.json' assert {type:"json"}
 
 let spans = document.querySelectorAll("span");
 let idioma = document.getElementById("idiomas");

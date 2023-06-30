@@ -277,6 +277,11 @@ footer {
         width: 100%;
     }
 
+    & select, select option{
+        background-color: var(--bio-bg-color);
+        border-radius: 5%;
+        
+    }
     & #info {
         padding: 10px;
         list-style: none;  

@@ -1,3 +1,11 @@
+/* função interessante
+--size: 25px;
+--aspect-ratio: 1;
+width: var(--size);
+height: calc(var(--size) / var(--aspect-ratio));]
+*/
+
+
 @font-face {
     font-family: 'November';
     src: url('../fonts/november/novem___.ttf') format('truetype');
@@ -79,8 +87,8 @@
     --border-color: #ffffff ;
     --bio-border-color: #0f1f3b;
 
-    --header-height: 10vh;
-    --footer-height: 18vh;
+    --header-height: 10dvh;
+    --footer-height: 18dvh;
 
 /*https://coolors.co/palette/000000-14213d-fca311-e5e5e5-ffffff*/
 }
@@ -191,7 +199,7 @@ header {
 main {
     background-color: var(--about-bg-color);
     box-sizing: border-box;
-    min-height: calc(100vh - var(--header-height) - var(--footer-height));    
+    min-height: calc(100dvh - var(--header-height) - var(--footer-height));    
     background-image: url(../images/outros/bghome.png);
 }
 
@@ -266,29 +274,28 @@ aside {
 }
 
 footer {
-    min-height: var(--footer-height);
+    max-height: var(--footer-height);
+    overflow:hidden;
     position: relative; 
     display: flex;
-    width: 100%;
     flex-direction: row;       
-    background-color: var(--bio-bg-color);   
+    background-color: var(--bio-bg-color);  
+ 
     
     > div {
         width: 100%;
     }
-
-    & select, select option{
-        background-color: var(--bio-bg-color);
-        border-radius: 5%;
-        
-    }
+    
     & #info {
         padding: 10px;
         list-style: none;  
         font-size: 14px;
+        display: flex;
+        flex-direction: column;
         
         > li {
-            text-align: left; 
+            padding: 3px;
+            text-align: left;
             border-style: solid;
             border-color: var(--main-color);
             border-width: 0px 0px 0px 3px ;
@@ -301,6 +308,25 @@ footer {
                 }
             }
         }
+    }
+    #idiomaDiv {
+        height: 50%;
+        display: flex;
+        align-items: end;
+        > div {
+            display: flex;            
+        }
+        #idiomaIcone {
+            width: 40px;
+        }        
+    }
+
+    & select, select option{
+        border: none;
+        outline: none;
+        background-color: var(--bio-bg-color);
+        border-radius: 5%;
+        font-size: 15px;
     }
 
     & #logo_footer{        

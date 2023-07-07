@@ -26,6 +26,7 @@ addEventListener('load', function(){
             this.canvas = canvas;
             this.width = canvas.width;
             this.height = canvas.height;
+            this.loaded = false
             this.enemies = [];
 
             this.player = new Player(this);
@@ -33,7 +34,7 @@ addEventListener('load', function(){
             this.map = new Map(this);
             this.entity = new Entity(this);
             
-            this.map.createMap([1, 1]);            
+            this.map.createMap([0, 0]);            
         }
 
         checkInput(){
@@ -71,9 +72,12 @@ addEventListener('load', function(){
 
         function animate(){
             if (game.playing){
-                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                if (game.loaded){
+                    ctx.clearRect(0, 0, canvas.width, canvas.height)
+                }                
                 game.update(canvas);
                 game.draw(ctx);
+                game.loaded = true
                 requestAnimationFrame(animate)
             } else {
                 play.style.display = 'block'

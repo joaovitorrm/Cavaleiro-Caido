@@ -89,6 +89,16 @@
                     <td>@Senha123</td>
                     <td>15/11/2000</td>
                 </tr>
+                <% usuarios.forEach((u) => {%>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></input></td>
+                    <td><%= u.nome %></td>
+                    <td>Administrador</td>
+                    <td><%= u.email %></td>
+                    <td><%= u.senha %></td>
+                    <td><%= u.data_nascimento %></td>
+                </tr>
+                <% })%>
             </table>
         </div>
     </main>

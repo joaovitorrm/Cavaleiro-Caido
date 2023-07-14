@@ -27,7 +27,7 @@
           <img src="../images/logos/logo.png">
         </div>
         
-        <form action="" method="post">
+        <form action="/cadastrarUsuario" method="post">
             
             <h2>Cadastro</h2>
             <label>
@@ -41,28 +41,28 @@
                 <div class="item1">
                     <div>
                         <label for="nome">Nome:</label>
-                        <input type="text" maxlength="30" name="nome" required>                
+                        <input type="text" maxlength="30" name="nome" id="nome" required>                
                     </div>
                     <div>
                         <label for="dataNascimento">Data de Nascimento:</label>
-                        <input type="date" name="dataNascimento" required>
+                        <input type="date" name="dataNascimento" id="dataNascimento" required>
                     </div>
                 </div>
                 <div class="item2">
 
-                    <label for="E-mail">E-mail:</label>
-                    <input type="email" name="emailCadastro" required>
+                    <label for="email">E-mail:</label>
+                    <input type="email" name="email" id="email" required>
 
                 </div>
                 <div class="item3">
                     <div>
                         <label for="Senha">Senha:</label>
-                        <input type="password" name="senha" required>
+                        <input type="password" name="senha" id="senha" required>
                     </div>
 
                     <div>
                         <label for="Confirmar Senha">Confirmar Senha:</label>
-                        <input type="password" name="confirmarSenha" required>
+                        <input type="password" name="confirmarSenha" id="confirmarSenha" required>
                     </div>
                 </div>
 
@@ -72,8 +72,6 @@
             </div>
 
             <input type="submit" name="cadastrar" value="Cadastrar">
-
-            <a href="/login_efetuado">Ir para login efetuado</a>
         </form>
 
       </div>

@@ -20,7 +20,7 @@ pages =__dirname + '/public/views'
 // CONEXÃO COM O MYSQL
 
 const mysql = require('mysql');
-const Usuario = require('./models/usuarioDAO');
+const Usuario = require('./models/Usuario');
 
 const conexao = mysql.createConnection({
     host: "localhost",
@@ -66,7 +66,7 @@ app.get('/cadastrados', function(req, res){
     const user = new Usuario
 
     user.listar(conexao, (result) => {
-        res.render("cadastrados", {usuarios: result})
+        res.render("cadastrados", {u: result})
     })    
 });
 

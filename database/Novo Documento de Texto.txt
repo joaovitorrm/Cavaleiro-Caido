@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema cavaleiro
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema cavaleiro
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `cavaleiro` DEFAULT CHARACTER SET utf8 ;
+USE `cavaleiro` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`user`
+-- Table `cavaleiro`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`user` (
+CREATE TABLE IF NOT EXISTS `cavaleiro`.`user` (
   `iduser` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `email` VARCHAR(100) NULL,
@@ -32,9 +32,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`achievement`
+-- Table `cavaleiro`.`achievement`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`achievement` (
+CREATE TABLE IF NOT EXISTS `cavaleiro`.`achievement` (
   `idachievement` INT NOT NULL,
   `condition` VARCHAR(45) NULL,
   `img` VARCHAR(45) NULL,
@@ -44,11 +44,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`chat`
+-- Table `cavaleiro`.`chat`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`chat` (
+CREATE TABLE IF NOT EXISTS `cavaleiro`.`chat` (
   `idchat` INT NOT NULL,
-  `time` DATETIME NULL,a
+  `time` DATETIME NULL,
   `message` TEXT NULL,
   `global?` TINYINT NULL,
   `sender_user` INT NOT NULL,
@@ -58,21 +58,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`chat` (
   INDEX `fk_chat_user2_idx` (`receiver_user` ASC),
   CONSTRAINT `fk_chat_user1`
     FOREIGN KEY (`sender_user`)
-    REFERENCES `mydb`.`user` (`iduser`)
+    REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_chat_user2`
     FOREIGN KEY (`receiver_user`)
-    REFERENCES `mydb`.`user` (`iduser`)
+    REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`minigame`
+-- Table `cavaleiro`.`minigame`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`minigame` (
+CREATE TABLE IF NOT EXISTS `cavaleiro`.`minigame` (
   `idminigame` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `pictureURL` VARCHAR(45) NULL,
@@ -82,9 +82,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`highscore`
+-- Table `cavaleiro`.`highscore`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`highscore` (
+CREATE TABLE IF NOT EXISTS `cavaleiro`.`highscore` (
   `idhighscore` INT NOT NULL AUTO_INCREMENT,
   `score` VARCHAR(45) NULL,
   `user_iduser` INT NOT NULL,
@@ -94,21 +94,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`highscore` (
   INDEX `fk_highscore_minigame1_idx` (`minigame_idminigame` ASC),
   CONSTRAINT `fk_highscore_user1`
     FOREIGN KEY (`user_iduser`)
-    REFERENCES `mydb`.`user` (`iduser`)
+    REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_highscore_minigame1`
     FOREIGN KEY (`minigame_idminigame`)
-    REFERENCES `mydb`.`minigame` (`idminigame`)
+    REFERENCES `cavaleiro`.`minigame` (`idminigame`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`user_has_achievement`
+-- Table `cavaleiro`.`user_has_achievement`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`user_has_achievement` (
+CREATE TABLE IF NOT EXISTS `cavaleiro`.`user_has_achievement` (
   `user_iduser` INT NOT NULL,
   `achievement_idachievement` INT NOT NULL,
   PRIMARY KEY (`user_iduser`, `achievement_idachievement`),
@@ -116,21 +116,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user_has_achievement` (
   INDEX `fk_user_has_achievement_user_idx` (`user_iduser` ASC),
   CONSTRAINT `fk_user_has_achievement_user`
     FOREIGN KEY (`user_iduser`)
-    REFERENCES `mydb`.`user` (`iduser`)
+    REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_achievement_achievement1`
     FOREIGN KEY (`achievement_idachievement`)
-    REFERENCES `mydb`.`achievement` (`idachievement`)
+    REFERENCES `cavaleiro`.`achievement` (`idachievement`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`amigos`
+-- Table `cavaleiro`.`amigos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`amigos` (
+CREATE TABLE IF NOT EXISTS `cavaleiro`.`amigos` (
   `user_iduser` INT NOT NULL,
   `user_iduser1` INT NOT NULL,
   PRIMARY KEY (`user_iduser`, `user_iduser1`),
@@ -138,12 +138,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`amigos` (
   INDEX `fk_user_has_user_user1_idx` (`user_iduser` ASC),
   CONSTRAINT `fk_user_has_user_user1`
     FOREIGN KEY (`user_iduser`)
-    REFERENCES `mydb`.`user` (`iduser`)
+    REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_user_user2`
     FOREIGN KEY (`user_iduser1`)
-    REFERENCES `mydb`.`user` (`iduser`)
+    REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -22,11 +22,11 @@ USE `cavaleiro` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`user` (
   `iduser` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `nome` VARCHAR(45) NULL,
   `email` VARCHAR(100) NULL,
-  `passwd` VARCHAR(255) NULL,
-  `role` ENUM('admin', 'user') NULL,
-  `picture` VARCHAR(45) NULL,
+  `senha` VARCHAR(255) NULL,
+  `cargo` ENUM('admin', 'user') NULL,
+  `imagemURL` VARCHAR(45) NULL,
   PRIMARY KEY (`iduser`))
 ENGINE = InnoDB;
 
@@ -36,9 +36,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`achievement` (
   `idachievement` INT NOT NULL,
-  `condition` VARCHAR(45) NULL,
+  `condicao` VARCHAR(45) NULL,
   `img` VARCHAR(45) NULL,
-  `reward` VARCHAR(45) NULL,
+  `recompensa` TEXT NULL,
   PRIMARY KEY (`idachievement`))
 ENGINE = InnoDB;
 
@@ -48,21 +48,21 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`chat` (
   `idchat` INT NOT NULL,
-  `time` DATETIME NULL,
-  `message` TEXT NULL,
+  `tempo` DATETIME NULL,
+  `mensagem` TEXT NULL,
   `global?` TINYINT NULL,
-  `sender_user` INT NOT NULL,
-  `receiver_user` INT NULL,
+  `remetente` INT NOT NULL,
+  `destinatario` INT NULL,
   PRIMARY KEY (`idchat`),
-  INDEX `fk_chat_user1_idx` (`sender_user` ASC),
-  INDEX `fk_chat_user2_idx` (`receiver_user` ASC),
+  INDEX `fk_chat_user1_idx` (`remetente` ASC),
+  INDEX `fk_chat_user2_idx` (`destinatario` ASC),
   CONSTRAINT `fk_chat_user1`
-    FOREIGN KEY (`sender_user`)
+    FOREIGN KEY (`remetente`)
     REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_chat_user2`
-    FOREIGN KEY (`receiver_user`)
+    FOREIGN KEY (`destinatario`)
     REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -74,8 +74,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`minigame` (
   `idminigame` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `pictureURL` VARCHAR(45) NULL,
+  `nome` VARCHAR(45) NULL,
+  `imagemURL` VARCHAR(45) NULL,
   `minigamecol` VARCHAR(45) NULL,
   PRIMARY KEY (`idminigame`))
 ENGINE = InnoDB;
@@ -86,7 +86,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`highscore` (
   `idhighscore` INT NOT NULL AUTO_INCREMENT,
-  `score` VARCHAR(45) NULL,
+  `pontuacao` VARCHAR(45) NULL,
   `user_iduser` INT NOT NULL,
   `minigame_idminigame` INT NOT NULL,
   PRIMARY KEY (`idhighscore`, `user_iduser`),

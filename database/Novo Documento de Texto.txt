@@ -21,7 +21,7 @@ USE `mydb` ;
 -- Table `mydb`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
-  `iduser` INT NOT NULL,
+  `iduser` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `email` VARCHAR(100) NULL,
   `passwd` VARCHAR(255) NULL,
@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`chat` (
   `sender_user` INT NOT NULL,
   `receiver_user` INT NULL,
   PRIMARY KEY (`idchat`),
-  INDEX `fk_chat_user1_idx` (`sender_user` ASC) VISIBLE,
-  INDEX `fk_chat_user2_idx` (`receiver_user` ASC) VISIBLE,
+  INDEX `fk_chat_user1_idx` (`sender_user` ASC),
+  INDEX `fk_chat_user2_idx` (`receiver_user` ASC),
   CONSTRAINT `fk_chat_user1`
     FOREIGN KEY (`sender_user`)
     REFERENCES `mydb`.`user` (`iduser`)
@@ -73,7 +73,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`minigame`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`minigame` (
-  `idminigame` INT NOT NULL,
+  `idminigame` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `pictureURL` VARCHAR(45) NULL,
   `minigamecol` VARCHAR(45) NULL,
@@ -85,13 +85,13 @@ ENGINE = InnoDB;
 -- Table `mydb`.`highscore`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`highscore` (
-  `idhighscore` INT NOT NULL,
+  `idhighscore` INT NOT NULL AUTO_INCREMENT,
   `score` VARCHAR(45) NULL,
   `user_iduser` INT NOT NULL,
   `minigame_idminigame` INT NOT NULL,
   PRIMARY KEY (`idhighscore`, `user_iduser`),
-  INDEX `fk_highscore_user1_idx` (`user_iduser` ASC) VISIBLE,
-  INDEX `fk_highscore_minigame1_idx` (`minigame_idminigame` ASC) VISIBLE,
+  INDEX `fk_highscore_user1_idx` (`user_iduser` ASC),
+  INDEX `fk_highscore_minigame1_idx` (`minigame_idminigame` ASC),
   CONSTRAINT `fk_highscore_user1`
     FOREIGN KEY (`user_iduser`)
     REFERENCES `mydb`.`user` (`iduser`)
@@ -112,8 +112,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user_has_achievement` (
   `user_iduser` INT NOT NULL,
   `achievement_idachievement` INT NOT NULL,
   PRIMARY KEY (`user_iduser`, `achievement_idachievement`),
-  INDEX `fk_user_has_achievement_achievement1_idx` (`achievement_idachievement` ASC) VISIBLE,
-  INDEX `fk_user_has_achievement_user_idx` (`user_iduser` ASC) VISIBLE,
+  INDEX `fk_user_has_achievement_achievement1_idx` (`achievement_idachievement` ASC),
+  INDEX `fk_user_has_achievement_user_idx` (`user_iduser` ASC),
   CONSTRAINT `fk_user_has_achievement_user`
     FOREIGN KEY (`user_iduser`)
     REFERENCES `mydb`.`user` (`iduser`)
@@ -134,8 +134,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`amigos` (
   `user_iduser` INT NOT NULL,
   `user_iduser1` INT NOT NULL,
   PRIMARY KEY (`user_iduser`, `user_iduser1`),
-  INDEX `fk_user_has_user_user2_idx` (`user_iduser1` ASC) VISIBLE,
-  INDEX `fk_user_has_user_user1_idx` (`user_iduser` ASC) VISIBLE,
+  INDEX `fk_user_has_user_user2_idx` (`user_iduser1` ASC),
+  INDEX `fk_user_has_user_user1_idx` (`user_iduser` ASC),
   CONSTRAINT `fk_user_has_user_user1`
     FOREIGN KEY (`user_iduser`)
     REFERENCES `mydb`.`user` (`iduser`)

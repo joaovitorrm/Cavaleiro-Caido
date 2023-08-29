@@ -17,14 +17,14 @@ export class Player extends Entity{
         this.hitbox_w = this.w/5;
         this.hitbox_h = this.h/2;
         this.hitbox_x = this.w / 2 - this.hitbox_w / 2
-        this.hitbox_y = this.h / 2 - this.hitbox_h / 2   
+        this.hitbox_y = this.h / 2 - this.hitbox_h / 2
 
         this.config = {
             armor: 0,
             magicResistance: 0,
             maxHealth: 150,
             currentHealth: 150,
-            speed: 10,
+            speed: 5,
             physicalDamage: 2,
             magicDamage: 0
         },
@@ -38,16 +38,61 @@ export class Player extends Entity{
             'd': this.move_right,
         }
 
+        this.animation_speed = 1
+        this.animation_time = 1
+        this.animation_step = 0
+
+        this.animations = {            
+            "andar_cima": ["andando_costas_1", "parado_costas", "andando_costas_2", "parado_costas"],
+            "andar_direita": ["andando_1", "parado", "andando_2", "parado"],
+            "andar_baixo": ["andando_1", "parado", "andando_2", "parado"],
+            "andar_esquerda": ["andando_1", "parado", "andando_2", "parado"]
+        }
+
         // Skins
         this.sprites = {
-            skin1:"../../images/sprites/player/cavaleiro.png",
-            skin2:"../../images/sprites/player/cavaleiro_ouro.png"
+            cavaleiro_padrao: "../../images/sprites/player/cavaleiro_padrao/"
         }
+
         this.sprite_atual = new Image()
-        this.sprite_atual.src = this.sprites["skin" + '1'] //seletor de skins
+        this.sprite_atual.src = this.sprites.cavaleiro_padrao  + "/parado.png" //seletor de skins
 
 
           
+    }
+
+    move_up(speed){
+        this.y -= speed;
+        this.animate(this.animations.andar_cima);
+    }
+    move_down(speed){
+        this.y += speed;
+        this.animate(this.animations.andar_baixo);
+    }
+    move_left(speed){
+        this.x -= speed;
+        this.animate(this.animations.andar_direita);
+    }
+    move_right(speed){
+        this.x += speed;
+        this.animate(this.animations.andar_esquerda);
+    }
+
+    animate(direction){
+        if (Array.isArray(direction)){            
+            if (this.animation_time == this.animation_speed){
+                this.sprite_atual.src = this.sprites.cavaleiro_padrao + "/" + direction[this.animation_step] + ".png"
+                this.animation_step += 1
+                if (this.animation_step == direction.length - 1){
+                    this.animation_step = 0
+                }
+                this.animation_time = 0
+            } else {
+                this.animation_time += 1
+            }
+        } else {
+            this.sprite_atual.src = this.sprites.cavaleiro_padrao + "/" + direction + ".png"
+        }
     }
     
     update(){

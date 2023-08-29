@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" modified="2023-07-25T13:04:07.262Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="Vpi19Z0SZEaAvLNfoK6X" version="21.6.5" type="device">
+  <diagram name="Página-1" id="XiVWCq-H5a6mfUwg1kmR">
+    <mxGraphModel dx="1820" dy="2023" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t70SGK-pjWNpKWFUG8No-28" value="user" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-70" width="160" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-29" value="id PK&lt;br&gt;name&lt;br&gt;senha&lt;br&gt;email&lt;br&gt;cargo&lt;br&gt;picture" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="t70SGK-pjWNpKWFUG8No-28">
+          <mxGeometry y="50" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-58" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERmany;startArrow=ERmany;rounded=0;entryX=-0.025;entryY=0.167;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.005;exitY=0.833;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="t70SGK-pjWNpKWFUG8No-28" source="t70SGK-pjWNpKWFUG8No-29" target="t70SGK-pjWNpKWFUG8No-29">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="-80" y="175" as="sourcePoint" />
+            <mxPoint x="-70" y="90" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-80" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-31" value="achievements" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="414" y="10" width="160" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-32" value="id PK&lt;br&gt;condition&lt;br&gt;img&lt;br&gt;reward" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="t70SGK-pjWNpKWFUG8No-31">
+          <mxGeometry y="50" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-33" value="user_has_achievements" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" width="160" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-34" value="userID FK&lt;br&gt;achievementID" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="t70SGK-pjWNpKWFUG8No-33">
+          <mxGeometry y="50" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-36" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;startArrow=ERmandOne;rounded=0;entryX=0;entryY=0.406;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="t70SGK-pjWNpKWFUG8No-34">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="90" y="132" as="sourcePoint" />
+            <mxPoint x="190" y="40" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-37" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;startArrow=ERmandOne;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.006;exitY=0.406;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="t70SGK-pjWNpKWFUG8No-32" target="t70SGK-pjWNpKWFUG8No-34">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="340" y="330" as="sourcePoint" />
+            <mxPoint x="440" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-40" value="highscore" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-80" y="310" width="160" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-41" value="id PK&lt;br&gt;score&lt;br&gt;userID FK" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="t70SGK-pjWNpKWFUG8No-40">
+          <mxGeometry y="50" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-43" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERmandOne;rounded=0;" edge="1" parent="1" target="t70SGK-pjWNpKWFUG8No-41">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="89" y="168" as="sourcePoint" />
+            <mxPoint x="350" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-44" value="Chat" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="-280" width="160" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-45" value="id PK&lt;br&gt;time&lt;br&gt;message&lt;br&gt;global?&lt;br&gt;receiver_user&lt;br&gt;sender_user&lt;br&gt;userID FK" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="t70SGK-pjWNpKWFUG8No-44">
+          <mxGeometry y="50" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-50" value="minijogos" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-370" y="310" width="160" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-51" value="id PK&lt;br&gt;name&lt;br&gt;pictureURL" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="t70SGK-pjWNpKWFUG8No-50">
+          <mxGeometry y="50" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-60" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;startArrow=ERmandOne;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="t70SGK-pjWNpKWFUG8No-51" target="t70SGK-pjWNpKWFUG8No-41">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="50" y="140" as="sourcePoint" />
+            <mxPoint x="150" y="40" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-61" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;startArrow=ERmandOne;rounded=0;entryX=-0.012;entryY=0.322;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.988;exitY=0.083;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="t70SGK-pjWNpKWFUG8No-29" target="t70SGK-pjWNpKWFUG8No-45">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="20" y="-190" as="sourcePoint" />
+            <mxPoint x="120" y="-290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t70SGK-pjWNpKWFUG8No-63" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToOne;startArrow=ERmandOne;rounded=0;" edge="1" parent="1" source="t70SGK-pjWNpKWFUG8No-45" target="t70SGK-pjWNpKWFUG8No-29">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="-10" y="190" as="sourcePoint" />
+            <mxPoint x="90" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

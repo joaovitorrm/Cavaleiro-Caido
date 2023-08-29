@@ -1,11 +1,20 @@
+const arrows = document.getElementsByClassName('down-arrow');
+const chats = document.getElementsByClassName('chats');
+
+for (let x = 0; x < 2; x++) {
+    arrows[x].addEventListener('click', () => {
+        chats[x].classList.toggle('visible')
+    })
+}
+ 
 
 // abre o chat
 document.getElementById('chat').onclick = () => {
     const menu = document.getElementById('chat-menu');
     if (menu.style.display == "none" || menu.style.display == ''){
-        menu.style.display = "block"
+        menu.style['display'] = "flex"
     } else {
-        menu.style.display = 'none'
+        menu.style['display'] = 'none'
     }    
 }
 

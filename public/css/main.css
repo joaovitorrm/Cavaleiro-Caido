@@ -195,14 +195,68 @@ main {
     background-image: url(../images/outros/bghome.png);
 }
 
-aside {
+aside, #chat-menu {
     position: absolute;
-    display: none;
+    display: flex;
     right: 0;
     top: var(--header-height);
     height: calc(100vh - var(--header-height) - var(--footer-height));
     width: 18vw;
-    background-color: white;
+    background-color: #3f3f3f;
+    flex-direction: column;
+    overflow-y: auto;
+    & .chat {
+        height: 8vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0.3vmin solid #111111;
+        margin: 1%;
+        & img {
+            height: 100%;
+            aspect-ratio: 1/1;
+        }
+        & .text {
+            flex: 1;
+            text-align: center;            
+        }
+        & .down-arrow {
+            margin-right: 5%;
+            padding: 1% 3%;
+            border-radius: 1vmin;
+            border: #111111 0.3vmin solid;
+            &:hover {
+                cursor: pointer;
+            }            
+        }
+    }
+    & .chats {
+        display: none;
+        margin-right: 4%;
+        margin-left: 1%;
+        padding: 4%;
+        border: 0.3vmin solid #111111;
+        line-height: 200%;
+        & div:hover {
+            cursor: pointer;
+            text-decoration: underline;            
+        }
+        & div {
+            height: 4vh;
+            display: flex;
+            align-items: center;
+            gap: 5%;
+            margin: 3% 0%;
+        }
+        & img {
+            height: 100%;
+        }
+    }
+
+    & .visible {
+        display: block;
+    }
+
     > #pessoa   {
         display: flex;
         background-color: #3f3f3f;
@@ -251,12 +305,13 @@ aside {
         flex-direction: column;
         
         > textarea {
-           width: 100%; 
-           height: 70%;
-           margin: auto;
-           resize: none;
-           font-size: 12px;
-           color: black;
+            padding-left: 1%;
+            width: 100%; 
+            height: 70%;
+            margin: auto;
+            resize: none;
+            font-size: 12px;
+            color: black;
         }
         > input {
             color: black;

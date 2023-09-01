@@ -47,6 +47,14 @@ app.post('/cadastrarUsuario', (req, res) => {
     res.render('confirmaCadastro')
 });
 
+app.get('/getChat/:userId', (req, res) => {
+    const userId = req.params.userId;
+
+    
+
+    res.end();
+})
+
 app.get('/', function(req, res){
     res.render('home');
 });

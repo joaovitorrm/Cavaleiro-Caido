@@ -81,3 +81,9 @@ function sendMessage(e){
     }
 }
 
+setInterval(async () => {
+    const data = await fetch('/getChat/1', {
+        method: 'GET',
+    }).then(response => response.json()).then(response => console.log(JSON.stringify(response)))
+    
+}, 1000)

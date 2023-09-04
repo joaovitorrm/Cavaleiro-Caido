@@ -1,5 +1,6 @@
 import { Entity } from './Entity.js'
 import { InputHandler } from './InputHandler.js'
+import { AchievementHandler} from './AchievementHandler.js'
 
 // classe que contem as propriedades do jogador
 export class Player extends Entity{
@@ -56,7 +57,6 @@ export class Player extends Entity{
 
         this.sprite_atual = new Image()
         this.sprite_atual.src = this.sprites.cavaleiro_padrao  + "/parado.png" //seletor de skins
-
 
           
     }
@@ -122,6 +122,7 @@ export class Player extends Entity{
                     const index = this.game.enemies.indexOf(collided[1])
                     this.game.map.removeEnemy(index)
                     this.game.enemies.splice(index, 1)
+                    AchievementHandler.enemiesKilled += 1
                 }
                 
             }

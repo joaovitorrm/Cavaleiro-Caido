@@ -3,7 +3,7 @@ import { Entity } from './Entity.js';
 import { InputHandler } from './InputHandler.js';
 import { Map } from './Map.js';
 import { Player } from './Player.js';
-
+import { AchievementHandler } from './AchievementHandler.js';
 
 // roda após as imagens serem carregadas
 addEventListener('load', function(){
@@ -33,6 +33,7 @@ addEventListener('load', function(){
             this.input = new InputHandler(this);
             this.map = new Map(this);
             this.entity = new Entity(this);
+            this.achievementHandler = new AchievementHandler(this);
             
             this.map.createMap([0, 0]);            
         }
@@ -50,6 +51,9 @@ addEventListener('load', function(){
             this.checkInput()
             this.player.update();
             this.enemies.forEach((e) => e.update())
+            for (x in this.AchievementHandler.messageQueue){
+                alert(x)
+            }
         }
 
         draw(context){

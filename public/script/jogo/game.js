@@ -3,12 +3,9 @@ import { Entity } from './Entity.js';
 import { InputHandler } from './InputHandler.js';
 import { Map } from './Map.js';
 import { Player } from './Player.js';
-<<<<<<< HEAD
 import { AchievementHandler } from './AchievementHandler.js';
-=======
 import { Pontos } from './Pontos.js';
 
->>>>>>> d1348fdc870fdffb4ddcebf61b1611d61ec01a18
 
 // roda após as imagens serem carregadas
 addEventListener('load', function(){

@@ -3,6 +3,7 @@ import { Entity } from './Entity.js';
 import { InputHandler } from './InputHandler.js';
 import { Map } from './Map.js';
 import { Player } from './Player.js';
+import { Pontos } from './Pontos.js';
 import { AchievementHandler } from './AchievementHandler.js';
 
 // roda após as imagens serem carregadas
@@ -33,7 +34,6 @@ addEventListener('load', function(){
             this.input = new InputHandler(this);
             this.map = new Map(this);
             this.entity = new Entity(this);
-            this.achievementHandler = new AchievementHandler(this);
             
             this.map.createMap([0, 0]);            
         }

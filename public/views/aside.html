@@ -2,17 +2,53 @@
     
     <script src="../script/paginas/chat.js" defer></script>
 
-    <div id="pessoa">
-        <img src="../images/icones/perfil.png">
-        <p>Fulano de tal</p>
+    <div id="chats-container" class="visible">
+        <div class="chat global">
+            <img src="../images/icones/icone_do_tradutor.png">
+            <div class="text">GLOBAL</div>
+            <div class="down-arrow">V</div>
+        </div>
+
+        <div class="chats invisible">
+
+            <div><img><div class="message-chat">GLOBAL - 1</div></div>
+            <div><img><div class="message-chat">GLOBAL - 3</div></div>
+            <div><img><div class="message-chat">GLOBAL - 4</div></div>
+            <div><img><div class="message-chat">GLOBAL - 2</div></div>
+
+        </div>
+
+        <div class="chat amigos">
+            <img src="../images/icones/perfil.png">
+            <div class="text">AMIGOS</div>
+            <div class="down-arrow">V</div>
+        </div>
+
+        <div class="chats invisible">
+
+            <div><img src="../images/icones/perfil.png"><div class="message-chat">FULANO DE TAL - 1</div></div>
+            <div><img src="../images/icones/perfil.png"><div class="message-chat">FULANO DE TAL - 2</div></div>
+            <div><img src="../images/icones/perfil.png"><div class="message-chat">FULANO DE TAL - 3</div></div>
+            <div><img src="../images/icones/perfil.png"><div class="message-chat">FULANO DE TAL - 4</div></div>
+            
+
+        </div>
     </div>
 
-    <div id="conversa">
-    </div>
+    <div id="conversa-container" class="invisible">
+        <div id="perfil-conversa">
+            <img id="flecha-voltar" src="../images/icones/voltar_flecha.png">
+            <img id='perfil-foto' src="../images/icones/perfil.png">
+            <p id="nome-conversa">Fulano de tal</p>
+        </div>
 
-    <div id="mensagem">            
-        <textarea placeholder="Escreva sua mensagem" id="texto"></textarea>
-        <input type="button" value="Enviar" id="enviar-mensagem" for="texto">
+        <div id="conversa">
+        </div>
+
+        <div id="mensagem">            
+            <textarea placeholder="Escreva sua mensagem" id="texto"></textarea>
+            <input type="button" value="Enviar" id="enviar-mensagem" for="texto">
+        </div>
     </div>
 
 </aside>

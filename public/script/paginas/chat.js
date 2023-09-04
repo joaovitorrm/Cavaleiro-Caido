@@ -1,11 +1,45 @@
+const arrows = document.getElementsByClassName('down-arrow');
+const chats = document.getElementsByClassName('chats');
+const directChats = document.getElementsByClassName('message-chat');
+const nomeConversa = document.getElementById('nome-conversa');
+const chatsContainer = document.getElementById('chats-container');
+const conversaContainer = document.getElementById('conversa-container');
+const conversa = document.getElementById('conversa');
+const flechaVoltar = document.getElementById('flecha-voltar');
 
-// abre o chat
+// DEIXA OS CHATS DE CADA CATEGORIA ABERTO
+for (let x = 0; x < 2; x++) {
+    arrows[x].addEventListener('click', () => {
+        chats[x].classList.toggle('visible')
+        chats[x].classList.toggle('invisible')
+    })
+}
+
+// ALTERA ENTRE AS CATEGORIAS E O CHAT PRIVADO
+for (const d of directChats) {
+    d.addEventListener('click', () => {
+        nomeConversa.innerText = d.innerText
+        chatsContainer.classList.toggle('visible');
+        chatsContainer.classList.toggle('invisible');
+        conversaContainer.classList.toggle('visible');
+        conversaContainer.classList.toggle('invisible');
+    })
+}
+
+flechaVoltar.addEventListener('click', () => {
+    chatsContainer.classList.toggle('visible');
+    chatsContainer.classList.toggle('invisible');
+    conversaContainer.classList.toggle('visible');
+    conversaContainer.classList.toggle('invisible');
+})
+
+// ABRE O ASIDE DO CHAT
 document.getElementById('chat').onclick = () => {
     const menu = document.getElementById('chat-menu');
     if (menu.style.display == "none" || menu.style.display == ''){
-        menu.style.display = "block"
+        menu.style['display'] = "flex"
     } else {
-        menu.style.display = 'none'
+        menu.style['display'] = 'none'
     }    
 }
 
@@ -14,11 +48,18 @@ const texto = document.getElementById('texto')
 texto.addEventListener('keydown', sendMessage)
 
 // função que adiciona o texto na tela e limpa a caixa de texto
-function addTextChat(){    
-    document.getElementById('conversa').innerHTML += 
-    "<div class='remetente'>" +
-        "<span >" + texto.value +"</span>" +
-    "</div>";
+function addTextChat(){
+    const msg = document.createElement('div');
+    msg.classList.add('remetente');
+
+    const spanText = document.createElement('span');
+    spanText.innerText = texto.value;
+
+    msg.appendChild(spanText);
+    conversa.appendChild(msg);
+
+    conversa.scrollTop = conversa.scrollHeight;
+
     texto.value = '';
 }
 
@@ -40,3 +81,9 @@ function sendMessage(e){
     }
 }
 
+setInterval(async () => {
+    const data = await fetch('/getChat/1', {
+        method: 'GET',
+    }).then(response => response.json()).then(response => console.log(JSON.stringify(response)))
+    
+}, 1000)

@@ -21,6 +21,7 @@ pages =__dirname + '/public/views'
 
 const mysql = require('mysql');
 const Usuario = require('./models/Usuario');
+const HighScore = require('./models/HighScore');
 
 const conexao = mysql.createConnection({
     host: "localhost",
@@ -45,6 +46,14 @@ app.post('/cadastrarUsuario', (req, res) => {
     user.inserir(conexao)
     res.render('confirmaCadastro')
 });
+
+app.get('/getChat/:userId', (req, res) => {
+    const userId = req.params.userId;
+
+    
+
+    res.end();
+})
 
 app.get('/', function(req, res){
     res.render('home');
@@ -84,4 +93,12 @@ app.get('/login_efetuado', function(req, res){
 
 app.get('/minijogos', (req, res) => {
     res.render('minijogos')
+})
+
+app.get('/highscore', function (req, res) {
+    const hs = new HighScore();
+
+    hs.listar(conexao, (result) => {
+        res.render("highscore", {hs: result})
+    });
 })

@@ -5,6 +5,7 @@ import { Map } from './Map.js';
 import { Player } from './Player.js';
 import { AchievementHandler } from './AchievementHandler.js';
 import { Pontos } from './Pontos.js';
+import { Utils } from './Utils.js';
 
 
 // roda após as imagens serem carregadas
@@ -54,15 +55,13 @@ addEventListener('load', function(){
             this.checkInput()
             this.player.update();
             this.enemies.forEach((e) => e.update())
-            for (x in this.AchievementHandler.messageQueue){
-                alert(x)
-            }
         }
 
         draw(context){
             this.map.draw(context)
             this.player.draw(context)            
             this.enemies.forEach((e) => e.draw(context))
+            this.achievementHandler.messageQueue.forEach((a)=> a.draw(context))
         }
     }
     

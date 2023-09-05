@@ -22,6 +22,8 @@ pages =__dirname + '/public/views'
 const mysql = require('mysql');
 const Usuario = require('./models/Usuario');
 const HighScore = require('./models/HighScore');
+const Achievement = require("./models/Achievement.js")
+const User_has_achievements = require("./models/User_has_achievements.js")
 
 const conexao = mysql.createConnection({
     host: "localhost",
@@ -49,8 +51,6 @@ app.post('/cadastrarUsuario', (req, res) => {
 
 app.get('/getChat/:userId', (req, res) => {
     const userId = req.params.userId;
-
-    
 
     res.end();
 })
@@ -100,5 +100,21 @@ app.get('/highscore', function (req, res) {
 
     hs.listar(conexao, (result) => {
         res.render("highscore", {hs: result})
+    });
+})
+
+app.get('/Achievement', function (req, res){
+    const achievement = new Achievement();
+
+    achievement.listar(conexao, (result) => {
+        res.render("achievement", {achievement: result})
+    });
+})
+app.get('/User_has_achievements', function (req, res){
+    const user_has_achievement = new User_has_achievements();
+
+    user_has_achievement.listar(conexao, (result) => {
+        res.render("user_has_achievements", {user_has_achievement: result})
+        console.log(user_has_achievement)
     });
 })

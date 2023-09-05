@@ -2,9 +2,9 @@ module.exports = class Chat {
     constructor() {
         this.mensagem = '';
         this.tempo = '';
-        this.global = Boolean;
-        this.remetId = '';
-        this.destId = '';        
+        this.global = 0;
+        this.remetId = 1;
+        this.destId = 2;        
     }
 
     enviarMensagem(conexao) {

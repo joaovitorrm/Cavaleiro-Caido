@@ -47,10 +47,10 @@ ENGINE = InnoDB;
 -- Table `cavaleiro`.`chat`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`chat` (
-  `idchat` INT NOT NULL,
+  `idchat` INT NOT NULL AUTO_INCREMENT,
   `tempo` DATETIME NULL,
   `mensagem` TEXT NULL,
-  `global?` TINYINT NULL,
+  `global` TINYINT NULL,
   `remetente` INT NOT NULL,
   `destinatario` INT NULL,
   PRIMARY KEY (`idchat`),

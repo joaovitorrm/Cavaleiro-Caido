@@ -1,0 +1,2 @@
+insert into user (nome, email, senha, cargo, imagemURL) values ('joao', 'test@email', 'senha', 'usuario', 'imagemPATH');
+insert into user (nome, email, senha, cargo, imagemURL) values ('pedro', 'test@email', 'senha', 'usuario', 'imagemPATH');

@@ -55,19 +55,23 @@ app.get('/getChat/:userId', (req, res) => {
     const userId = req.params.userId;
 
     chat.listarMensagens(conexao, userId, (result) => {
-        
-    })
-
-    res.end();
+        res.json(result);
+        res.end();
+    })    
 })
 
 app.post('/enviarMensagem', (req, res) => {
+
+    const mensagem = req.body.msg;
+
+    console.log(mensagem)
+
     let chat = new Chat();
 
-    chat.mensagem = req.body.msg;
-    chat.global = false;
-    chat.remetId = '1';
-    chat.destId = '2';
+    chat.mensagem = mensagem;
+    chat.global = 0;
+    chat.remetId = 1;
+    chat.destId = 2;
     chat.tempo = new Date().toLocaleDateString();
 
     chat.enviarMensagem(conexao);

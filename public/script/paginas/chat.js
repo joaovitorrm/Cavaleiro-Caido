@@ -7,6 +7,11 @@ const conversaContainer = document.getElementById('conversa-container');
 const conversa = document.getElementById('conversa');
 const flechaVoltar = document.getElementById('flecha-voltar');
 
+// pega o textarea e adiciona um evento que vigia as teclas pressionadas
+const texto = document.getElementById('texto')
+texto.addEventListener('keydown', sendMessage)
+
+
 // DEIXA OS CHATS DE CADA CATEGORIA ABERTO
 for (let x = 0; x < 2; x++) {
     arrows[x].addEventListener('click', () => {
@@ -43,10 +48,6 @@ document.getElementById('chat').onclick = () => {
     }    
 }
 
-// pega o textarea e adiciona um evento que vigia as teclas pressionadas
-const texto = document.getElementById('texto')
-texto.addEventListener('keydown', sendMessage)
-
 // função que adiciona o texto na tela e limpa a caixa de texto
 function addTextChat(){
     const msg = document.createElement('div');
@@ -63,9 +64,24 @@ function addTextChat(){
     texto.value = '';
 }
 
+function enviarMensagem(msg) {
+    const data = {
+        msg: msg
+    }
+
+    fetch('/enviarMensagem', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json'
+        },
+    })
+}
+
 // checa se o botão de enviar mensagem foi pressionado
 document.getElementById('enviar-mensagem').onclick = () => {
     if (texto.value != ''){
+        enviarMensagem(texto.value);
         addTextChat();
     }
 }
@@ -73,8 +89,9 @@ document.getElementById('enviar-mensagem').onclick = () => {
 // checa se a tecla pressionada no textarea é a tecla enter
 function sendMessage(e){    
     if (e.which == 13){
-        if (texto.value != ''){        
-            addTextChat();            
+        if (texto.value != ''){   
+            enviarMensagem();
+            addTextChat();
         }
         // impede que o usuario desça de linha
         e.preventDefault();            
@@ -86,4 +103,4 @@ setInterval(async () => {
         method: 'GET',
     }).then(response => response.json()).then(response => console.log(JSON.stringify(response)))
     
-}, 1000)
+}, 2000)

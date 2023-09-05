@@ -58,6 +58,7 @@ export class Player extends Entity{
         this.sprite_atual = new Image()
         this.sprite_atual.src = this.sprites.cavaleiro_padrao  + "/parado.png" //seletor de skins
 
+        this.enemiesKilled = 0
           
     }
 
@@ -104,7 +105,8 @@ export class Player extends Entity{
         }
         // Pega a última tecla pressionada
         // e checa se a tecla tem utilidade  
-        this.key = this.input.key[this.input.key.length - 1];     
+        this.key = this.input.key[this.input.key.length - 1];
+             
         if (this.key in this.controls) {
             this.controls[this.key].call(this, this.config.speed)            
         }
@@ -122,7 +124,7 @@ export class Player extends Entity{
                     const index = this.game.enemies.indexOf(collided[1])
                     this.game.map.removeEnemy(index)
                     this.game.enemies.splice(index, 1)
-                    AchievementHandler.enemiesKilled += 1
+                    this.enemiesKilled += 1
                 }
                 
             }
@@ -191,5 +193,6 @@ export class Player extends Entity{
     draw(context) {
         this.drawLife(context)
         context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h);
+        
     }
 }

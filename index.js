@@ -126,3 +126,19 @@ app.get('/highscore', function (req, res) {
         res.render("highscore", {hs: result})
     });
 })
+
+app.get('/Achievement', function (req, res){
+    const achievement = new Achievement();
+
+    achievement.listar(conexao, (result) => {
+        res.render("achievement", {achievement: result})
+    });
+})
+app.get('/User_has_achievements', function (req, res){
+    const user_has_achievement = new User_has_achievements();
+
+    user_has_achievement.listar(conexao, (result) => {
+        res.render("user_has_achievements", {user_has_achievement: result})
+        console.log(user_has_achievement)
+    });
+})

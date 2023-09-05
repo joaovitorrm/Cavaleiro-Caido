@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`chat` (
   `tempo` DATETIME NULL,
   `mensagem` TEXT NULL,
   `global?` TINYINT NULL,
-  `lido` BOOLEAN NULL,
   `remetente` INT NOT NULL,
   `destinatario` INT NULL,
   PRIMARY KEY (`idchat`),

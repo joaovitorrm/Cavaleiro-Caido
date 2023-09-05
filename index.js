@@ -8,6 +8,7 @@ app.listen(port, function(){
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'))
 
@@ -22,11 +23,13 @@ pages =__dirname + '/public/views'
 const mysql = require('mysql');
 const Usuario = require('./models/Usuario');
 const HighScore = require('./models/HighScore');
+const req = require('express/lib/request');
+const Chat = require('./models/Chat');
 
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "123456789",
+    password: "",
     database: "cavaleiro"
 })
 conexao.connect(function(err) {
@@ -48,9 +51,26 @@ app.post('/cadastrarUsuario', (req, res) => {
 });
 
 app.get('/getChat/:userId', (req, res) => {
+    let chat = new Chat();
     const userId = req.params.userId;
 
-    
+    chat.listarMensagens(conexao, userId, (result) => {
+        
+    })
+
+    res.end();
+})
+
+app.post('/enviarMensagem', (req, res) => {
+    let chat = new Chat();
+
+    chat.mensagem = req.body.msg;
+    chat.global = false;
+    chat.remetId = '1';
+    chat.destId = '2';
+    chat.tempo = new Date().toLocaleDateString();
+
+    chat.enviarMensagem(conexao);
 
     res.end();
 })

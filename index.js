@@ -62,17 +62,15 @@ app.get('/getChat/:userId', (req, res) => {
 
 app.post('/enviarMensagem', (req, res) => {
 
-    const mensagem = req.body.msg;
-
-    console.log(mensagem)
+    const {msg, tempo} = req.body;
 
     let chat = new Chat();
 
-    chat.mensagem = mensagem;
+    chat.mensagem = msg;
     chat.global = 0;
     chat.remetId = 1;
     chat.destId = 2;
-    chat.tempo = new Date().toLocaleDateString();
+    chat.tempo = tempo
 
     chat.enviarMensagem(conexao);
 

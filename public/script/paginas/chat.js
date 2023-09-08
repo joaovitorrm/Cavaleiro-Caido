@@ -11,6 +11,7 @@ const flechaVoltar = document.getElementById('flecha-voltar');
 const texto = document.getElementById('texto')
 texto.addEventListener('keydown', sendMessage)
 
+let getChatIntervalId;
 
 // DEIXA OS CHATS DE CADA CATEGORIA ABERTO
 for (let x = 0; x < 2; x++) {
@@ -27,15 +28,18 @@ for (const d of directChats) {
         chatsContainer.classList.toggle('visible');
         chatsContainer.classList.toggle('invisible');
         conversaContainer.classList.toggle('visible');
-        conversaContainer.classList.toggle('invisible');
+        conversaContainer.classList.toggle('invisible');        
+        startChatInterval(1)
     })
 }
 
+// VOLTAR PARA TELA INICIAL DOS CHATS
 flechaVoltar.addEventListener('click', () => {
     chatsContainer.classList.toggle('visible');
     chatsContainer.classList.toggle('invisible');
     conversaContainer.classList.toggle('visible');
     conversaContainer.classList.toggle('invisible');
+    stopChatInterval()
 })
 
 // ABRE O ASIDE DO CHAT
@@ -65,9 +69,13 @@ function addTextChat(){
 }
 
 function enviarMensagem(msg) {
+    let tempo = new Date();
+
     const data = {
-        msg: msg
+        msg: msg,
+        tempo: `${tempo.getUTCFullYear()}-${tempo.getUTCMonth()}-${tempo.getUTCDay()} ${tempo.getUTCHours()}:${tempo.getUTCMinutes()}:${tempo.getUTCSeconds()}`,
     }
+
 
     fetch('/enviarMensagem', {
         method: 'POST',
@@ -91,7 +99,7 @@ document.getElementById('enviar-mensagem').onclick = () => {
 function sendMessage(e){    
     if (e.which == 13){
         if (texto.value != ''){   
-            enviarMensagem();
+            enviarMensagem(texto.value);
             addTextChat();
         }
         // impede que o usuario desça de linha
@@ -99,9 +107,19 @@ function sendMessage(e){
     }
 }
 
-setInterval(async () => {
-    const data = await fetch('/getChat/1', {
+function startChatInterval(id) {
+    getChat(id, (result) => {console.log(result)});
+    getChatIntervalId = setInterval(() => {getChat(id, (result) => {console.log(result)})}, 2000);    
+}
+
+function stopChatInterval() {
+    clearInterval(getChatIntervalId)
+}
+
+function getChat(id, callback) {
+    const data = fetch('/getChat/' + String(id), {
         method: 'GET',
-    }).then(response => response.json()).then(response => console.log(JSON.stringify(response)))
-    
-}, 2000)
+    }).then(response => response.json()).then(response => {
+        return callback(JSON.stringify(response))
+    })
+}

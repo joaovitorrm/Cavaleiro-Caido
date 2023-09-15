@@ -47,10 +47,10 @@ ENGINE = InnoDB;
 -- Table `cavaleiro`.`chat`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`chat` (
-  `idchat` INT NOT NULL,
+  `idchat` INT NOT NULL AUTO_INCREMENT,
   `tempo` DATETIME NULL,
   `mensagem` TEXT NULL,
-  `global?` TINYINT NULL,
+  `global` TINYINT NULL,
   `remetente` INT NOT NULL,
   `destinatario` INT NULL,
   PRIMARY KEY (`idchat`),
@@ -58,11 +58,6 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`chat` (
   INDEX `fk_chat_user2_idx` (`destinatario` ASC),
   CONSTRAINT `fk_chat_user1`
     FOREIGN KEY (`remetente`)
-    REFERENCES `cavaleiro`.`user` (`iduser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_chat_user2`
-    FOREIGN KEY (`destinatario`)
     REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

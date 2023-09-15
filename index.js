@@ -50,25 +50,33 @@ app.post('/cadastrarUsuario', (req, res) => {
     res.render('confirmaCadastro')
 });
 
-app.get('/getChat/:userId', (req, res) => {
+app.post('/getChat', (req, res) => {
     let chat = new Chat();
-    const userId = req.params.userId;
+    const {global, remetId, destId} = req.body;
 
-    chat.listarMensagens(conexao, userId, (result) => {
-        
-    })
+    chat.remetId = remetId;
+    chat.destId = destId;
+    chat.global = global;
 
-    res.end();
+    chat.listarMensagens(conexao, (result) => {
+        res.json(result);
+        res.end();
+    })    
 })
 
-app.post('/enviarMensagem', (req, res) => {
+app.post('/enviarMensagem/', (req, res) => {
+
+    const {global, remetId, destId, msg, tempo} = req.body;
+
     let chat = new Chat();
 
-    chat.mensagem = req.body.msg;
-    chat.global = false;
-    chat.remetId = '1';
-    chat.destId = '2';
-    chat.tempo = new Date().toLocaleDateString();
+    chat.mensagem = msg;
+    chat.global = global;
+    chat.remetId = remetId;
+    chat.destId = destId;
+    chat.tempo = tempo;
+
+    
 
     chat.enviarMensagem(conexao);
 

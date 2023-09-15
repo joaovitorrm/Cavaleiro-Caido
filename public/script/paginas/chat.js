@@ -1,6 +1,7 @@
 const arrows = document.getElementsByClassName('down-arrow');
 const chats = document.getElementsByClassName('chats');
-const directChats = document.getElementsByClassName('message-chat');
+const directChats = document.getElementsByClassName('amigo-chat');
+const globalChats = document.getElementsByClassName('global-chat');
 const nomeConversa = document.getElementById('nome-conversa');
 const chatsContainer = document.getElementById('chats-container');
 const conversaContainer = document.getElementById('conversa-container');
@@ -10,6 +11,10 @@ const flechaVoltar = document.getElementById('flecha-voltar');
 // pega o textarea e adiciona um evento que vigia as teclas pressionadas
 const texto = document.getElementById('texto')
 texto.addEventListener('keydown', sendMessage)
+
+let remetenteIdPlacehold = 1;
+let destinatarioIdPlacehold = 2;
+let globalIdPlacehold = 0;
 
 let getChatIntervalId;
 
@@ -24,12 +29,30 @@ for (let x = 0; x < 2; x++) {
 // ALTERA ENTRE AS CATEGORIAS E O CHAT PRIVADO
 for (const d of directChats) {
     d.addEventListener('click', () => {
+        globalIdPlacehold = 0
+        destinatarioIdPlacehold = 2
         nomeConversa.innerText = d.innerText
         chatsContainer.classList.toggle('visible');
         chatsContainer.classList.toggle('invisible');
         conversaContainer.classList.toggle('visible');
         conversaContainer.classList.toggle('invisible');        
-        startChatInterval(1)
+        firstOpenChat(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold);
+        startChatInterval(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold)
+    })
+}
+
+// ALTERA ENTRE AS CATEGORIAS E O CHAT GLOBAL
+for (const g of globalChats) {
+    g.addEventListener('click', () => {
+        globalIdPlacehold = 1
+        destinatarioIdPlacehold = 0
+        nomeConversa.innerText = g.innerText
+        chatsContainer.classList.toggle('visible');
+        chatsContainer.classList.toggle('invisible');
+        conversaContainer.classList.toggle('visible');
+        conversaContainer.classList.toggle('invisible');        
+        firstOpenChat(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold);
+        startChatInterval(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold)
     })
 }
 
@@ -39,7 +62,8 @@ flechaVoltar.addEventListener('click', () => {
     chatsContainer.classList.toggle('invisible');
     conversaContainer.classList.toggle('visible');
     conversaContainer.classList.toggle('invisible');
-    stopChatInterval()
+    conversaContainer.querySelector('#conversa').innerHTML = '';
+    stopChatInterval();
 })
 
 // ABRE O ASIDE DO CHAT
@@ -53,12 +77,12 @@ document.getElementById('chat').onclick = () => {
 }
 
 // função que adiciona o texto na tela e limpa a caixa de texto
-function addTextChat(){
+function addTextChat(text){
     const msg = document.createElement('div');
     msg.classList.add('remetente');
 
     const spanText = document.createElement('span');
-    spanText.innerText = texto.value;
+    spanText.innerText = text;
 
     msg.appendChild(spanText);
     conversa.appendChild(msg);
@@ -72,14 +96,15 @@ function enviarMensagem(msg) {
     let tempo = new Date();
 
     const data = {
+        global: globalIdPlacehold,
+        remetId: remetenteIdPlacehold,
+        destId: destinatarioIdPlacehold,
         msg: msg,
         tempo: `${tempo.getUTCFullYear()}-${tempo.getUTCMonth()}-${tempo.getUTCDay()} ${tempo.getUTCHours()}:${tempo.getUTCMinutes()}:${tempo.getUTCSeconds()}`,
     }
 
-
     fetch('/enviarMensagem', {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify(data),
         headers: {
             'Content-type': 'application/json'
@@ -91,7 +116,7 @@ function enviarMensagem(msg) {
 document.getElementById('enviar-mensagem').onclick = () => {
     if (texto.value != ''){
         enviarMensagem(texto.value);
-        addTextChat();
+        addTextChat(texto.value);
     }
 }
 
@@ -100,26 +125,51 @@ function sendMessage(e){
     if (e.which == 13){
         if (texto.value != ''){   
             enviarMensagem(texto.value);
-            addTextChat();
+            addTextChat(texto.value);
         }
         // impede que o usuario desça de linha
         e.preventDefault();            
     }
 }
 
-function startChatInterval(id) {
-    getChat(id, (result) => {console.log(result)});
-    getChatIntervalId = setInterval(() => {getChat(id, (result) => {console.log(result)})}, 2000);    
+function firstOpenChat(global, remetId, destId) {
+    getChat(global, remetId, destId, (result) => {        
+        const messages = JSON.parse(result);
+        for (const m of messages){
+            addTextChat(m.mensagem);
+        }
+    })
+}
+
+function startChatInterval(global=0, remetId, destId) {
+    getChatIntervalId = setInterval(() => {getChat(global, remetId, destId, (result) => {
+        JSON.parse(result).forEach((m, i) => {
+            if ((i + 1) > conversaContainer.querySelector('#conversa').children.length) {
+                addTextChat(m.mensagem)
+            }
+        });
+    })}, 1000);    
 }
 
 function stopChatInterval() {
     clearInterval(getChatIntervalId)
 }
 
-function getChat(id, callback) {
-    const data = fetch('/getChat/' + String(id), {
-        method: 'GET',
+function getChat(global, remetId, destId, callback) {
+    const data = {
+        global,
+        destId,
+        remetId,
+    }
+    const chats = fetch('/getChat', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
     }).then(response => response.json()).then(response => {
         return callback(JSON.stringify(response))
     })
+    
+    
 }

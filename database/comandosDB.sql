@@ -60,11 +60,6 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`chat` (
     FOREIGN KEY (`remetente`)
     REFERENCES `cavaleiro`.`user` (`iduser`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_chat_user2`
-    FOREIGN KEY (`destinatario`)
-    REFERENCES `cavaleiro`.`user` (`iduser`)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

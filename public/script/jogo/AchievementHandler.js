@@ -23,57 +23,75 @@ A ideia é o a classe receber:
  - dados relevantes da classe player (distancia caminhada e kills)
 e constantes loopar o array checando as condições
 */
+
 import { Player } from './Player.js';
 
-// Define a simple pub/sub mechanism
-const EventBus = {
-    topics: {},
-    subscribe(topic, listener) {
-      if (!this.topics[topic]) {
-        this.topics[topic] = [];
-      }
-      this.topics[topic].push(listener);
+export class AchievementHandler{
+  constructor(game){            
+    this.game = game
+    this.stats = game.player.stats
+    this.achievementsAConcluir = [{
+      id: 0,
+      condicao: ()=>{if(enemiesKilled == 1){return(true)}},
+      img: "./a",
+      status: 0
     },
-    publish(topic, data) {
-      if (!this.topics[topic]) {
-        return;
-      }
-      this.topics[topic].forEach((listener) => {
-        listener(data);
-      });
+    {
+      id: 1,
+      condicao: ()=>{if(enemiesKilled == 5){return(true)}},
+      img: "./a",
+      status: 0
     },
-  };
-  
-function playerStatsComponent(achievements) {
-EventBus.subscribe('achievement_unlocked', (achievement) => {
-    // Update player's stats UI here
-});
+    {
+      id: 2,
+      condicao: ()=>{if(enemiesKilled == 10){return(true)}},
+      img: "./a",
+      status: 0
+    }]
+    this.events = {
+      events: {},
+      subscribe: function (eventName, fn) {
+        this.events[eventName] = this.events[eventName] || [];
+        this.events[eventName].push(fn);
+      },
+      unsubscribe: function (eventName, fn) {
+        if (this.events[eventName]) {
+          for (var i = 0; i < this.events[eventName].length; i++) {
+            if (this.events[eventName][i] === fn) {
+              this.events[eventName].splice(i, 1);
+              break;
+            }
+          };
+        }
+      },
+      publish: function (eventName, data) {
+        if (this.events[eventName]) {
+          this.events[eventName].forEach(function (fn) {
+            fn(data);
+          });
+        }
+      }
+    }
+  }
+  subscribes(){
+    /*
+    events.subscribe("achievement", function(data){
+    //usar fetch para fazer a interface achievementHandler - server - sql
+    //para executar o alter table
+
+    });
+    */
+    events.subscribe("achievement", function(data){
+      //console.log(`notificação, ${data['id']} concluído`);
+      //drawImage(img do achievement no 0,0 do canvas)
+      
+      if(data['condicao']()){
+        achievementsAConcluir = achievementsAConcluir.filter(monke => monke.id != data.id)
+        console.log(`achievement ${data.id} completo!, achievements a concluir: ${achievementsAConcluir.length}`)
+      }
+      console.log(data.condicao())
+    });
+  }
 }
 
-function notificationComponent() {
-EventBus.subscribe('achievement_unlocked', (achievement) => {
-    console.log(`Notification: You earned a new achievement: ${achievement}`);
-    // Show a notification to the player here
-});
-}
-
-function leaderboardComponent() {
-EventBus.subscribe('achievement_unlocked', (achievement) => {
-    console.log(`Updating leaderboard for achievement: ${achievement}`);
-    // Update the leaderboard here
-});
-}
-
-// Simulate a player earning an achievement
-function playerEarnAchievement(achievement) {
-console.log(`Player earned achievement: ${achievement}`);
-EventBus.publish('achievement_unlocked', achievement);
-}
-
-// Usage
-playerStatsComponent();
-notificationComponent();
-leaderboardComponent();
-
-// Simulate a player earning an achievement
-playerEarnAchievement('High Score');
+achievementsAConcluir.forEach((a) =>{ events.publish("achievement", a);})

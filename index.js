@@ -29,7 +29,7 @@ const Chat = require('./models/Chat');
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "123456789",
     database: "cavaleiro"
 })
 conexao.connect(function(err) {

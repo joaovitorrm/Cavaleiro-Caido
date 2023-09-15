@@ -20,7 +20,7 @@ module.exports = class achievement {
 
         conexao.query(sql, (err, result) => {
             if (err) throw err;
-            return callback
+            return callback(result)
         });
     }
 }

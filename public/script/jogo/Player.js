@@ -58,25 +58,35 @@ export class Player extends Entity{
         this.sprite_atual = new Image()
         this.sprite_atual.src = this.sprites.cavaleiro_padrao  + "/parado.png" //seletor de skins
 
-        this.enemiesKilled = 0
+        this.stats = {
+            enemiesKilled: 0,
+            pixelsWalked: 0,
+            damageDealt: 0,
+            damageTaken: 0,
+
+        }
           
     }
 
     move_up(speed){
         this.y -= speed;
         this.animate(this.animations.andar_cima);
+        this.stats.pixelsWalked += speed
     }
     move_down(speed){
         this.y += speed;
         this.animate(this.animations.andar_baixo);
+        this.stats.pixelsWalked += speed
     }
     move_left(speed){
         this.x -= speed;
         this.animate(this.animations.andar_direita);
+        this.stats.pixelsWalked += speed
     }
     move_right(speed){
         this.x += speed;
         this.animate(this.animations.andar_esquerda);
+        this.stats.pixelsWalked += speed
     }
 
     animate(direction){
@@ -124,7 +134,7 @@ export class Player extends Entity{
                     const index = this.game.enemies.indexOf(collided[1])
                     this.game.map.removeEnemy(index)
                     this.game.enemies.splice(index, 1)
-                    this.enemiesKilled += 1
+                    this.stats.enemiesKilled += 1
                 }
                 
             }
@@ -149,6 +159,7 @@ export class Player extends Entity{
     attack(e){
         this.dealDamage(e, this)
         if(e.config.currentHealth <= 0){
+            console.log(`inimigo morto! (${enemiesKilled})`)
             return true
         }
         return false

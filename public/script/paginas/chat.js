@@ -92,6 +92,7 @@ function addTextChat(text){
     texto.value = '';
 }
 
+// FUNÇÃO PARA ENVIAR AS MENSAGENS
 function enviarMensagem(msg) {
     let tempo = new Date();
 
@@ -132,6 +133,7 @@ function sendMessage(e){
     }
 }
 
+// CARREGA TODAS AS MENSAGENS INICIALMENTE
 function firstOpenChat(global, remetId, destId) {
     getChat(global, remetId, destId, (result) => {        
         const messages = JSON.parse(result);
@@ -141,6 +143,7 @@ function firstOpenChat(global, remetId, destId) {
     })
 }
 
+// INICIA O LOOP QUE VERIFICA AS NOVAS MENSAGENS
 function startChatInterval(global=0, remetId, destId) {
     getChatIntervalId = setInterval(() => {getChat(global, remetId, destId, (result) => {
         JSON.parse(result).forEach((m, i) => {
@@ -151,10 +154,12 @@ function startChatInterval(global=0, remetId, destId) {
     })}, 1000);    
 }
 
+// CANCELA O LOOP QUE BUSCA AS MENSAGENS NO BANCO DE DADOS
 function stopChatInterval() {
     clearInterval(getChatIntervalId)
 }
 
+// FUNÇÃO PARA PEGAR AS MENSAGENS DO BANCO DE DADOS
 function getChat(global, remetId, destId, callback) {
     const data = {
         global,

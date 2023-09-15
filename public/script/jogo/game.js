@@ -55,16 +55,14 @@ addEventListener('load', function(){
             this.checkInput()
             this.player.update();
             this.enemies.forEach((e) => e.update())
-            this.achievementHandler.subscribes()
-            this.achievementHandler.achievementsAConcluir.forEach((a) =>{events.publish("achievement", a);})
-            
+            this.achievementHandler.update()
         }
 
         draw(context){
             this.map.draw(context)
             this.player.draw(context)            
             this.enemies.forEach((e) => e.draw(context))
-            this.achievementHandler.messageQueue.forEach((a)=> a.draw(context))
+           // this.achievementHandler.messageQueue.forEach((a)=> a.draw(context))
         }
     }
     

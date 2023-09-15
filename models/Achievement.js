@@ -5,12 +5,13 @@ module.exports = class achievement {
         this.condicao;
         this.img;
         this.recompensa;
+        this.descricao
     }
 
     inserir (conexao) {
-        let sql = "insert into achievement (condicao, img, recompensa) values (?, ?, ?)";
+        let sql = "insert into achievement (condicao, img, recompensa, descricao) values (?, ?, ?)";
 
-        conexao.query(sql, [this.condition, this.img, this.reward], (err, result) => {
+        conexao.query(sql, [this.condition, this.img, this.reward, this.descricao], (err, result) => {
             if (err) throw err
         });
     }

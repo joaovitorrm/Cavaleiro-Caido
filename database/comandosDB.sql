@@ -35,10 +35,11 @@ ENGINE = InnoDB;
 -- Table `cavaleiro`.`achievement`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`achievement` (
-  `idachievement` INT NOT NULL,
-  `condicao` VARCHAR(45) NULL,
-  `img` VARCHAR(45) NULL,
-  `recompensa` TEXT NULL,
+  `idachievement` INT NOT NULL AUTO_INCREMENT,
+  `condicao` VARCHAR(255) NULL,
+  `img` BLOB NULL,
+  `recompensa` VARCHAR(255) NULL,
+  `descricao` TEXT NULL,
   PRIMARY KEY (`idachievement`))
 ENGINE = InnoDB;
 

@@ -2,52 +2,13 @@
 //publish/subscribe
 //https://en.wikipedia.org/wiki/Publish–subscribe_pattern
 
-
-//recebe um 
-
-/*
-WITH messagetobesent AS (
-    SELECT * FROM user_has_achievement
-    WHERE completionstatus EQUAL TO 0 (false)
-    LEFT JOIN user_has_achievement, achievement ON achievement_id
-)
-SELECT condition 
-FROM messagetobesent
-
-*/
-
-
-/*
-A ideia é o a classe receber:
- - um array com as funções de achievements a serem coletados (messageQueue) do BD pelo servidor
- - dados relevantes da classe player (distancia caminhada e kills)
-e constantes loopar o array checando as condições
-*/
-
 import { Player } from './Player.js';
 
 export class AchievementHandler{
   constructor(game){            
     this.game = game
     this.stats = game.player.stats
-    this.achievementsAConcluir = [{
-      id: 0,
-      condicao: ()=>{if(enemiesKilled == 1){return(true)}},
-      img: "./a",
-      status: 0
-    },
-    {
-      id: 1,
-      condicao: ()=>{if(enemiesKilled == 5){return(true)}},
-      img: "./a",
-      status: 0
-    },
-    {
-      id: 2,
-      condicao: ()=>{if(enemiesKilled == 10){return(true)}},
-      img: "./a",
-      status: 0
-    }]
+    this.achievementsAConcluir = []
     this.events = {
       events: {},
       subscribe: function (eventName, fn) {
@@ -72,26 +33,60 @@ export class AchievementHandler{
         }
       }
     }
-  }
-  subscribes(){
-    /*
-    events.subscribe("achievement", function(data){
-    //usar fetch para fazer a interface achievementHandler - server - sql
-    //para executar o alter table
 
-    });
-    */
-    events.subscribe("achievement", function(data){
-      //console.log(`notificação, ${data['id']} concluído`);
-      //drawImage(img do achievement no 0,0 do canvas)
-      
-      if(data['condicao']()){
-        achievementsAConcluir = achievementsAConcluir.filter(monke => monke.id != data.id)
-        console.log(`achievement ${data.id} completo!, achievements a concluir: ${achievementsAConcluir.length}`)
+
+    this.subscribes()
+  }
+  subscribes() {
+    this.events.subscribe("achievement", (data) => {
+      console.log(data)
+      if (data['condicao']()) {
+
+        this.giveAchievementToUser(data.id);
+
+        this.achievementsAConcluir = this.achievementsAConcluir.filter(monke => monke.id != data.id);
+        console.log(`achievement ${data.id} completo!, achievements a concluir: ${this.achievementsAConcluir.length}`);
       }
-      console.log(data.condicao())
     });
   }
+  
+  update(){
+    this.achievementsAConcluir.forEach((a) =>{this.events.publish("achievement", a);})
+
+  }
+
+  
+  fetchAchievements(idachievement, condicao,img,recompensa,descricao, callback) {
+    const data = {
+      idachievement,
+      condicao,
+      img,
+      recompensa,
+      descricao
+    }
+    this.achievements = fetch('/getAchievementsNaoFeitos', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(response => response.json()).then(response => {
+        return callback(JSON.stringify(response))
+    })
+
+    
 }
 
-achievementsAConcluir.forEach((a) =>{ events.publish("achievement", a);})
+  giveAchievementToUser(achievementId) {
+    const response = fetch('/giveAchievementToUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ achievementId }), // Pass the achievement ID to the server
+    });
+
+    console.log(`Achievement ${achievementId} given to the user.`);
+}
+
+}

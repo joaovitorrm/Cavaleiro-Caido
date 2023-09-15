@@ -19,12 +19,14 @@ app.set('view engine', 'ejs')
 pages =__dirname + '/public/views'
 
 // CONEXÃO COM O MYSQL
-
+const req = require('express/lib/request');
 const mysql = require('mysql');
+
 const Usuario = require('./models/Usuario');
 const HighScore = require('./models/HighScore');
-const req = require('express/lib/request');
 const Chat = require('./models/Chat');
+const User_has_achievements = require('./models/User_has_achievements');
+
 
 const conexao = mysql.createConnection({
     host: "localhost",
@@ -131,18 +133,47 @@ app.get('/highscore', function (req, res) {
     });
 })
 
+app.post('/getAchievementsNaoFeitos', (req, res) => {
+    let uha = new User_has_achievements();
+    const { userId, achievementId } = req.body; // Assuming you receive the user's ID in the request body
+    
+    uha.userId = userId
+    uha.achievementId = achievementId
+
+
+    uha.listarNConcluidos(conexao, (result) => {
+      // Send the results as JSON response
+        res.json(result) //results == idachievement, condicao,img,recompensa,descricao
+        res.end();
+    });
+});
+
+app.post('/giveAchievementToUser', (req, res) => {
+
+    const { userId, AchievementId } = req.body;
+
+    let uha = new Chat();
+
+    uha.userId = userId
+    uha.achievementId = achievementId
+
+    uha.inserirAchievementCompleto(conexao);
+
+    res.end();
+})
+
+app.get('/User_has_achievements', function (req, res) {
+  const user_has_achievement = new User_has_achievements();
+
+  user_has_achievement.listar(conexao, (result) => {
+    res.render("user_has_achievements", { user_has_achievement: result });
+  });
+});
+
 app.get('/Achievement', function (req, res){
     const achievement = new Achievement();
 
     achievement.listar(conexao, (result) => {
         res.render("achievement", {achievement: result})
-    });
-})
-app.get('/User_has_achievements', function (req, res){
-    const user_has_achievement = new User_has_achievements();
-
-    user_has_achievement.listar(conexao, (result) => {
-        res.render("user_has_achievements", {user_has_achievement: result})
-        console.log(user_has_achievement)
     });
 })

@@ -159,7 +159,6 @@ export class Player extends Entity{
     attack(e){
         this.dealDamage(e, this)
         if(e.config.currentHealth <= 0){
-            console.log(`inimigo morto! (${enemiesKilled})`)
             return true
         }
         return false

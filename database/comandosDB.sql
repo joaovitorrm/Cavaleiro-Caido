@@ -35,12 +35,12 @@ ENGINE = InnoDB;
 -- Table `cavaleiro`.`achievement`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`achievement` (
-  `idachievement` INT NOT NULL AUTO_INCREMENT,
+  `achievementId` INT NOT NULL AUTO_INCREMENT,
   `condicao` VARCHAR(255) NULL,
   `img` BLOB NULL,
   `recompensa` VARCHAR(255) NULL,
   `descricao` TEXT NULL,
-  PRIMARY KEY (`idachievement`))
+  PRIMARY KEY (`achievementId`))
 ENGINE = InnoDB;
 
 
@@ -106,9 +106,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cavaleiro`.`user_has_achievement` (
   `user_iduser` INT NOT NULL,
-  `achievement_idachievement` INT NOT NULL,
-  PRIMARY KEY (`user_iduser`, `achievement_idachievement`),
-  INDEX `fk_user_has_achievement_achievement1_idx` (`achievement_idachievement` ASC),
+  `achievement_achievementId` INT NOT NULL,
+  PRIMARY KEY (`user_iduser`, `achievement_achievementId`),
+  INDEX `fk_user_has_achievement_achievement1_idx` (`achievement_achievementId` ASC),
   INDEX `fk_user_has_achievement_user_idx` (`user_iduser` ASC),
   CONSTRAINT `fk_user_has_achievement_user`
     FOREIGN KEY (`user_iduser`)
@@ -116,8 +116,8 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`user_has_achievement` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_achievement_achievement1`
-    FOREIGN KEY (`achievement_idachievement`)
-    REFERENCES `cavaleiro`.`achievement` (`idachievement`)
+    FOREIGN KEY (`achievement_achievementId`)
+    REFERENCES `cavaleiro`.`achievement` (`achievementId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

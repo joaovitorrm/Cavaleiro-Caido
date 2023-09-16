@@ -3,36 +3,28 @@ const Achievement = require('./Achievement');
 
 module.exports = class User_has_achievements {
   constructor() {
-    this.userId = 1;
-    this.achievements = new Achievement();
-  }
-
-  listar(conexao, callback) {
-    let sql = "SELECT * FROM user_has_achievement WHERE user_iduser = ?"; // Fixed table name and column name
-
-    conexao.query(sql, [this.userId] ,(err, result) => {
-      if (err) throw err;
-      return callback(result);
-    });
+    this.userId = 2;
+    this.achievement = new Achievement();
   }
   
-  inserirAchievementCompleto(conexao, AchievementId){
-    const sql = "insert into user_has_achievements (userId, achievementId) values (?, ?)";
-    conexao.query(sql, [this.userId, this.AchievementId], (err, result) => {
+  inserirAchievementCompleto(conexao){
+    const sql = "insert into user_has_achievement (user_iduser, achievement_achievementId) values (?, ?)";
+    conexao.query(sql, [this.userId, this.achievementId], (err, result) => {
         if (err) throw err;
     })
 }
 
-  listarNConcluidos(conexao, userId, callback) {
+  listarNConcluidos(conexao, callback) {
+    console.log("UHA.listar called")
     let sql = `
-      SELECT achievement.* 
+      SELECT * 
       FROM achievement
       LEFT JOIN user_has_achievement 
-      ON achievement.idachievement = user_has_achievement.achievement_idachievement 
+      ON achievement.achievementId = user_has_achievement.achievement_achievementId 
       AND user_has_achievement.user_iduser = ? 
       WHERE user_has_achievement.user_iduser IS NULL`;
 
-    conexao.query(sql, [userId], (err, result) => {
+    conexao.query(sql, [this.userId], (err, result) => {
       if (err) throw err;
       return callback(result);
     });

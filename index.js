@@ -31,7 +31,7 @@ const User_has_achievements = require('./models/User_has_achievements');
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "123456789",
+    password: "",
     database: "cavaleiro"
 })
 conexao.connect(function(err) {
@@ -135,14 +135,17 @@ app.get('/highscore', function (req, res) {
 
 app.post('/getAchievementsNaoFeitos', (req, res) => {
     let uha = new User_has_achievements();
-    const { userId, achievementId } = req.body; // Assuming you receive the user's ID in the request body
+    const { userId, achievementId, condicao, img, recompensa, descricao } = req.body; // Assuming you receive the user's ID in the request body
     
-    uha.userId = userId
-    uha.achievementId = achievementId
-
+    uha.userId = userId;
+    uha.achievement.achievementId = achievementId;
+    uha.achievement.condicao = condicao;
+    uha.achievement.img = img;
+    uha.achievement.recompensa = recompensa;
+    uha.achievement.descricao = descricao;
 
     uha.listarNConcluidos(conexao, (result) => {
-      // Send the results as JSON response
+
         res.json(result) //results == idachievement, condicao,img,recompensa,descricao
         res.end();
     });
@@ -150,25 +153,18 @@ app.post('/getAchievementsNaoFeitos', (req, res) => {
 
 app.post('/giveAchievementToUser', (req, res) => {
 
-    const { userId, AchievementId } = req.body;
+    const { achievementId } = req.body;
 
-    let uha = new Chat();
+    let uha = new User_has_achievements();
 
-    uha.userId = userId
+    uha.userId = 2
     uha.achievementId = achievementId
 
     uha.inserirAchievementCompleto(conexao);
 
-    res.end();
+
 })
 
-app.get('/User_has_achievements', function (req, res) {
-  const user_has_achievement = new User_has_achievements();
-
-  user_has_achievement.listar(conexao, (result) => {
-    res.render("user_has_achievements", { user_has_achievement: result });
-  });
-});
 
 app.get('/Achievement', function (req, res){
     const achievement = new Achievement();

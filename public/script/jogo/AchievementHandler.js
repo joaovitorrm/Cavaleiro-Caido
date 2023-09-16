@@ -8,7 +8,6 @@ export class AchievementHandler{
   constructor(game){            
     this.game = game
     this.stats = game.player.stats
-    this.achievementsAConcluir = []
     this.events = {
       events: {},
       subscribe: function (eventName, fn) {
@@ -34,31 +33,33 @@ export class AchievementHandler{
       }
     }
 
-
-    this.subscribes()
-  }
-  subscribes() {
-    this.events.subscribe("achievement", (data) => {
-      console.log(data)
-      if (data['condicao']()) {
-
-        this.giveAchievementToUser(data.id);
-
-        this.achievementsAConcluir = this.achievementsAConcluir.filter(monke => monke.id != data.id);
-        console.log(`achievement ${data.id} completo!, achievements a concluir: ${this.achievementsAConcluir.length}`);
-      }
-    });
-  }
-  
-  update(){
-    this.achievementsAConcluir.forEach((a) =>{this.events.publish("achievement", a);})
-
-  }
+    this.initAchievements()
 
   
-  fetchAchievements(idachievement, condicao,img,recompensa,descricao, callback) {
+    
+
+  }
+  update() {
+    if (this.achievementsAConcluir) { // Check if it's not null before using it
+      this.achievementsAConcluir.forEach((a) => {
+        this.events.publish("achievement", a);
+      });
+    }
+  }
+  async initAchievements() {
+    const achievementsData = await this.fetchAchievements();
+    this.achievementsAConcluir = achievementsData;
+
+    // Now that achievementsAConcluir is initialized, you can subscribe and use it further
+    this.subscribes();
+  }
+
+  
+  fetchAchievements(userId, achievementId,condicao,img,recompensa,descricao, callback) {
+    console.log("fetch rodou!")
     const data = {
-      idachievement,
+      userId,
+      achievementId,
       condicao,
       img,
       recompensa,
@@ -71,22 +72,37 @@ export class AchievementHandler{
         },
         body: JSON.stringify(data)
     }).then(response => response.json()).then(response => {
-        return callback(JSON.stringify(response))
+      this.achievementsAConcluir = response
+      return(response)
     })
 
     
-}
+  }
 
   giveAchievementToUser(achievementId) {
-    const response = fetch('/giveAchievementToUser', {
+    fetch('/giveAchievementToUser', {
       method: 'POST',
+      body: JSON.stringify({ achievementId }),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ achievementId }), // Pass the achievement ID to the server
+       // Pass the achievement ID to the server
     });
 
     console.log(`Achievement ${achievementId} given to the user.`);
 }
+  subscribes() {
+    this.events.subscribe("achievement", (data) => {
+      if (eval(data['condicao'])()) {
+
+        this.giveAchievementToUser(data['achievementId']);
+        console.log(data.achievementId)
+
+        this.achievementsAConcluir = this.achievementsAConcluir.filter(monke => monke.achievementId != data.achievementId);
+        console.log(`achievement ${data['achievementId']} completo!, achievements a concluir: ${this.achievementsAConcluir.length}`);
+      }
+    });
+  }
+
 
 }

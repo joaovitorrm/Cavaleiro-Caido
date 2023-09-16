@@ -1,7 +1,7 @@
 
 module.exports = class achievement {
     constructor () {
-        this.id;
+        this.achievementId;
         this.condicao;
         this.img;
         this.recompensa;

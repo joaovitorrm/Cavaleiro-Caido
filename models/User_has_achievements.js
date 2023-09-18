@@ -17,14 +17,15 @@ module.exports = class User_has_achievements {
   listarNConcluidos(conexao, callback) {
     console.log("UHA.listar called")
     let sql = `
-      SELECT * 
-      FROM achievement
-      LEFT JOIN user_has_achievement 
-      ON achievement.achievementId = user_has_achievement.achievement_achievementId 
-      AND user_has_achievement.user_iduser = ? 
-      WHERE user_has_achievement.user_iduser IS NULL`;
+    SELECT * 
+    FROM achievement
+    LEFT JOIN user_has_achievement 
+    ON achievement.achievementId = user_has_achievement.achievement_achievementId 
+       AND user_has_achievement.user_iduser = 2
+    WHERE user_has_achievement.user_iduser IS NULL
+    `;
 
-    conexao.query(sql, [this.userId], (err, result) => {
+    conexao.query(sql, (err, result) => {
       if (err) throw err;
       return callback(result);
     });

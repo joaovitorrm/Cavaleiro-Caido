@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`user` (
   `email` VARCHAR(100) NULL,
   `senha` VARCHAR(255) NULL,
   `cargo` ENUM('admin', 'user') NULL,
-  `imagemURL` VARCHAR(45) NULL,
+  `imagemURL` DATE NULL,
   PRIMARY KEY (`iduser`))
 ENGINE = InnoDB;
 

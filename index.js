@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 
 app.listen(port, function(){
-    console.log("Servidor no ar - Porta: 3000!")
+    console.log(`Servidor no ar - Porta: ${port}`)
 });
 
 const bodyParser = require('body-parser');
@@ -41,16 +41,20 @@ conexao.connect(function(err) {
 
 // CONEXÃO
 
+
 app.post('/cadastrarUsuario', (req, res) => {
     const user = new Usuario()
+    user.id = req.body.iduser
     user.nome = req.body.nome
     user.email = req.body.email
     user.senha = req.body.senha
-    user.data_nascimento = req.body.dataNascimento
+    user.cargo = "user"
+    user.imagem = req.body.imagemURL
 
     user.inserir(conexao)
     res.render('confirmaCadastro')
 });
+
 
 app.post('/getChat', (req, res) => {
     let chat = new Chat();
@@ -105,7 +109,7 @@ app.get('/cadastrados', function(req, res){
     const user = new Usuario
 
     user.listar(conexao, (result) => {
-        res.render("cadastrados", {u: result})
+        res.render("cadastrados", {usuarios: result})
     })    
 });
 

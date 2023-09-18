@@ -4,14 +4,13 @@ module.exports = class Usuario {
         this.nome = "";
         this.email = "";
         this.senha = "";
-        this.data_nascimento = "";
         this.imagem = "";
         this.cargo = "";
     }
 
     inserir(conexao) {
-        const sql = "insert into user (nome, email, senha, data_nascimento, imagem) values (?, ?, ?, ?, ?)";
-        conexao.query(sql, [this.nome, this.email, this.senha, this.data_nascimento, this.imagem], (err, result) => {
+        const sql = "insert into user (nome, email, senha, cargo, imagemURL) values (?, ?, ?, ?, ?)";
+        conexao.query(sql, [this.nome, this.email, this.senha, this.cargo, this.imagemURL], (err, result) => {
             if (err) throw err;
         })
     }

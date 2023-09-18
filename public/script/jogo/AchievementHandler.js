@@ -58,10 +58,10 @@ export class AchievementHandler{
   fetchAchievements(userId, achievementId,condicao,img,recompensa,descricao, callback) {
     console.log("fetch rodou!")
     const data = {
-      userId,
       achievementId,
       condicao,
       img,
+      userId,
       recompensa,
       descricao
     }
@@ -73,6 +73,7 @@ export class AchievementHandler{
         body: JSON.stringify(data)
     }).then(response => response.json()).then(response => {
       this.achievementsAConcluir = response
+      console.log(response)
       return(response)
     })
 

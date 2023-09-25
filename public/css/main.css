@@ -87,14 +87,16 @@ height: calc(var(--size) / var(--aspect-ratio));]
     --border-color: #ffffff ;
     --bio-border-color: #0f1f3b;
 
-    --header-height: 10dvh;
-    --footer-height: 18dvh;
+    --header-height: calc(0.10 * var(--body-height));
+    --main-height: calc(var(--body-height) - var(--header-height) - var(--footer-height));
+    --footer-height: calc(0.18 * var(--body-height));
+    --body-height: 100dvh
 
 /*https://coolors.co/palette/000000-14213d-fca311-e5e5e5-ffffff*/
 }
 
 body {
-    min-height: 100vh;
+    min-height: var(--body-height);
 }
 
 button:hover {
@@ -105,7 +107,9 @@ button {
     background-color: var(--main-color);
     border: 1px solid var(--border-color);
 }
-
+header::before{
+    min-height: var(--header-height);
+}
 header {    
     position: relative;
     padding-left: 20px;
@@ -199,7 +203,7 @@ header {
 main {
     background-color: var(--about-bg-color);
     box-sizing: border-box;
-    min-height: calc(100dvh - var(--header-height) - var(--footer-height));    
+    min-height: var(--main-height);    
     background-image: url(../images/outros/bghome.png);
 }
 
@@ -208,7 +212,7 @@ aside, #chat-menu {
     display: none;
     right: 0;
     top: var(--header-height);
-    height: calc(100vh - var(--header-height) - var(--footer-height));
+    height: calc(var(--body-height) - var(--header-height) - var(--footer-height));
     width: 18vw;
     background-color: #3f3f3f;
     flex-direction: column;
@@ -354,8 +358,12 @@ aside, #chat-menu {
     display: none;
 }
 
+footer::before{
+    min-height: var(--footer-height);
+}
 footer {
     max-height: var(--footer-height);
+    min-height: var(--footer-height);
     overflow:hidden;
     position: relative; 
     display: flex;

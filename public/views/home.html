@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/home.css" rel="stylesheet">    
+    <title>Cavaleiro Caído</title>
+    <script src="../script/jogo/game.js" type="module" defer></script>
+    <script src="../script/paginas/chat.js" defer></script>
+    <link rel="icon" href="../images/icones/casa.png">
+</head>
+<body>
+    
+    <header>                
+        <div id="logo">            
+            <img src="../images/logos/logo.png">
+        </div>
+        
+        <div id="links">
+            
+            <a href="/"><img src="../images/icones/casa.png">Inicio</a>            
+            <a href="/tutoriais"><img src="../images/icones/tutorial.png"> Tutoriais</a>
+        </div>        
+        
+        <div id="login">
+            <a href="/entrar"><button><img id="entrar" src="../images/icones/entrar_1.png">Entrar</button></a>
+            <a href="/cadastro"><button><img src="../images/icones/cadastro.png">Cadastrar</button></a>
+        </div>
+
+        <div id="chat">
+            <img src="../images/icones/chat.png">
+        </div>
+        
+    </header>
+
+    <main>
+        <div id="descricao">
+            <h2>Bem-Vindo ao nosso site!</h2>
+            <p>Bem-vindo a equipe responsável por desenvolver o projeto "Cavaleiro Caído". Este projeto se baseia no desenvolvimento de um jogo e site de mesmo nome, o qual conta a história de um personagem
+                que acorda, em um estado amnésico, num laboratório subterrâneo e tem de enfrentar desafios e criaturas para sair de lá, ao mesmo tempo que el vai encontrando pistas sobre o que é aquele lugar
+                e quem é ele mesmo ou até porque ele está ali...
+            </p>
+            <button type="submit" id="playButton"> JOGAR</button>            
+        </div>
+        <canvas id="game"></canvas>
+    </main>
+
+    <aside id="chat-menu">
+
+        <div id="pessoa">
+            <img src="../images/icones/perfil.png">
+            <p>Fulano de tal</p>
+        </div>
+
+        <div id="conversa">
+        </div>
+
+        <div id="mensagem">            
+            <textarea placeholder="Escreva sua mensagem" id="texto"></textarea>
+            <input type="button" value="Enviar" id="enviar-mensagem" for="texto">
+        </div>
+
+    </aside>
+
+    
+
+    <footer>
+        <div id="info">
+            <li><p><a href="/contato">Contato</a></p></li>
+            <li><p><a href="/sobre">Sobre nós</a></p></li>
+            <li><p><a href="/cadastrados">Cadastrados</a></p></li>
+            <li><p>Portugues (PT-BR)</p></li>
+        </div>
+
+        <div id="logo_footer">
+            <img src="../images/icones/casa.png">    
+        </div>
+
+        <div id="redes">
+            <div>
+                <label>Siga-nos:</label>
+                <div>
+                    <button id="whats"></button>
+                    <button id="insta"></button>
+                    <button id="face"></button>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+</body>
+</html>

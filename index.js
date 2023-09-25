@@ -1,3 +1,4 @@
+// SETUP EJS, EXPRESS E NODE
 const express = require('express')
 const app = express()
 const port = 3000
@@ -22,7 +23,7 @@ pages =__dirname + '/public/views'
 const req = require('express/lib/request');
 const mysql = require('mysql');
 
-const Usuario = require('./models/Usuario');
+
 const HighScore = require('./models/HighScore');
 const Chat = require('./models/Chat');
 const User_has_achievements = require('./models/User_has_achievements');
@@ -39,10 +40,16 @@ conexao.connect(function(err) {
     console.log("Banco de Dados Conectado!");
   });
 
-// CONEXÃO
 
+//ABRIR HOME
+app.get('/', function(req, res){
+    res.render('home');
+});
 
-app.post('/cadastrarUsuario', (req, res) => {
+// CADASTRO DE USUARIOS
+const Usuario = require('./models/Usuario');
+
+app.post('/cadastrarUsuario', (req, res) => { //FORM DO CADASTRO
     const user = new Usuario()
     user.id = req.body.iduser
     user.nome = req.body.nome
@@ -55,7 +62,24 @@ app.post('/cadastrarUsuario', (req, res) => {
     res.render('confirmaCadastro')
 });
 
+app.get('/cadastro', function(req, res){ 
+    res.render('cadastro');
+});
 
+app.get('/entrar', function(req, res){ //FORM DE ENTRAR
+    res.render('entrar');
+});
+
+app.get('/cadastrados', function(req, res){ //ABRIR PAGINA ADMINISTRATIVA QUE CONTEM A LISTA DE CADASTROS
+    const user = new Usuario
+
+    user.listar(conexao, (result) => {
+        res.render("cadastrados", {usuarios: result})
+    })    
+});
+
+
+// CHAT
 app.post('/getChat', (req, res) => {
     let chat = new Chat();
     const {global, remetId, destId} = req.body;
@@ -89,29 +113,12 @@ app.post('/enviarMensagem/', (req, res) => {
     res.end();
 })
 
-app.get('/', function(req, res){
-    res.render('home');
-});
 
+//TUTORIAIS
 app.get('/tutoriais', function(req, res){
     res.render('tutoriais');
 });
 
-app.get('/cadastro', function(req, res){
-    res.render('cadastro');
-});
-
-app.get('/entrar', function(req, res){
-    res.render('entrar');
-});
-
-app.get('/cadastrados', function(req, res){
-    const user = new Usuario
-
-    user.listar(conexao, (result) => {
-        res.render("cadastrados", {usuarios: result})
-    })    
-});
 
 app.get('/contato', function(req, res){
     res.render('contato');

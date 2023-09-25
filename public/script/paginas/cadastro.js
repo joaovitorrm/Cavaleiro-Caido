@@ -9,4 +9,5 @@ document.getElementById('imgPerfil').addEventListener('change', function(e) {
     } else {
         document.getElementById('img').src = '../images/icones/perfil.png';  
     }
+    
 });

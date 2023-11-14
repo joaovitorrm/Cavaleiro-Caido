@@ -1,3 +1,20 @@
+/* salvarPontuacao() {
+    const data = {
+        jogo: 'brick-breaker',            
+        pontuacao: this.pontos,
+        total: this.nivel,
+    }
+
+    fetch('/inserirPontuacaoSimples', {
+        method: 'POST',
+        headers: {
+            'Content-type':'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+}
+ */
+
 // SETUP EJS, EXPRESS E NODE
 const express = require('express')
 const app = express()

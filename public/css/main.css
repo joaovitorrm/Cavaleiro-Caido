@@ -72,6 +72,10 @@ height: calc(var(--size) / var(--aspect-ratio));]
     /**/
 }
 
+input {
+    color: black;
+}
+
 /* variaveis de cor*/
 :root{
     /*backgrounds*/
@@ -218,6 +222,13 @@ aside, #chat-menu {
     flex-direction: column;
     overflow-y: auto;
     & #chats-container {
+        & .pesquisar {
+            margin: 4% 4%;
+            & input {
+                width: 100%;
+                color: black;
+            }
+        }
         & .chat {
             height: 8vh;
             display: flex;
@@ -228,7 +239,7 @@ aside, #chat-menu {
             & img {
                 height: 100%;
                 aspect-ratio: 1/1;
-            }
+            }            
             & .text {
                 flex: 1;
                 text-align: center;            
@@ -249,6 +260,7 @@ aside, #chat-menu {
             padding: 4%;
             border: 0.3vmin solid #111111;
             line-height: 200%;
+            position: relative;
             & div:hover {
                 cursor: pointer;
                 text-decoration: underline;            
@@ -262,6 +274,18 @@ aside, #chat-menu {
             }
             & img {
                 height: 100%;
+            }
+            & .editar-amigo {
+                position: absolute;
+                right: 0;
+                transform: translateX(-100%);
+                border: 0.3vmin solid #1f1f1f;
+                padding: 2%;
+                border-radius: 1vmin;
+                width: 2rem;
+                aspect-ratio: 1/1;
+                text-align: center;
+                align-items: start;
             }
         }        
     }
@@ -344,10 +368,12 @@ aside, #chat-menu {
         }
         & .visible {
             display: block;
-        }
+        }        
     }
-    
-    
+}
+
+& div:has(+ .visible) > .down-arrow {
+    transform: rotate(180deg);
 }
 
 & .visible {

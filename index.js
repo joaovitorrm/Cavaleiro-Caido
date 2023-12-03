@@ -55,20 +55,24 @@ conexao.connect(function(err) {
     console.log("Banco de Dados Conectado!");
   });
 
-//ABRIR HOME
-app.get('/', function(req, res){
+let defaultUser = {
+	cadastrados : "none",
+	login : "entrar",
+	registrar : "cadastro"
+	
+}
+
+app.get('/', function(req, res){					//ABRIR HOME
 	if(req.session.email){
-	cadastrados = "block"	
-	login = "sair"
-	registrar = "perfil"
+	defaultUser = {
+	cadastrados : "block",
+	login : "sair",
+	registrar : "perfil"
 	}
-	else{
-	cadastrados = "none"
-	login = "entrar"
-	registrar = "cadastro"
 	}
-	res.render('home', {cadastrados, login, registrar });
+	res.render('home', {defaultUser});
 });
+
 
 // CADASTRO DE USUARIOS
 app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
@@ -114,16 +118,16 @@ app.post('/pesquisarUsuarios', (req, res) => { 		//LISTA DOS CADASTRADOS
 
 });
 
-app.get('/cadastro', function(req, res){ 			//FORM DE CADASTRO
-    res.render('cadastro');
+app.get('/cadastro', function(req, res){ 			//PAGINA FORM DE CADASTRO
+    res.render('cadastro', {defaultUser});
 });
 
-app.get('/entrar', function(req, res){ 				//FORM DE ENTRAR
+app.get('/entrar', function(req, res){ 				//PAGINA FORM DE LOGIN
 
-    res.render('entrar');
+    res.render('entrar', {defaultUser});
 });
 
-app.get('/cadastrados', function(req, res){ 		//ABRIR PAGINA ADMINISTRATIVA QUE CONTEM A LISTA DE CADASTROS
+app.get('/cadastrados', function(req, res){ 		//ABRIR PAG. ADMINISTRATIVA QUE CONTEM A LISTA DE CADASTROS
 	console.log(req.session)
     if(req.session.email) {
     const user = new Usuario
@@ -148,6 +152,7 @@ app.get('/sair', function(req, res){ 				//DESATRIBUIR EMAIL
 	req.session.email = ''
 	res.redirect('/');
 });
+
 
 // CHAT
 app.post('/getChat', (req, res) => { 				//LOAD CHAT
@@ -186,16 +191,16 @@ app.post('/enviarMensagem/', (req, res) => { 		//ENVIAR MSG
 
 
 app.get('/tutoriais', function(req, res){ 			//TUTORIAIS
-    res.render('tutoriais');
+    res.render('tutoriais', {defaultUser});
 });
 
 
 app.get('/contato', function(req, res){ 			//CONTATO
-    res.render('contato');
+    res.render('contato', {defaultUser});
 });
 
 app.get('/sobre', function(req, res){ 				//SOBRE
-    res.render('sobre');
+    res.render('sobre', {defaultUser});
 });
 	
 
@@ -204,7 +209,7 @@ app.get('/highscore', function (req, res) {			//PÁGINA LISTA DE HIGHSCORE
     const hs = new HighScore();
 
     hs.listar(conexao, (result) => {
-        res.render("highscore", {hs: result})
+        res.render("highscore", {defaultUser, hs: result})
     });
 })
 

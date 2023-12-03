@@ -47,13 +47,14 @@ app.set('view engine', 'ejs')
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "",
     database: "cavaleiro"
 });
 conexao.connect(function(err) {
     if (err) throw err;
     console.log("Banco de Dados Conectado!");
 });
+
 
 let defaultUser = {
 	cadastrados : "none",
@@ -100,7 +101,7 @@ app.post('/processarUsuario', (req, res) => {		//EXCLUIR USER PAG. CADASTRADOS
     if (acao == 'Excluir') {
         usuario.id = userId;
         usuario.excluir(conexao, (result) => {
-            res.redirect('/cadastrados');
+            res.redirect('/cadastrados', defaultUser);
         });
     };
 });
@@ -112,7 +113,7 @@ app.post('/pesquisarUsuarios', (req, res) => { 		//LISTA DOS CADASTRADOS
     usuario.nome = "%" + inputText + "%";
 
     usuario.pesquisar(conexao, (usuarios) => {
-        res.render('cadastrados', {usuarios});
+        res.render('cadastrados', {usuarios, defaultUser});
     });
 });
 
@@ -138,7 +139,7 @@ app.post('/getUsers', (req, res) => {
 })
 
 app.get('/cadastro', function(req, res){ 			//FORM DE CADASTRO
-    res.render('cadastro');
+    res.render('cadastro', defaultUser);
 });
 
 app.get('/entrar', function(req, res){ 				//FORM DE ENTRAR
@@ -151,7 +152,7 @@ app.get('/cadastrados', function(req, res){ 		//ABRIR PAG. ADMINISTRATIVA QUE CO
     const user = new Usuario();
 
     user.listar(conexao, (result) => {
-        res.render("cadastrados", {usuarios: result});
+        res.render("cadastrados", {defaultUser, usuarios: result});
     })
     }
     else{
@@ -167,6 +168,13 @@ app.post('/login', function(req, res){ 				//ATRIBUIR EMAIL
 
 app.get('/sair', function(req, res){ 				//DESATRIBUIR EMAIL
 	req.session.email = ''
+	
+	defaultUser = {
+	cadastrados : "none",
+	login : "entrar",
+	registrar : "cadastro"
+	
+}
 	res.redirect('/');
 });
 

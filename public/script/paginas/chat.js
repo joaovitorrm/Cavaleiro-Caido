@@ -7,6 +7,8 @@ const chatsContainer = document.getElementById('chats-container');
 const conversaContainer = document.getElementById('conversa-container');
 const conversa = document.getElementById('conversa');
 const flechaVoltar = document.getElementById('flecha-voltar');
+const pesquisarContainer = document.querySelector('.pesquisar');
+const pesquisarInput = document.querySelector('.pesquisar-input');
 
 // pega o textarea e adiciona um evento que vigia as teclas pressionadas
 const texto = document.getElementById('texto')
@@ -101,7 +103,7 @@ function enviarMensagem(msg) {
         remetId: remetenteIdPlacehold,
         destId: destinatarioIdPlacehold,
         msg: msg,
-        tempo: `${tempo.getUTCFullYear()}-${tempo.getUTCMonth()}-${tempo.getUTCDay()} ${tempo.getUTCHours()}:${tempo.getUTCMinutes()}:${tempo.getUTCSeconds()}`,
+        tempo: `${tempo.getUTCFullYear()}-${tempo.getUTCMonth()}-${tempo.getUTCDate()} ${tempo.getUTCHours()}:${tempo.getUTCMinutes()}:${tempo.getUTCSeconds()}`,
     }
 
     fetch('/enviarMensagem', {
@@ -174,7 +176,47 @@ function getChat(global, remetId, destId, callback) {
         body: JSON.stringify(data)
     }).then(response => response.json()).then(response => {
         return callback(JSON.stringify(response))
-    })
-    
-    
+    })   
 }
+
+function searchUser(nome, callback) {
+    const users = fetch('/getUsers', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({nome})
+    }).then(response => response.json()).then(response => {
+        return callback(JSON.stringify(response))
+    })   
+}
+
+let timerGetUsers;
+pesquisarInput.addEventListener('input', () => {
+    clearTimeout(timerGetUsers);
+    timerGetUsers = setTimeout(() => {
+        pesquisarContainer.querySelectorAll('.adicionar').forEach((e) => e.remove());
+        if (pesquisarInput.value != '') {
+            searchUser(pesquisarInput.value, (users) => {                
+                for (const u of JSON.parse(users)) {
+                    const divAdicionar = document.createElement('div');
+                    divAdicionar.classList.add('adicionar');
+
+                    const divImg = document.createElement('img');
+                    divImg.src = "../images/icones/perfil.png";
+    
+                    const divNome = document.createElement('div');
+                    divNome.classList.add('adicionar-nome');
+                    divNome.innerHTML = u.nome;
+    
+                    const divAddIcone = document.createElement('div');
+                    divAddIcone.innerText = "+";
+                    divAddIcone.classList.add('adicionar-button');
+    
+                    divAdicionar.append(divImg, divNome, divAddIcone);
+                    pesquisarContainer.appendChild(divAdicionar);
+                };
+            });
+        };      
+    }, 800);
+});

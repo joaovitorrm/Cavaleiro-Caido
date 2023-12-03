@@ -47,13 +47,13 @@ app.set('view engine', 'ejs')
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "root",
     database: "cavaleiro"
-})
+});
 conexao.connect(function(err) {
     if (err) throw err;
     console.log("Banco de Dados Conectado!");
-  });
+});
 
 let defaultUser = {
 	cadastrados : "none",
@@ -83,14 +83,13 @@ app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
     user.cargo = "user";
     user.imagem = req.body.imagemURL;
 
-    user.inserir(conexao, (result, err) => {
+    user.inserir(conexao, (err, result) => {
         if (err) {
             res.render('resultado', {mensagem: 'Erro ao cadastrar usuário!'});
         } else {
             res.render('resultado', {mensagem: 'Usuário cadastrado com sucesso!'});
         }
     });
-    
 });
 
 app.post('/processarUsuario', (req, res) => {		//EXCLUIR USER PAG. CADASTRADOS
@@ -115,7 +114,6 @@ app.post('/pesquisarUsuarios', (req, res) => { 		//LISTA DOS CADASTRADOS
     usuario.pesquisar(conexao, (usuarios) => {
         res.render('cadastrados', {usuarios});
     });
-
 });
 
 app.get('/cadastro', function(req, res){ 			//PAGINA FORM DE CADASTRO
@@ -127,16 +125,35 @@ app.get('/entrar', function(req, res){ 				//PAGINA FORM DE LOGIN
     res.render('entrar', {defaultUser});
 });
 
+app.post('/getUsers', (req, res) => {
+    const {nome} = req.body;
+
+    const usuario = new Usuario();
+    usuario.nome = "%" + nome + "%";
+
+    usuario.pesquisar(conexao, (usuarios) => {
+        res.json(usuarios);
+        res.end();
+    });
+})
+
+app.get('/cadastro', function(req, res){ 			//FORM DE CADASTRO
+    res.render('cadastro');
+});
+
+app.get('/entrar', function(req, res){ 				//FORM DE ENTRAR
+    res.render('entrar');
+});
+
 app.get('/cadastrados', function(req, res){ 		//ABRIR PAG. ADMINISTRATIVA QUE CONTEM A LISTA DE CADASTROS
 	console.log(req.session)
     if(req.session.email) {
-    const user = new Usuario
+    const user = new Usuario();
 
     user.listar(conexao, (result) => {
-        res.render("cadastrados", {usuarios: result})
-		
-	    
-    })}
+        res.render("cadastrados", {usuarios: result});
+    })
+    }
     else{
 		res.redirect('/entrar');
     }    

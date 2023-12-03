@@ -12,7 +12,7 @@ module.exports = class Usuario {
         const sql = "insert into user (nome, email, senha, cargo, imagemURL) values (?, ?, ?, ?, ?)";
         conexao.query(sql, [this.nome, this.email, this.senha, this.cargo, this.imagemURL], (err, result) => {
             if (err) throw err;
-            return callback(result);
+            return callback(err, result);
         })
     }
 

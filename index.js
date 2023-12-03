@@ -47,7 +47,7 @@ app.set('view engine', 'ejs')
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "root",
     database: "cavaleiro"
 });
 conexao.connect(function(err) {

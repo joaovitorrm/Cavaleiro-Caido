@@ -186,7 +186,7 @@ body {
 }
 
 aside, #chat-menu {
-    display: flex;
+    display: none;
     position: absolute;
     right: 0;
     top: calc(100vw / 18);

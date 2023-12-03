@@ -20,6 +20,8 @@ const express = require('express');
 const mysql = require('mysql');
 const app = express();
 const port = 3000;
+const session = require('express-session')
+
 
 const Usuario = require('./models/Usuario');
 const HighScore = require('./models/HighScore');
@@ -36,6 +38,8 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'))
 
+app.use(session({secret: 'teste', saveUninitialized:true, resave: true}))
+
 app.set('views', __dirname + '/public/views')
 app.set('view engine', 'ejs')
 
@@ -43,7 +47,7 @@ app.set('view engine', 'ejs')
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "",
     database: "cavaleiro"
 })
 conexao.connect(function(err) {
@@ -53,11 +57,21 @@ conexao.connect(function(err) {
 
 //ABRIR HOME
 app.get('/', function(req, res){
-    res.render('home');
+	if(req.session.email){
+	cadastrados = "block"	
+	login = "sair"
+	registrar = "perfil"
+	}
+	else{
+	cadastrados = "none"
+	login = "entrar"
+	registrar = "cadastro"
+	}
+	res.render('home', {cadastrados, login, registrar });
 });
 
 // CADASTRO DE USUARIOS
-app.post('/cadastrarUsuario', (req, res) => { //FORM DO CADASTRO
+app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
     const user = new Usuario();
     user.nome = req.body.nome;
     user.email = req.body.email;
@@ -75,7 +89,7 @@ app.post('/cadastrarUsuario', (req, res) => { //FORM DO CADASTRO
     
 });
 
-app.post('/processarUsuario', (req, res) => {
+app.post('/processarUsuario', (req, res) => {		//EXCLUIR USER PAG. CADASTRADOS
     const {acao, userId} = req.body;
 
     const usuario = new Usuario();
@@ -88,7 +102,7 @@ app.post('/processarUsuario', (req, res) => {
     };
 });
 
-app.post('/pesquisarUsuarios', (req, res) => {
+app.post('/pesquisarUsuarios', (req, res) => { 		//LISTA DOS CADASTRADOS
     const {inputText} = req.body;
 
     const usuario = new Usuario();
@@ -100,25 +114,43 @@ app.post('/pesquisarUsuarios', (req, res) => {
 
 });
 
-app.get('/cadastro', function(req, res){ 
+app.get('/cadastro', function(req, res){ 			//FORM DE CADASTRO
     res.render('cadastro');
 });
 
-app.get('/entrar', function(req, res){ //FORM DE ENTRAR
+app.get('/entrar', function(req, res){ 				//FORM DE ENTRAR
+
     res.render('entrar');
 });
 
-app.get('/cadastrados', function(req, res){ //ABRIR PAGINA ADMINISTRATIVA QUE CONTEM A LISTA DE CADASTROS
+app.get('/cadastrados', function(req, res){ 		//ABRIR PAGINA ADMINISTRATIVA QUE CONTEM A LISTA DE CADASTROS
+	console.log(req.session)
+    if(req.session.email) {
     const user = new Usuario
 
     user.listar(conexao, (result) => {
         res.render("cadastrados", {usuarios: result})
-    })    
+		
+	    
+    })}
+    else{
+		res.redirect('/entrar');
+    }    
+
 });
 
+app.post('/login', function(req, res){ 				//ATRIBUIR EMAIL
+	req.session.email = req.body.email
+	res.redirect('/');
+});
+
+app.get('/sair', function(req, res){ 				//DESATRIBUIR EMAIL
+	req.session.email = ''
+	res.redirect('/');
+});
 
 // CHAT
-app.post('/getChat', (req, res) => {
+app.post('/getChat', (req, res) => { 				//LOAD CHAT
     let chat = new Chat();
     const {global, remetId, destId} = req.body;
 
@@ -132,7 +164,7 @@ app.post('/getChat', (req, res) => {
     })    
 })
 
-app.post('/enviarMensagem/', (req, res) => {
+app.post('/enviarMensagem/', (req, res) => { 		//ENVIAR MSG
 
     const {global, remetId, destId, msg, tempo} = req.body;
 
@@ -150,31 +182,25 @@ app.post('/enviarMensagem/', (req, res) => {
 
     res.end();
 })
+	
 
 
-//TUTORIAIS
-app.get('/tutoriais', function(req, res){
+app.get('/tutoriais', function(req, res){ 			//TUTORIAIS
     res.render('tutoriais');
 });
 
 
-app.get('/contato', function(req, res){
+app.get('/contato', function(req, res){ 			//CONTATO
     res.render('contato');
 });
 
-app.get('/sobre', function(req, res){
+app.get('/sobre', function(req, res){ 				//SOBRE
     res.render('sobre');
 });
+	
 
-app.get('/login_efetuado', function(req, res){
-    res.render('login_efetuado');
-});
 
-app.get('/minijogos', (req, res) => {
-    res.render('minijogos')
-})
-
-app.get('/highscore', function (req, res) {
+app.get('/highscore', function (req, res) {			//PÁGINA LISTA DE HIGHSCORE
     const hs = new HighScore();
 
     hs.listar(conexao, (result) => {
@@ -182,7 +208,7 @@ app.get('/highscore', function (req, res) {
     });
 })
 
-app.post('/getAchievementsNaoFeitos', (req, res) => {
+app.post('/getAchievementsNaoFeitos', (req, res) => {//SELECT ACHIEVEMENTS Ñ CONCLUIDOS
     let uha = new User_has_achievements();
     const { userId, achievementId, condicao, img, recompensa, descricao } = req.body; // Assuming you receive the user's ID in the request body
     
@@ -200,7 +226,7 @@ app.post('/getAchievementsNaoFeitos', (req, res) => {
     });
 });
 
-app.post('/giveAchievementToUser', (req, res) => {
+app.post('/giveAchievementToUser', (req, res) => {	//CONCEDER ACHIEVEMENT
 
     const { achievementId } = req.body;
 
@@ -215,10 +241,4 @@ app.post('/giveAchievementToUser', (req, res) => {
 })
 
 
-app.get('/Achievement', function (req, res){
-    const achievement = new Achievement();
 
-    achievement.listar(conexao, (result) => {
-        res.render("achievement", {achievement: result})
-    });
-})

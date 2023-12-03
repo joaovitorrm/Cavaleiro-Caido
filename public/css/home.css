@@ -16,7 +16,7 @@ main {
         }
     }
     & button {
-        padding: 30px 200px 30px 200px;
+        padding: 1% 10% 1% 10%;
         border-radius: 10px;
         border: 0.1rem solid white;
         color: white;

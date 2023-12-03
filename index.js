@@ -45,11 +45,11 @@ const conexao = mysql.createConnection({
     user: "root",
     password: "root",
     database: "cavaleiro"
-})
+});
 conexao.connect(function(err) {
     if (err) throw err;
     console.log("Banco de Dados Conectado!");
-  });
+});
 
 //ABRIR HOME
 app.get('/', function(req, res){
@@ -72,7 +72,6 @@ app.post('/cadastrarUsuario', (req, res) => { //FORM DO CADASTRO
             res.render('resultado', {mensagem: 'Usuário cadastrado com sucesso!'});
         }
     });
-    
 });
 
 app.post('/processarUsuario', (req, res) => {
@@ -97,8 +96,19 @@ app.post('/pesquisarUsuarios', (req, res) => {
     usuario.pesquisar(conexao, (usuarios) => {
         res.render('cadastrados', {usuarios});
     });
-
 });
+
+app.post('/getUsers', (req, res) => {
+    const {nome} = req.body;
+
+    const usuario = new Usuario();
+    usuario.nome = "%" + nome + "%";
+
+    usuario.pesquisar(conexao, (usuarios) => {
+        res.json(usuarios);
+        res.end();
+    });
+})
 
 app.get('/cadastro', function(req, res){ 
     res.render('cadastro');

@@ -3,26 +3,20 @@
 <html lang="pt-br">
 
 <head>
-
-    <meta charset="UTF-8">
-
-    <title>Cavaleiro Caído</title>
-
-    <link href="../css/main.css" rel="stylesheet"> 
     <link href="../css/entrar.css" rel="stylesheet">
-    <link rel="icon" href="../images/icones/casa.png">
-
 </head>
+
+<%- include('./layout/head.html') %>
 
 <body>
     
-    <%- include('header.html')%>
+    <%- include('./layout/header.html')%>
 
     <main>
 
       <div id="boxForms">
 
-        <div id="logo">            
+        <div id="logo">
           <img src="../images/logos/logo.png">
         </div>
         
@@ -52,9 +46,9 @@
       </div>
     </main>
 
-    <%- include('chat.html') %>
+    <%- include('./layout/chat') %>
     
-    <%- include('footer.html') %>
+    <%- include('./layout/footer.html') %>
     
 </body>
 </html>

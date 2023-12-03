@@ -1,0 +1,123 @@
+{
+    "inicio": {
+        "deutsch": "Startseite",
+        "english": "Home",
+        "espanol": "Inicio",
+        "francais": "Accueil",
+        "greek": "Αρχική",
+        "hebrew": "הבית",
+        "irish": "Baile",
+        "portugues": "Início",
+        "simp_chinese": "首页"
+    },
+    "tutoriais": {
+        "deutsch": "Tutorials",
+        "english": "Tutorials",
+        "espanol": "Tutoriales",
+        "francais": "Tutoriels",
+        "greek": "Οδηγοί",
+        "hebrew": "מדריכים",
+        "irish": "Múinteoirí",
+        "portugues": "Tutoriais",
+        "simp_chinese": "教程"
+    },
+    "minijogos": {
+        "deutsch": "Minispiele",
+        "english": "Mini-Games",
+        "espanol": "Mini Juegos",
+        "francais": "Mini Jeux",
+        "greek": "Μίνι παιχνίδια",
+        "hebrew": "משחקים קטנים",
+        "irish": "Múinteoirí",
+        "portugues": "Mini-Jogos",
+        "simp_chinese": "迷你游戏"
+    },
+    "entrar": {
+        "deutsch": "Anmelden",
+        "english": "Sign-in",
+        "espanol": "Iniciar sesión",
+        "francais": "Se connecter",
+        "greek": "Σύνδεση",
+        "hebrew": "התחבר",
+        "irish": "Logáil isteach",
+        "portugues": "Entrar",
+        "simp_chinese": "登录"
+    },
+    "cadastrar": {
+        "deutsch": "Registrieren",
+        "english": "Sign-up",
+        "espanol": "Registrarse",
+        "francais": "S'inscrire",
+        "greek": "Εγγραφή",
+        "hebrew": "הירשם",
+        "irish": "Cláraigh",
+        "portugues": "Registrar",
+        "simp_chinese": "注册"
+    },
+    "contato": {
+        "deutsch": "Kontakt",
+        "english": "Contact",
+        "espanol": "Contacto",
+        "francais": "Contact",
+        "greek": "Επικοινωνία",
+        "hebrew": "צור קשר",
+        "irish": "Teagmháil",
+        "portugues": "Contato",
+        "simp_chinese": "联系方式"
+    },
+    "sobre": {
+        "deutsch": "Über uns",
+        "english": "About us",
+        "espanol": "Sobre nosotros",
+        "francais": "À propos de nous",
+        "greek": "Σχετικά με εμάς",
+        "hebrew": "אודותינו",
+        "irish": "Maidir Linne",
+        "portugues": "Sobre nós",
+        "simp_chinese": "关于我们"
+    },
+    "cadastrados": {
+        "deutsch": "Registrieren",
+        "english": "Sign-up",
+        "espanol": "Registrarse",
+        "francais": "S'inscrire",
+        "greek": "Εγγραφή",
+        "hebrew": "הירשם",
+        "irish": "Cláraigh",
+        "portugues": "Registrar",
+        "simp_chinese": "注册"
+    },
+    "siga": {
+        "deutsch": "Folge uns",
+        "english": "Follow us",
+        "espanol": "Síguenos",
+        "francais": "Suivez-nous",
+        "greek": "Ακολουθήστε μας",
+        "hebrew": "עקוב אחרינו",
+        "irish": "Lean orainn",
+        "portugues": "Siga-nos",
+        "simp_chinese": "关注我们"
+    },
+    "bemvindo": {
+        "deutsch": "Willkommen auf unserer Website!",
+        "english": "Welcome to our website!",
+        "espanol": "¡Bienvenido a nuestro sitio web!",
+        "francais": "Bienvenue sur notre site !",
+        "greek": "Καλωσήρθατε στην ιστοσελίδα μας!",
+        "hebrew": "ברוכים הבאים לאתר שלנו!",
+        "irish": "Fáilte go dtí ár suíomh!",
+        "portugues": "Bem-vindo ao nosso site!",
+        "simp_chinese": "欢迎来到我们的网站！"
+    },
+    "bemvindotexto": {
+        "deutsch": "Willkommen im Team, das für die Entwicklung des Projekts 'Cavaleiro Caído' verantwortlich ist. Dieses Projekt basiert auf der Entwicklung eines Spiels und einer Website mit demselben Namen, das die Geschichte eines Charakters erzählt, der in einem amnestischen Zustand in einem Umweltlabor aufwacht und Herausforderungen und Kreaturen bewältigen muss, um von dort zu entkommen, während er Hinweise darauf findet, was dieser Ort ist, wer er ist oder warum er dort ist...",
+        "english": "Welcome to the team responsible for developing the 'Cavaleiro Caído' project. This project is based on the development of a game and website of the same name, which tells the story of a character who wakes up, in an amnesic state, in an environmental laboratory and has to face challenges and creatures to get out of there, at the same time that he will find clues about what that place is and who he is or even why he is there...",
+        "espanol": "Bienvenido al equipo responsable del desarrollo del proyecto 'Cavaleiro Caído'. Este proyecto se basa en el desarrollo de un juego y un sitio web con el mismo nombre, que cuenta la historia de un personaje que despierta en un estado amnésico en un laboratorio ambiental y debe enfrentar desafíos y criaturas para escapar, al mismo tiempo que encuentra pistas sobre qué es ese lugar, quién es él o incluso por qué está allí...",
+        "francais": "Bienvenue dans l'équipe chargée du développement du projet 'Cavaleiro Caído'. Ce projet est basé sur le développement d'un jeu et d'un site web portant le même nom, qui raconte l'histoire d'un personnage qui se réveille dans un état amnésique dans un laboratoire environnemental et qui doit affronter des défis et des créatures pour en sortir, tout en découvrant des indices sur l'endroit où il se trouve, qui il est ou pourquoi il est là...",
+        "greek": "Καλωσήρθατε στην ομάδα που αναλαμβάνει την ανάπτυξη του έργου 'Πτωματικός Ιππότης'. Το έργο αυτό βασίζεται στην ανάπτυξη ενός παιχνιδιού και μιας ιστοσελίδας με το ίδιο όνομα, που διηγείται την ιστορία ενός χαρακτήρα που ξυπνά με αμνησία σε ένα περιβαλλοντικό εργαστήριο και πρέπει να αντιμετωπίσει προκλήσεις και πλάσματα για να βγει από εκεί, ταυτόχρονα ανακαλύπτοντας στοιχεία για το τι είναι αυτό το μέρος, ποιος είναι αυτός ή ακόμα και γιατί είναι εκεί...",
+        "hebrew": "הפרויקט 'Cavaleiro Caído'. הפרויקט מבוסס על פיתוח משחק ואתר בשם זהה, המספר את סיפורו של דמות שמתעוררת במצב אמנזיה במעבדה סביבתית וצריכה להתמודד עם אתגרים ויצורים כדי לצאת משם, תוך מציאת רמזים על המקום, מי היא או למה היא שם...",
+        "irish": "Fáilte chuig an bhfoireann atá freagrach as forbairt an tionscadail 'Cavaleiro Caído'. Tá an tionscadal seo bunaithe ar fhorbairt cluiche agus suíomh gréasáin faoi an ainm céanna, ag cur síos ar scéal charachtar a dhéanann cor a chloisteáil i láthair áirithe in ionad timpeallachta agus atá ag teastáil uaidh a sheasamh roimh dúshláin agus créatúir chun éalú, agus ar an bhealach sin beidh sé ag fáil eolais faoi cad é an áit sin, cé hé é féin nó fiú cén fáth go bhfuil sé ann...",
+        "portugues": "Bem-vindo à equipe responsável pelo desenvolvimento do projeto 'Cavaleiro Caído'. Este projeto é baseado no desenvolvimento de um jogo e um site com o mesmo nome, que conta a história de um personagem que acorda em um estado amnésico em um laboratório ambiental e precisa enfrentar desafios e criaturas para sair de lá, ao mesmo tempo em que encontrará pistas sobre o que é aquele lugar, quem ele é ou até mesmo por que está lá...",
+        "simp_chinese": "欢迎来到负责开发“堕落骑士”项目的团队。该项目基于一个名为“堕落骑士”的游戏和网站的开发，讲述了一个角色在一个环保实验室中以失忆状态醒来，并需要面对挑战和生物以逃离那里的故事。同时，他也会找到关于这个地方、他自己甚至为什么会在那里的线索..."
+    }
+}

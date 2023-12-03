@@ -18,9 +18,13 @@ main {
     & button {
         padding: 30px 200px 30px 200px;
         border-radius: 10px;
-        border-width: 1px;
+        border: 0.1rem solid white;
         color: white;
+        background-color: chocolate;
         font-size: larger;
+        &:hover {
+            cursor: pointer;
+        }
     }
     :has( > canvas){
         display: flex;

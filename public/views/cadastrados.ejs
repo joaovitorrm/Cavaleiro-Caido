@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <link href="../css/main.css" rel="stylesheet"> 
-    <link href="../css/cadastrados.css" rel="stylesheet"> 
-    <title>Cavaleiro Caído</title>
-    <link rel="icon" href="../images/icones/casa.png">
-</head>
+
+<%- include('./layout/head.html') %>
+
 <body>
     
-    <%- include('header.html')%>
+    <%- include('./layout/header.html')%>
 
-    <main>
-        <div id="boxTable">
-            <div id="opcoes">
-                <div id="filtro">
-                    <input type="text" placeholder="digite seu filtro"></input>
-                    <button>aplicar filtro</button>
-                </div>   
-                <div id="acoes">
-                    <button>inserir</button>
-                    <button>atualizar</button>
-                    <button>retirar</button>
-                </div>
-            </div>
+    <main id="cadastrados-main-container">
+        <div>
+        <form method="post" action="/pesquisarUsuarios">
+            <input type="text" placeholder="Barra de pesquisa" name="inputText"></input>
+            <input type="submit" value="Pesquisar" class="botao">
+        </form>
+
+        <form method="post" action="/processarUsuario">
+            <input type="submit" value="Inserir" name="acao" class="botao">
+            <input type="submit" value="Atualizar" name="acao" class="botao">
+            <input type="submit" value="Excluir" name="acao" class="botao">
+            <div id="tabela-container">
             <table>
-                <tr class="cabecalho">
-                    <th>Seleção</th>
-                    <th>Id</th>
-                    <th>Nome</th>
-                    <th>Permissão</th>
-                    <th>Email</th>
-                    <th>Senha</th>
-                    <th>UserFoto</th>
-                </tr>
-                <% usuarios.forEach((u) => {%>
-                <tr>
-                    <td id="checkbox"><input type="checkbox"></input></td>
-                    <td><%= u.iduser %></td>
-                    <td><%= u.nome %></td>
-                    <td><%= u.cargo %></td>
-                    <td><%= u.email %></td>
-                    <td><%= u.senha %></td>
-                    <td><%= u.imagemURL %></td>
-                </tr>
-                <% })%>
+                <thead>
+                    <tr class="cabecalho">
+                        <th>Seleção</th>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Permissão</th>
+                        <th>Email</th>
+                        <th>Senha</th>
+                        <th>UserFoto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% usuarios.forEach((u) => {%>
+                    <tr>
+                        <td><input type="radio" name="userId" value="<%= u.iduser %>"></input></td>
+                        <td><%= u.iduser %></td>
+                        <td><%= u.nome %></td>
+                        <td><%= u.cargo %></td>
+                        <td><%= u.email %></td>
+                        <td><%= u.senha %></td>
+                        <td><%= u.imagemURL %></td>
+                    </tr>
+                    <% })%>                    
+                </tbody>
             </table>
+            <div id="barra-baixo"></div>
+        </div>
+        </form>
         </div>
     </main>
 
-    <%- include('chat.html') %>
+    <%- include('./layout/chat') %>
     
-    <%- include('footer.html') %>
+    <%- include('./layout/footer.html') %>
     
 </body>
 </html>

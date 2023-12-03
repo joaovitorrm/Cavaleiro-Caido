@@ -2,20 +2,23 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;  
-    height: calc(18vh - 11vh - 100vh);
     
     > div {
-        transform: scale(0.8);
-        width: 40%;
+        display: flex;
+        flex-direction: column;        
+        height: 60dvh;
+        max-width: 90%;
+        aspect-ratio: 10/9;
         border: 3px solid white;
         background-color: #141414;
         > #logo {
+            height: 16%;
             display: flex;
             justify-content: center;
             align-items: center;
             border-bottom: 3px solid white;
-            > img {
-                width: 250px;
+            & img {                
+                height: 100%;
             }
         }
     }
@@ -25,15 +28,17 @@ main {
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        font-size: 0.8rem;
+        height: 100%;
+        width: 100%;
+        padding: 0 5% 5% 5%;
+        gap: 0.4rem;
+        overflow: hidden;
         > h2 {
-            color: #8a4fff;
-            margin-bottom: 20px;
-            margin-top: 20px;            
+            color: #8a4fff;          
         }
         > p {
             text-align: justify;
-            width: 90%;
-            margin-bottom: 20px;            
         }
         > a  {
             text-decoration: none;
@@ -41,19 +46,25 @@ main {
                 color: #0cca4a;
             }
         }
-        > label {
-            margin-top: 20px;
-        }
         > input {
             width: 60%;
+            height: 6%;
+            color: black;
+            padding: 1%;
         }
         > input[type=submit]{
-            width: 20%;
+            width: 30%;
+            height: 10%;
+            margin-top: 1%;
+            padding: 0;
+            font-size: 0.8rem;
             background-color: #8a4fff;
             border: 2px solid white;
+            color: white;
             border-radius: 6px;
-            margin: 30px;
-            padding: 5px;
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 }

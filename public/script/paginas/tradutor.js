@@ -7,31 +7,23 @@ import simp_chinese from '../../idiomas/simp_chinese.json' assert {type: "json"}
 import greek from '../../idiomas/greek.json' assert {type: "json"}
 import irish from '../../idiomas/irish.json' assert {type:"json"}
 import espanol from '../../idiomas/espanol.json' assert {type:"json"}
+import idiomas from '../../idiomas/idiomas.json' assert {type:"json"}
 
-let spans = document.querySelectorAll("span");
+let traduzir = document.querySelectorAll(".traduzir");
 let idioma = document.getElementById("idiomas");
 
 if (localStorage.getItem('idioma')){
-    idioma.value = localStorage.getItem('idioma')
-    translate(eval(localStorage.getItem('idioma')))
-}
+    idioma.value = localStorage.getItem('idioma');
+    translate(localStorage.getItem('idioma'));
+};
 
-function translate(language){
-    for (const divId in language){
-        let divs = document.getElementById(divId);
-        for (let span of spans) {
-            let c = 0
-            for (let div of divs.children) {
-                if (div.querySelector("#" + span.id)) {
-                    span.innerText = language[divId][c]
-                }
-                c++
-            }
-        }
-    }
-}
+function translate(idioma) {
+    for (const div of traduzir) {        
+        div.innerText = idiomas[div.classList[1]][idioma];
+    };
+};
 
 idioma.addEventListener("change", () => {
-    localStorage.setItem("idioma", idioma.value)
-    translate(eval(idioma.value))}    
-)
+    localStorage.setItem("idioma", idioma.value);
+    translate(idioma.value)
+});

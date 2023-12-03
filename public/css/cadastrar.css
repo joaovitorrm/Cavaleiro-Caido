@@ -2,106 +2,127 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(18vh - 11vh - 100vh);
-    > #boxForms {
-        width: 40%;
-        border: 3px solid white;        
+    > #boxForms {   
+        height: 60dvh;
+        max-width: 90%;
+        aspect-ratio: 10/9;
+        display: flex;
+        flex-direction: column;
+        border: 3px solid white;
         background-color: #141414;
-        transform: scale(0.8);
-
-        #logo {
+        & #logo {
+            height: 16%;
             display: flex;
             justify-content: center;
             align-items: center;
             border-bottom: 3px solid white;
-            > img{
-                width: 250px;
+            & img {
+                height: 100%;
             }
         }
 
-        & form {       
-            display: flex; 
-            flex-direction: column;
+        & form {
+            display: grid;
+            width: 100%;
+            height: 100%;
+            grid-template-areas:
+            '.     .     titulo .      .'
+            '.    imagem imagem imagem .'
+            'nome  nome  .      nasc   nasc'
+            '.     email email  email  .'
+            'senha senha .      confir confir'
+            'cadas cadas cadas  .      .'
+            '.     acao  acao   acao   .';
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: 8% 30% 14% 14% 14% 5% 14%;            
+            justify-items: center;
             align-items: center;
-            justify-content: center;
-            > h2 {
+            font-size: 0.6rem;
+            padding: 0 2% 2% 2%;
+            overflow: auto;
+
+            .input-container {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                text-wrap: nowrap;
+                & input {
+                    width: 100%;
+                    height: 50%;
+                    border: none;
+                    color: black;
+                    padding: 1%;
+                }
+            }
+            .cadastro-titulo {
+                grid-area: titulo;
                 text-align: center;
-                color: #8a4fff;
-                margin-top: 10px;
-            }    
+            }
+            .imagem-container {
+                text-align: center;
+                grid-area: imagem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                & figure {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 70%;
+                    aspect-ratio: 1/1;
+                    & img {
+                        width: 100%;
+                        aspect-ratio: 1/1;
+                        object-fit: contain;
+                    }
+                }
+            }
+            .nome-container {
+                grid-area: nome;
+            }
+            .nascimento-container {
+                grid-area: nasc;
+            }
+            .email-container {
+                grid-area: email;
+                align-items: center;
+            }
+            .senha-container {
+                grid-area: senha;
+            }
+            .confirmar-container {
+                grid-area: confir;
+            }
+            .possui-cadastro-container {
+                grid-area: cadas;
+                justify-self: start;
+                color: #0cca4a;
+                text-decoration: none;
+            }
+            .confirmar-input {
+                grid-area: acao;
+                background-color: #8a4fff;
+                width: 45%;
+                font-size: 0.8rem;                
+                aspect-ratio: 8/2;                
+                border-radius: 6px;
+                border: 2px solid white;
+                align-self: end;
+            }
+
             & figure {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 background-color: white;
-                width: 80px;
-                height: 80px;
-                margin: auto;
                 border-radius: 50%;
                 border: 2px solid #8a4fff;
                 overflow: hidden;
-                > img{
-                    width: 80px;
-                }
             }
-            #valores {
-                display: flex;            
-                flex-wrap: wrap;
-                width: 100%;
-                padding: 20px;
-                > a, p {
-                    color: #0cca4a;
-                    text-decoration: none;
-                }
-                & input{
-                    color: black;
-                }
-                .item1, .item2 {
-                    margin-bottom: 10px;
-                }
-
-                .item1{
-                    flex: 100%;
-                    display: flex;
-                    justify-content: space-between;                
-                    > div {
-                        flex-basis: 40%;
-                        display: flex;
-                        flex-direction: column;
-                        line-break: strict;
-                    }
-                }
-                .item2{
-                    display: flex;
-                    flex: 100%;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    > input{
-                        width: 50%;
-                    }
-                }
-                .item3{
-                    flex: 100%;
-                    display: flex;
-                    justify-content: space-between;                
-                    > div {
-                        flex-basis: 40%;
-                        display: flex;
-                        flex-direction: column;
-                    }
-                }
-            }
-
             & input[type=file]{
                 display: none;
-            }
-            & input[type=submit]{
-                background-color: #8a4fff;
-                width: 23%;
-                padding: 5px;
-                border-radius: 6px;
-                border: 2px solid white;
             }
         }
     }

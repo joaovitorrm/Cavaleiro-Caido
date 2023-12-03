@@ -1,31 +1,79 @@
-container{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr ;
-}
-#container_cartoes{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-}
-#cartoes{
-    /*top right bottom left*/
-    margin: 8vh 4vw 2vh 4vw;
-    border: solid 1px red;
-    background-color: white;
+main {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-   
-    > *{
-        color: black;
-        text-align: center;
-    }
-    > img{
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-    }
+}
 
+#container_cartoes{
+    height: 100%;
+    width: 70vw;
+    display: grid;
+    grid-template-areas: 
+    'a a . b b b . c c c . d d'
+    '. e e e . f f f . g g g .';
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: repeat(2, auto);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    gap: 1rem 0.2rem;
+    padding: 1%;
+}
+
+#cartoes{
+    height: 11.6rem;
+    aspect-ratio: 4/6;
+    border: solid 1px chocolate;
+    border-radius: 0.4rem;
+    background-color: #1f1f1f;    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    padding: 5% 2%;
+    gap: 0.5rem;    
+    & * {
+        color: white;
+    }
+    & img {
+        width: 50%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        position: relative;
+    }
+    & h1 {
+        font-size: 0.7rem;
+    }
+    & h2 {
+        font-size: 0.5rem;
+    }
+    & span {
+        font-size: 0.4rem;
+    }
+    & a {
+        text-decoration: none;        
+    }
+    &:nth-child(1) {
+        grid-area: a;
+    }
+    &:nth-child(2) {
+        grid-area: b;
+    }
+    &:nth-child(3) {
+        grid-area: c;
+    }
+    &:nth-child(4) {
+        grid-area: d;
+    }
+    &:nth-child(5) {
+        grid-area: e;
+    }
+    &:nth-child(6) {
+        grid-area: f;
+    }
+    &:nth-child(7) {
+        grid-area: g;
+    }
 }

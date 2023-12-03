@@ -3,21 +3,15 @@
 <html lang="pt-br">
 
 <head>
-
-    <meta charset="UTF-8">
-
-    <title>Cavaleiro Caído</title>
-
     <script src="../script/paginas/cadastro.js" defer></script>
-    <link href="../css/main.css" rel="stylesheet"> 
-    <link href="../css/cadastrar.css" rel="stylesheet"> 
-    <link rel="icon" href="../images/icones/casa.png">
-
+    <link href="../css/cadastrar.css" rel="stylesheet">
 </head>
+
+<%- include('./layout/head.html') %>
 
 <body>
     
-    <%- include('header.html')%>
+    <%- include('./layout/header.html')%>
 
     <main>
 
@@ -29,57 +23,52 @@
         
         <form action="/cadastrarUsuario" method="post">
             
-            <h2>Cadastro</h2>
-            <label>
+            <h2 class="cadastro-titulo">Cadastro</h2>
+
+            <div class="imagem-container input-container">
                 <input type="file" accept="image/*" name="imgPerfil" id="imgPerfil">
                 <figure for="imgPerfil"><img src="../images/icones/perfil.png" id="img"></figure>
                 <label for="imgPerfil">Imagem de Perfil</label>            
-            </label>
-
-            <div id="valores">
-
-                <div class="item1">
-                    <div>
-                        <label for="nome">Nome:</label>
-                        <input type="text" maxlength="30" name="nome" id="nome" required>                
-                    </div>
-                    <div>
-                        <label for="dataNascimento">Data de Nascimento:</label>
-                        <input type="date" name="dataNascimento" id="dataNascimento" required>
-                    </div>
-                </div>
-                <div class="item2">
-
-                    <label for="email">E-mail:</label>
-                    <input type="email" name="email" id="email" required>
-
-                </div>
-                <div class="item3">
-                    <div>
-                        <label for="Senha">Senha:</label>
-                        <input type="password" name="senha" id="senha" required>
-                    </div>
-
-                    <div>
-                        <label for="Confirmar Senha">Confirmar Senha:</label>
-                        <input type="password" name="confirmarSenha" id="confirmarSenha" required>
-                    </div>
-                </div>
-
-                <a href="/entrar">
-                    <p>Já é cadastrado? Faça login.</p>
-                </a>
             </div>
 
-            <input type="submit" name="cadastrar" value="Cadastrar">
+            <div class="nome-container input-container">
+                <label for="nome">Nome:</label>
+                <input type="text" maxlength="30" name="nome" id="nome" required>                
+            </div>
+
+            <div class="nascimento-container input-container">
+                <label for="dataNascimento">Data de Nascimento:</label>
+                <input type="date" name="dataNascimento" id="dataNascimento" required>
+            </div>
+
+            <div class="email-container input-container">
+                <label for="email">E-mail:</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+
+            <div class="senha-container input-container">
+                <label for="Senha">Senha:</label>
+                <input type="password" name="senha" id="senha" required>
+            </div>
+
+            <div class="confirmar-container input-container">
+                <label for="Confirmar Senha">Confirmar Senha:</label>
+                <input type="password" name="confirmarSenha" id="confirmarSenha" required>
+            </div>
+
+            <a href="/entrar" class="possui-cadastro-container">
+                Já é cadastrado? Faça login.
+            </a>
+
+            <input type="submit" name="acao" value="Cadastrar" class="confirmar-input">
         </form>
 
       </div>
     </main>
 
-    <%- include('chat.html') %>
+    <%- include('./layout/chat') %>
     
-    <%- include('footer.html') %>
+    <%- include('./layout/footer.html') %>
     
 </body>
 </html>

@@ -8,11 +8,11 @@
             "Sign-in",
             "Sign-up"
         ],
-        "info": [
+        "info-container": [
             "Contact",
             "About us"
         ],
-        "rotuloRedes": "Follow us",
+        "redes-container": "Follow us",
         "descricao": [
             "Welcome to our website!",
             "Welcome to the team responsible for developing the 'Cavaleiro Caído' project. This project is based on the development of a game and website of the same name, which tells the story of a character who wakes up, in an amnesic state, in an environmental laboratory and has to face challenges and creatures to get out of there, at the same time that he will find clues about what that place is and who he is or even why he is there...",

@@ -16,9 +16,15 @@
  */
 
 // SETUP EJS, EXPRESS E NODE
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const mysql = require('mysql');
+const app = express();
+const port = 3000;
+
+const Usuario = require('./models/Usuario');
+const HighScore = require('./models/HighScore');
+const Chat = require('./models/Chat');
+const User_has_achievements = require('./models/User_has_achievements');
 
 app.listen(port, function(){
     console.log(`Servidor no ar - Porta: ${port}`)
@@ -31,25 +37,13 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'))
 
 app.set('views', __dirname + '/public/views')
-
 app.set('view engine', 'ejs')
 
-pages =__dirname + '/public/views'
-
 // CONEXÃO COM O MYSQL
-const req = require('express/lib/request');
-const mysql = require('mysql');
-
-
-const HighScore = require('./models/HighScore');
-const Chat = require('./models/Chat');
-const User_has_achievements = require('./models/User_has_achievements');
-
-
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "root",
     database: "cavaleiro"
 })
 conexao.connect(function(err) {
@@ -57,26 +51,53 @@ conexao.connect(function(err) {
     console.log("Banco de Dados Conectado!");
   });
 
-
 //ABRIR HOME
 app.get('/', function(req, res){
     res.render('home');
 });
 
 // CADASTRO DE USUARIOS
-const Usuario = require('./models/Usuario');
-
 app.post('/cadastrarUsuario', (req, res) => { //FORM DO CADASTRO
-    const user = new Usuario()
-    user.id = req.body.iduser
-    user.nome = req.body.nome
-    user.email = req.body.email
-    user.senha = req.body.senha
-    user.cargo = "user"
-    user.imagem = req.body.imagemURL
+    const user = new Usuario();
+    user.nome = req.body.nome;
+    user.email = req.body.email;
+    user.senha = req.body.senha;
+    user.cargo = "user";
+    user.imagem = req.body.imagemURL;
 
-    user.inserir(conexao)
-    res.render('confirmaCadastro')
+    user.inserir(conexao, (result, err) => {
+        if (err) {
+            res.render('resultado', {mensagem: 'Erro ao cadastrar usuário!'});
+        } else {
+            res.render('resultado', {mensagem: 'Usuário cadastrado com sucesso!'});
+        }
+    });
+    
+});
+
+app.post('/processarUsuario', (req, res) => {
+    const {acao, userId} = req.body;
+
+    const usuario = new Usuario();
+
+    if (acao == 'Excluir') {
+        usuario.id = userId;
+        usuario.excluir(conexao, (result) => {
+            res.redirect('/cadastrados');
+        });
+    };
+});
+
+app.post('/pesquisarUsuarios', (req, res) => {
+    const {inputText} = req.body;
+
+    const usuario = new Usuario();
+    usuario.nome = "%" + inputText + "%";
+
+    usuario.pesquisar(conexao, (usuarios) => {
+        res.render('cadastrados', {usuarios});
+    });
+
 });
 
 app.get('/cadastro', function(req, res){ 

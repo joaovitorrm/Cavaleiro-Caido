@@ -79,7 +79,7 @@ app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
     user.cargo = "user";
     user.imagem = req.body.imagemURL;
 
-    user.inserir(conexao, (result, err) => {
+    user.inserir(conexao, (err, result) => {
         if (err) {
             res.render('resultado', {mensagem: 'Erro ao cadastrar usuário!'});
         } else {
@@ -129,20 +129,18 @@ app.get('/cadastro', function(req, res){ 			//FORM DE CADASTRO
 });
 
 app.get('/entrar', function(req, res){ 				//FORM DE ENTRAR
-
     res.render('entrar');
 });
 
 app.get('/cadastrados', function(req, res){ 		//ABRIR PAGINA ADMINISTRATIVA QUE CONTEM A LISTA DE CADASTROS
 	console.log(req.session)
     if(req.session.email) {
-    const user = new Usuario
+    const user = new Usuario();
 
     user.listar(conexao, (result) => {
-        res.render("cadastrados", {usuarios: result})
-		
-	    
-    })}
+        res.render("cadastrados", {usuarios: result});
+    })
+    }
     else{
 		res.redirect('/entrar');
     }    

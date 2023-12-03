@@ -10,7 +10,7 @@
 
 <body>
     
-    <%- include('./layout/header.html')%>
+    <%- include('./layout/header.ejs')%>
 
     <main>
 
@@ -20,7 +20,7 @@
           <img src="../images/logos/logo.png">
         </div>
         
-        <form action="" method="post">
+        <form action="/login" method="post">
             
             <h2>Login</h2>
 
@@ -30,7 +30,7 @@
             </p>
 
             <label for="E-mail">E-mail:</label>
-            <input type="email" id="emailLogin" required>
+            <input type="email" name="email" id="emailLogin" required>
 
             <label for="Senha">Senha:</label>
             <input type="password" id="senhaLogin" required>
@@ -48,7 +48,7 @@
 
     <%- include('./layout/chat') %>
     
-    <%- include('./layout/footer.html') %>
+    <%- include('./layout/footer.ejs') %>
     
 </body>
 </html>

@@ -73,7 +73,7 @@ app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
     user.nome = req.body.nome;
     user.email = req.body.email;
     user.senha = req.body.senha;
-    user.cargo = "user";
+    user.cargo = "admin";
     user.imagem = req.body.imagemURL;
 
     user.inserir(conexao, (err, result) => {
@@ -129,32 +129,39 @@ app.post('/getUsers', (req, res) => {
     });
 })
 
-app.get('/cadastro', function(req, res){ 			//FORM DE CADASTRO
-    res.render('cadastro');
-});
-
-app.get('/entrar', function(req, res){ 				//FORM DE ENTRAR
-    res.render('entrar');
-});
-
 app.get('/cadastrados', function(req, res){ 		//ABRIR PAG. ADMINISTRATIVA QUE CONTEM A LISTA DE CADASTROS
     if(req.session.admin) {
-    const user = new Usuario();
+        const user = new Usuario();
 
-    user.listar(conexao, (result) => {
-        res.render("cadastrados", {usuarios: result});
-    })
+        user.listar(conexao, (result) => {
+            res.render("cadastrados", {usuarios: result});
+        })
     }
     else{
 		res.redirect('/entrar');
-    }    
+    };
 
 });
 
 app.post('/login', function(req, res){ 				//ATRIBUIR EMAIL
-	req.session.logado = true;
-    req.session.admin = true;
-	res.redirect('/');
+    const {email, senha} = req.body;
+    const user = new Usuario();
+
+    user.email = email;
+    user.senha = senha;
+
+    user.logar(conexao, (result) => {
+        if (result.length > 0) {
+            req.session.logado = true;
+            if (result[0].cargo == 'admin') {
+                req.session.admin = true;
+            }
+            res.redirect('/');
+        } else {
+            res.render('resultado', {mensagem: 'Erro ao fazer o login! Verifique os dados inseridos.'})
+        }
+    })   
+	
 });
 
 app.get('/sair', function(req, res){ 				//DESATRIBUIR EMAIL

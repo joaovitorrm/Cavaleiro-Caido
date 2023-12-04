@@ -78,9 +78,9 @@ app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
 
     user.inserir(conexao, (err, result) => {
         if (err) {
-            res.render('resultado', {mensagem: 'Erro ao cadastrar usuário!'});
+            res.render('resultado', {defaultUser, mensagem: 'Erro ao cadastrar usuário!'});
         } else {
-            res.render('resultado', {mensagem: 'Usuário cadastrado com sucesso!'});
+            res.render('resultado', {defaultUser, mensagem: 'Usuário cadastrado com sucesso!'});
         }
     });
 });

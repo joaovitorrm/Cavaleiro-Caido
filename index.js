@@ -47,7 +47,7 @@ app.set('view engine', 'ejs')
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "root",
     database: "cavaleiro"
 });
 conexao.connect(function(err) {
@@ -55,23 +55,15 @@ conexao.connect(function(err) {
     console.log("Banco de Dados Conectado!");
 });
 
+// FUNÇÃO PARA GERAR AS VARIAVEIS GLOBAIS
+app.use((req, res, next) => {
+    app.locals.admin = req.session.admin;
+    app.locals.logado = req.session.logado;
+    next();
+})
 
-let defaultUser = {
-	cadastrados : "none",
-	login : "entrar",
-	registrar : "cadastro"
-	
-}
-
-app.get('/', function(req, res){					//ABRIR HOME
-	if(req.session.email){
-	defaultUser = {
-	cadastrados : "block",
-	login : "sair",
-	registrar : "perfil"
-	}
-	}
-	res.render('home', {defaultUser});
+app.get('/', function(req, res){					//ABRIR HOME	
+	res.render('home');
 });
 
 
@@ -101,7 +93,7 @@ app.post('/processarUsuario', (req, res) => {		//EXCLUIR USER PAG. CADASTRADOS
     if (acao == 'Excluir') {
         usuario.id = userId;
         usuario.excluir(conexao, (result) => {
-            res.redirect('/cadastrados', defaultUser);
+            res.redirect('/cadastrados');
         });
     };
 });
@@ -113,17 +105,16 @@ app.post('/pesquisarUsuarios', (req, res) => { 		//LISTA DOS CADASTRADOS
     usuario.nome = "%" + inputText + "%";
 
     usuario.pesquisar(conexao, (usuarios) => {
-        res.render('cadastrados', {usuarios, defaultUser});
+        res.render('cadastrados', {usuarios});
     });
 });
 
 app.get('/cadastro', function(req, res){ 			//PAGINA FORM DE CADASTRO
-    res.render('cadastro', {defaultUser});
+    res.render('cadastro');
 });
 
 app.get('/entrar', function(req, res){ 				//PAGINA FORM DE LOGIN
-
-    res.render('entrar', {defaultUser});
+    res.render('entrar');
 });
 
 app.post('/getUsers', (req, res) => {
@@ -139,7 +130,7 @@ app.post('/getUsers', (req, res) => {
 })
 
 app.get('/cadastro', function(req, res){ 			//FORM DE CADASTRO
-    res.render('cadastro', defaultUser);
+    res.render('cadastro');
 });
 
 app.get('/entrar', function(req, res){ 				//FORM DE ENTRAR
@@ -147,12 +138,11 @@ app.get('/entrar', function(req, res){ 				//FORM DE ENTRAR
 });
 
 app.get('/cadastrados', function(req, res){ 		//ABRIR PAG. ADMINISTRATIVA QUE CONTEM A LISTA DE CADASTROS
-	console.log(req.session)
-    if(req.session.email) {
+    if(req.session.admin) {
     const user = new Usuario();
 
     user.listar(conexao, (result) => {
-        res.render("cadastrados", {defaultUser, usuarios: result});
+        res.render("cadastrados", {usuarios: result});
     })
     }
     else{
@@ -162,19 +152,14 @@ app.get('/cadastrados', function(req, res){ 		//ABRIR PAG. ADMINISTRATIVA QUE CO
 });
 
 app.post('/login', function(req, res){ 				//ATRIBUIR EMAIL
-	req.session.email = req.body.email
+	req.session.logado = true;
+    req.session.admin = true;
 	res.redirect('/');
 });
 
 app.get('/sair', function(req, res){ 				//DESATRIBUIR EMAIL
-	req.session.email = ''
-	
-	defaultUser = {
-	cadastrados : "none",
-	login : "entrar",
-	registrar : "cadastro"
-	
-}
+	req.session.logado = false;
+    req.session.admin = false;
 	res.redirect('/');
 });
 
@@ -216,16 +201,16 @@ app.post('/enviarMensagem/', (req, res) => { 		//ENVIAR MSG
 
 
 app.get('/tutoriais', function(req, res){ 			//TUTORIAIS
-    res.render('tutoriais', {defaultUser});
+    res.render('tutoriais');
 });
 
 
 app.get('/contato', function(req, res){ 			//CONTATO
-    res.render('contato', {defaultUser});
+    res.render('contato');
 });
 
 app.get('/sobre', function(req, res){ 				//SOBRE
-    res.render('sobre', {defaultUser});
+    res.render('sobre');
 });
 	
 
@@ -234,7 +219,7 @@ app.get('/highscore', function (req, res) {			//PÁGINA LISTA DE HIGHSCORE
     const hs = new HighScore();
 
     hs.listar(conexao, (result) => {
-        res.render("highscore", {defaultUser, hs: result})
+        res.render("highscore", {hs: result})
     });
 })
 

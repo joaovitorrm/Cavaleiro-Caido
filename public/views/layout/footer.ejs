@@ -2,7 +2,9 @@
     <div id="info-container">
         <li><a href="/contato" class="traduzir contato">Contato</a></li>
         <li><a href="/sobre" class="traduzir sobre">Sobre nós</a></li>
-        <li><a href="/cadastrados" style="display: <%= defaultUser.cadastrados %>" >Cadastrados</a></li>
+        <% if (admin == true) {%>
+        <li><a href="/cadastrados">Cadastrados</a></li>
+        <% }; %>
         <div id="idioma-container">
             <img src="../images/icones/icone_do_tradutor.png" id="idiomaIcone">
             <select id="idiomas">

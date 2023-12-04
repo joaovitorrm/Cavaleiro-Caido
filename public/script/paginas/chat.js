@@ -9,6 +9,9 @@ const conversa = document.getElementById('conversa');
 const flechaVoltar = document.getElementById('flecha-voltar');
 const pesquisarContainer = document.querySelector('.pesquisar');
 const pesquisarInput = document.querySelector('.pesquisar-input');
+const chatContainer = document.querySelector('.chat');
+const menuContainer = document.querySelector('#chat-menu');
+const userId = chatContainer.classList[1];
 
 // pega o textarea e adiciona um evento que vigia as teclas pressionadas
 const texto = document.getElementById('texto')
@@ -18,22 +21,31 @@ let remetenteIdPlacehold = 1;
 let destinatarioIdPlacehold = 2;
 let globalIdPlacehold = 0;
 
+// ABRE O ASIDE DO CHAT
+chatContainer.onclick = () => {
+    if (menuContainer.style.display == "none" || menuContainer.style.display == ''){
+        menuContainer.style['display'] = "flex"
+    } else {
+        menuContainer.style['display'] = 'none'
+    }
+}
+
 let getChatIntervalId;
 
 // DEIXA OS CHATS DE CADA CATEGORIA ABERTO
 for (let x = 0; x < 2; x++) {
     arrows[x].addEventListener('click', () => {
-        chats[x].classList.toggle('visible')
-        chats[x].classList.toggle('invisible')
-    })
-}
+        chats[x].classList.toggle('visible');
+        chats[x].classList.toggle('invisible');
+    });
+};
 
 // ALTERA ENTRE AS CATEGORIAS E O CHAT PRIVADO
 for (const d of directChats) {
     d.addEventListener('click', () => {
-        globalIdPlacehold = 0
-        destinatarioIdPlacehold = 2
-        nomeConversa.innerText = d.innerText
+        globalIdPlacehold = 0;
+        destinatarioIdPlacehold = 2;
+        nomeConversa.innerText = d.innerText;
         chatsContainer.classList.toggle('visible');
         chatsContainer.classList.toggle('invisible');
         conversaContainer.classList.toggle('visible');
@@ -67,16 +79,6 @@ flechaVoltar.addEventListener('click', () => {
     conversaContainer.querySelector('#conversa').innerHTML = '';
     stopChatInterval();
 })
-
-// ABRE O ASIDE DO CHAT
-document.getElementById('chat').onclick = () => {
-    const menu = document.getElementById('chat-menu');
-    if (menu.style.display == "none" || menu.style.display == ''){
-        menu.style['display'] = "flex"
-    } else {
-        menu.style['display'] = 'none'
-    }    
-}
 
 // função que adiciona o texto na tela e limpa a caixa de texto
 function addTextChat(text){
@@ -185,7 +187,7 @@ function searchUser(nome, callback) {
         headers: {
             'Content-type': 'application/json'
         },
-        body: JSON.stringify({nome})
+        body: JSON.stringify({nome, "userId": userId})
     }).then(response => response.json()).then(response => {
         return callback(JSON.stringify(response))
     })   
@@ -197,7 +199,7 @@ pesquisarInput.addEventListener('input', () => {
     timerGetUsers = setTimeout(() => {
         pesquisarContainer.querySelectorAll('.adicionar').forEach((e) => e.remove());
         if (pesquisarInput.value != '') {
-            searchUser(pesquisarInput.value, (users) => {                
+            searchUser(pesquisarInput.value, (users) => {
                 for (const u of JSON.parse(users)) {
                     const divAdicionar = document.createElement('div');
                     divAdicionar.classList.add('adicionar');
@@ -211,6 +213,7 @@ pesquisarInput.addEventListener('input', () => {
     
                     const divAddIcone = document.createElement('div');
                     divAddIcone.innerText = "+";
+                    divAddIcone.id = u.iduser;
                     divAddIcone.classList.add('adicionar-button');
     
                     divAdicionar.append(divImg, divNome, divAddIcone);

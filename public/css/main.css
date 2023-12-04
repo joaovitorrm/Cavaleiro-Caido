@@ -229,6 +229,11 @@ aside, #chat-menu {
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    &:hover {
+                        cursor: pointer;
+                        background-color: chartreuse;
+                        transition: 0.4s background-color;
+                    }
                 }
             }
         }

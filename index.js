@@ -57,15 +57,15 @@ conexao.connect(function(err) {
 
 // FUNÇÃO PARA GERAR AS VARIAVEIS GLOBAIS
 app.use((req, res, next) => {
+    app.locals.userId = req.session.userId;
     app.locals.admin = req.session.admin;
     app.locals.logado = req.session.logado;
     next();
-})
+});
 
 app.get('/', function(req, res){					//ABRIR HOME	
 	res.render('home');
 });
-
 
 // CADASTRO DE USUARIOS
 app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
@@ -73,7 +73,7 @@ app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
     user.nome = req.body.nome;
     user.email = req.body.email;
     user.senha = req.body.senha;
-    user.cargo = "admin";
+    user.cargo = "user";
     user.imagem = req.body.imagemURL;
 
     user.inserir(conexao, (err, result) => {
@@ -118,10 +118,11 @@ app.get('/entrar', function(req, res){ 				//PAGINA FORM DE LOGIN
 });
 
 app.post('/getUsers', (req, res) => {
-    const {nome} = req.body;
+    const {nome, userId} = req.body;
 
     const usuario = new Usuario();
     usuario.nome = "%" + nome + "%";
+    usuario.id = userId;
 
     usuario.pesquisar(conexao, (usuarios) => {
         res.json(usuarios);
@@ -153,6 +154,7 @@ app.post('/login', function(req, res){ 				//ATRIBUIR EMAIL
     user.logar(conexao, (result) => {
         if (result.length > 0) {
             req.session.logado = true;
+            req.session.userId = result[0].iduser;
             if (result[0].cargo == 'admin') {
                 req.session.admin = true;
             }
@@ -167,6 +169,7 @@ app.post('/login', function(req, res){ 				//ATRIBUIR EMAIL
 app.get('/sair', function(req, res){ 				//DESATRIBUIR EMAIL
 	req.session.logado = false;
     req.session.admin = false;
+    req.session.userId = '';
 	res.redirect('/');
 });
 

@@ -13,8 +13,8 @@
         <a href="/<%= logado == true ? 'sair':'entrar' %>"><img id="entrar" src="<%= logado == true ? '../images/icones/entrar_2.png':'../images/icones/entrar_1.png'%>"><span><%= logado == true ? 'Sair':'Entrar' %></span></a>
         <a href="/<%= logado == true ? 'perfil':'cadastro' %>"><img src="<%= logado == true ? '../images/icones/perfil_pixel.png':'../images/icones/cadastro.png'%>"><span><%= logado == true ? 'Perfil':'Cadastrar' %></span></a>
     </div>
-
-    <div id="chat">
+    
+    <div id="chat" class="<%= logado == true ? 'chat':'' %> <%= userId %>">
         <img src="../images/icones/chat.png">
     </div>
     

@@ -73,7 +73,7 @@ app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
     user.nome = req.body.nome;
     user.email = req.body.email;
     user.senha = req.body.senha;
-    user.cargo = "user";
+    user.cargo = "admin";
     user.imagem = req.body.imagemURL;
 
     user.inserir(conexao, (err, result) => {
@@ -129,14 +129,24 @@ app.get('/entrar', function(req, res){ 				//PAGINA FORM DE LOGIN
 });
 
 app.post('/getUsers', (req, res) => {
-    const {nome, userId} = req.body;
+    const {nome} = req.body;
 
     const usuario = new Usuario();
     usuario.nome = "%" + nome + "%";
-    usuario.id = userId;
+    usuario.id = req.session.userId;
 
     usuario.pesquisar(conexao, (usuarios) => {
         res.json(usuarios);
+        res.end();
+    });
+})
+
+app.post('/getFriends', (req, res) => {
+    const usuario = new Usuario();
+    usuario.id = req.session.userId;
+
+    usuario.listarAmigos(conexao, (amigos) => {
+        res.json(amigos);
         res.end();
     });
 })

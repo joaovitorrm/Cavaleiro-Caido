@@ -30,6 +30,13 @@ module.exports = class Usuario {
         });
     };
 
+    listarAmigos(conexao, callback) {
+        conexao.query('SELECT * FROM user, amigos WHERE (iduser = user_iduser OR iduser = user_iduser1) AND iduser <> ?;', [this.id], (err, result) => {
+            if (err) throw err;
+            return callback(result);
+        });
+    };
+
     logar(conexao, callback) {
         conexao.query('SELECT * FROM user WHERE email = ? AND senha = ?', [this.email, this.senha], (err, result) => {
             if (err) throw err;
@@ -66,7 +73,7 @@ module.exports = class Usuario {
                 return callback(result);
         });
     };
-
+    
     excluir(conexao, callback) {
         conexao.query('DELETE FROM user WHERE iduser = ?', [this.id], (err, result) => {
             if (err) throw err;

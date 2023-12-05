@@ -1,6 +1,5 @@
 const arrows = document.getElementsByClassName('down-arrow');
 const chats = document.getElementsByClassName('chats');
-const directChats = document.getElementsByClassName('amigo-chat');
 const globalChats = document.getElementsByClassName('global-chat');
 const nomeConversa = document.getElementById('nome-conversa');
 const chatsContainer = document.getElementById('chats-container');
@@ -11,7 +10,10 @@ const pesquisarContainer = document.querySelector('.pesquisar');
 const pesquisarInput = document.querySelector('.pesquisar-input');
 const chatContainer = document.querySelector('.chat');
 const menuContainer = document.querySelector('#chat-menu');
-const userId = chatContainer.classList[1];
+const amigosSeta = document.querySelector('.amigos').querySelector('.down-arrow');
+const amigosContainer = document.querySelector('.amigos-container');
+
+let directChats;
 
 // pega o textarea e adiciona um evento que vigia as teclas pressionadas
 const texto = document.getElementById('texto')
@@ -30,6 +32,37 @@ chatContainer.onclick = () => {
     }
 }
 
+// QUANDO APERTA A SETA DOS AMIGOS PUXA DO BANCO DE DADOS
+amigosSeta.addEventListener('click', () => {
+    fetch('/getFriends', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        }
+    }).then(response => response.json()).then(response => {
+        amigosContainer.innerHTML = '';
+        for (const u of response) {
+            const mainDiv = document.createElement('div');
+            
+            const img = document.createElement('img');
+            img.src = "../images/icones/perfil.png";
+
+            const nome = document.createElement('div');
+            nome.classList.add('message-chat', 'amigo-chat');
+            nome.innerText = u.nome;
+
+            const editar = document.createElement('div');
+            editar.classList.add('editar-amigo', u.iduser);
+            editar.innerText = '...'
+
+            mainDiv.append(img, nome, editar);
+            nome.addEventListener('click', () => {abrirChat(mainDiv)})
+            amigosContainer.appendChild(mainDiv);
+        };
+        directChats = document.getElementsByClassName('amigo-chat');
+    });
+});
+
 let getChatIntervalId;
 
 // DEIXA OS CHATS DE CADA CATEGORIA ABERTO
@@ -41,18 +74,16 @@ for (let x = 0; x < 2; x++) {
 };
 
 // ALTERA ENTRE AS CATEGORIAS E O CHAT PRIVADO
-for (const d of directChats) {
-    d.addEventListener('click', () => {
-        globalIdPlacehold = 0;
-        destinatarioIdPlacehold = 2;
-        nomeConversa.innerText = d.innerText;
-        chatsContainer.classList.toggle('visible');
-        chatsContainer.classList.toggle('invisible');
-        conversaContainer.classList.toggle('visible');
-        conversaContainer.classList.toggle('invisible');        
-        firstOpenChat(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold);
-        startChatInterval(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold)
-    })
+function abrirChat(d) {
+    globalIdPlacehold = 0;
+    destinatarioIdPlacehold = 2;
+    nomeConversa.innerText = d.innerText;
+    chatsContainer.classList.toggle('visible');
+    chatsContainer.classList.toggle('invisible');
+    conversaContainer.classList.toggle('visible');
+    conversaContainer.classList.toggle('invisible');        
+    firstOpenChat(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold);
+    startChatInterval(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold)
 }
 
 // ALTERA ENTRE AS CATEGORIAS E O CHAT GLOBAL
@@ -187,7 +218,7 @@ function searchUser(nome, callback) {
         headers: {
             'Content-type': 'application/json'
         },
-        body: JSON.stringify({nome, "userId": userId})
+        body: JSON.stringify({nome})
     }).then(response => response.json()).then(response => {
         return callback(JSON.stringify(response))
     })

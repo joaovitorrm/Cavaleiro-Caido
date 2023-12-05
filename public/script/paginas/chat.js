@@ -13,18 +13,19 @@ const menuContainer = document.querySelector('#chat-menu');
 const amigosSeta = document.querySelector('.amigos').querySelector('.down-arrow');
 const amigosContainer = document.querySelector('.amigos-container');
 
+let userId;
 let directChats;
 
 // pega o textarea e adiciona um evento que vigia as teclas pressionadas
 const texto = document.getElementById('texto')
 texto.addEventListener('keydown', sendMessage)
 
-let remetenteIdPlacehold = 1;
-let destinatarioIdPlacehold = 2;
-let globalIdPlacehold = 0;
+let destinatarioId;
+let globalIdPlacehold = 1;
 
 // ABRE O ASIDE DO CHAT
 chatContainer.onclick = () => {
+    userId = document.querySelector('.input-id').value;
     if (menuContainer.style.display == "none" || menuContainer.style.display == ''){
         menuContainer.style['display'] = "flex"
     } else {
@@ -49,11 +50,12 @@ amigosSeta.addEventListener('click', () => {
 
             const nome = document.createElement('div');
             nome.classList.add('message-chat', 'amigo-chat');
-            nome.innerText = u.nome;
+            nome.id = u.iduser;
+            nome.innerText = u.nome;            
 
             const editar = document.createElement('div');
             editar.classList.add('editar-amigo', u.iduser);
-            editar.innerText = '...'
+            editar.innerText = '-'
 
             mainDiv.append(img, nome, editar);
             nome.addEventListener('click', () => {abrirChat(mainDiv)})
@@ -75,15 +77,16 @@ for (let x = 0; x < 2; x++) {
 
 // ALTERA ENTRE AS CATEGORIAS E O CHAT PRIVADO
 function abrirChat(d) {
+    let nome = d.querySelector('.amigo-chat');
     globalIdPlacehold = 0;
-    destinatarioIdPlacehold = 2;
-    nomeConversa.innerText = d.innerText;
+    destinatarioId = nome.id;
+    nomeConversa.innerText = nome.innerText;
     chatsContainer.classList.toggle('visible');
     chatsContainer.classList.toggle('invisible');
     conversaContainer.classList.toggle('visible');
     conversaContainer.classList.toggle('invisible');        
-    firstOpenChat(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold);
-    startChatInterval(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold)
+    firstOpenChat(globalIdPlacehold, userId, destinatarioId);
+    startChatInterval(globalIdPlacehold, userId, destinatarioId)
 }
 
 // ALTERA ENTRE AS CATEGORIAS E O CHAT GLOBAL
@@ -96,8 +99,8 @@ for (const g of globalChats) {
         chatsContainer.classList.toggle('invisible');
         conversaContainer.classList.toggle('visible');
         conversaContainer.classList.toggle('invisible');        
-        firstOpenChat(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold);
-        startChatInterval(globalIdPlacehold, remetenteIdPlacehold, destinatarioIdPlacehold)
+        firstOpenChat(globalIdPlacehold, userId, destinatarioIdPlacehold);
+        startChatInterval(globalIdPlacehold, userId, destinatarioIdPlacehold)
     })
 }
 
@@ -133,8 +136,8 @@ function enviarMensagem(msg) {
 
     const data = {
         global: globalIdPlacehold,
-        remetId: remetenteIdPlacehold,
-        destId: destinatarioIdPlacehold,
+        remetId: userId,
+        destId: destinatarioId,
         msg: msg,
         tempo: `${tempo.getUTCFullYear()}-${tempo.getUTCMonth()}-${tempo.getUTCDate()} ${tempo.getUTCHours()}:${tempo.getUTCMinutes()}:${tempo.getUTCSeconds()}`,
     }

@@ -16,7 +16,7 @@ module.exports = class Chat {
     };
 
     listarMensagens(conexao, callback) {
-        conexao.query('SELECT * FROM chat WHERE remetente = ? AND destinatario = ? AND global = ?', [this.remetId, this.destId, this.global], (err, result) => {
+        conexao.query('SELECT * FROM chat WHERE (remetente = ? AND destinatario = ? AND global = ?) OR (remetente = ? AND destinatario = ? AND global = ?) ORDER BY tempo', [this.remetId, this.destId, this.global, this.destId, this.remetId, this.global], (err, result) => {
             if (err) throw err;
             return callback(result)
         })

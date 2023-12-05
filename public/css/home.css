@@ -40,5 +40,18 @@ main {
         border-style: dotted;
         border-color: var(--bio-bg-color);
     }
+    & #overlayEndGame{
+        opacity: 50%;
+        background-color: red;
+        width: 60%;
+        height: 95.5%;
+        position: absolute;
+        display: flex;
+        visibility: hidden;
+        justify-content: center;
+        align-items: center;
+        
+    }
 }
+
 

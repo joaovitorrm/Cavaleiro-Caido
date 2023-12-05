@@ -12,18 +12,21 @@ import idiomas from '../../idiomas/idiomas.json' assert {type:"json"}
 let traduzir = document.querySelectorAll(".traduzir");
 let idioma = document.getElementById("idiomas");
 
-if (localStorage.getItem('idioma')){
-    idioma.value = localStorage.getItem('idioma');
-    translate(localStorage.getItem('idioma'));
-};
-
+//TRADUTOR 
 function translate(idioma) {
     for (const div of traduzir) {        
         div.innerText = idiomas[div.classList[1]][idioma];
     };
 };
 
+//BOTAO SETAR O COOKIE
 idioma.addEventListener("change", () => {
     localStorage.setItem("idioma", idioma.value);
     translate(idioma.value)
 });
+
+// COOKIE
+if (localStorage.getItem('idioma')){
+    idioma.value = localStorage.getItem('idioma');
+    translate(localStorage.getItem('idioma'));
+};

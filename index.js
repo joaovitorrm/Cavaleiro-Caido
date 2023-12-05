@@ -47,7 +47,7 @@ app.set('view engine', 'ejs')
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "",
     database: "cavaleiro"
 });
 conexao.connect(function(err) {
@@ -265,5 +265,7 @@ app.post('/giveAchievementToUser', (req, res) => {	//CONCEDER ACHIEVEMENT
 
 })
 
+app.post('/insertPontuacao'), (req, res) => {
 
+}
 

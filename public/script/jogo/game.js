@@ -4,19 +4,23 @@ import { InputHandler } from './InputHandler.js';
 import { Map } from './Map.js';
 import { Player } from './Player.js';
 import { AchievementHandler } from './AchievementHandler.js';
-import { Pontos } from './Pontos.js';
+
 import { Utils } from './Utils.js';
 
 
 // roda após as imagens serem carregadas
 addEventListener('load', function(){
+    
     // elemento botão
     const play = document.getElementById('playButton');
     // elemento descricao
     const descricao = document.getElementById('descricao');
     // elemento canvas
     const canvas = document.getElementById('game');
-    
+    // jogar novamente
+    const jogarNovamente = document.getElementById('overlayEndGame');
+
+
     // transforma o canvas em um objeto para manipulador imagens em JS
     const ctx = canvas.getContext('2d');
     canvas.width = 1280;
@@ -37,9 +41,11 @@ addEventListener('load', function(){
             this.map = new Map(this);
             this.entity = new Entity(this);
             this.achievementHandler = new AchievementHandler(this);
-            this.pontos = new Pontos(this);
+            this.utils = new Utils(this);
             
-            this.map.createMap([0, 0]);            
+            this.map.createMap([0, 0]);    
+            this.timer = 0        
+            setInterval(()=> this.timer +=1, 1000)
         }
 
         checkInput(){
@@ -56,13 +62,16 @@ addEventListener('load', function(){
             this.player.update();
             this.enemies.forEach((e) => e.update())
             this.achievementHandler.update()
+            
+
         }
 
         draw(context){
             this.map.draw(context)
             this.player.draw(context)            
             this.enemies.forEach((e) => e.draw(context))
-           // this.achievementHandler.messageQueue.forEach((a)=> a.draw(context))
+            this.utils.drawTextPontuacao(ctx, `Pontuação: ${this.player.pontuacao}`, 50, 50, 'black')
+            this.utils.drawTextPontuacao(ctx, `tempo: ${this.timer}`, 50, 100, 'black')
         }
     }
     
@@ -87,10 +96,14 @@ addEventListener('load', function(){
                 game.loaded = true
                 requestAnimationFrame(animate)
             } else {
-                play.style.display = 'block'
-                descricao.style.display = 'flex'
+                
+                jogarNovamente.style.visibility = 'visible'
+                jogarNovamente.addEventListener('click', ()=>{})
+                //jogarNovamente.addEventListener('click', ()=> {play.style.display = 'block'; descricao.style.display = 'flex'; canvas.style.display = 'none';jogarNovamente.style.visibility = 'hidden' });
+                //play.style.display = 'block'
+                //descricao.style.display = 'flex'
                 // faz o canvas ser visível
-                canvas.style.display = 'none'
+                //canvas.style.display = 'none'
             }                
         }
         animate();        

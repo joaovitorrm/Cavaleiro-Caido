@@ -276,5 +276,7 @@ app.post('/giveAchievementToUser', (req, res) => {	//CONCEDER ACHIEVEMENT
 
 })
 
+app.post('/insertPontuacao'), (req, res) => {
 
+}
 

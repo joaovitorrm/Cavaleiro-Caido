@@ -10,6 +10,7 @@ export class Player extends Entity{
         super(Entity)
         this.game = game
 
+        this.pontuacao = 0
         this.x = 200;
         this.y = 120;
         this.w = 100;
@@ -24,7 +25,7 @@ export class Player extends Entity{
             armor: 0,
             magicResistance: 0,
             maxHealth: 150,
-            currentHealth: 150,
+            currentHealth: 1,
             speed: 5,
             physicalDamage: 2,
             magicDamage: 0
@@ -112,12 +113,13 @@ export class Player extends Entity{
             this.config.speed = 0
             this.config.physicalDamage = 0
             this.sprite_atual.src = "../../images/sprites/enemies/fantasma.png";
+            this.game.playing = false
         }
         // Pega a última tecla pressionada
         // e checa se a tecla tem utilidade  
         this.key = this.input.key[this.input.key.length - 1];
              
-        if (this.key in this.controls) {
+        if (this.key in this.controls && this.config.currentHealth >= 1) {
             this.controls[this.key].call(this, this.config.speed)            
         }
 
@@ -135,6 +137,7 @@ export class Player extends Entity{
                     this.game.map.removeEnemy(index)
                     this.game.enemies.splice(index, 1)
                     this.stats.enemiesKilled += 1
+                    this.pontuacao += 1
                 }
                 
             }

@@ -1,17 +1,17 @@
 const Usuario = require('./Usuario');
-// const MiniJogos = require('./MiniJogos');
+
 
 module.exports = class HighScore {
     constructor () {
         this.pontuacao = 0;
         this.usuario = new Usuario();
-        // this.minijogos = new MiniJogos();
+
     }
 
     inserir (conexao) {
-        let sql = "insert into highscore (pontuacao) values (?)";
+        let sql = "insert into highscore (pontuacao, userId) values (?, ?)";
 
-        conexao.query(sql, [this.pontuacao], (err, result) => {
+        conexao.query(sql, [this.pontuacao, this.usuario], (err, result) => {
             if (err) throw err
         });
     }

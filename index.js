@@ -47,7 +47,7 @@ app.set('view engine', 'ejs')
 const conexao = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "",
     database: "cavaleiro"
 });
 conexao.connect(function(err) {
@@ -108,6 +108,17 @@ app.post('/pesquisarUsuarios', (req, res) => { 		//LISTA DOS CADASTRADOS
         res.render('cadastrados', {usuarios});
     });
 });
+
+app.post('/addUser', (req, res) => {
+    const {userId} = req.body;
+
+    const user = new Usuario();
+    user.id = req.session.userId;
+
+    user.adicionarAmigo(conexao, userId);
+
+    res.end();
+})
 
 app.get('/cadastro', function(req, res){ 			//PAGINA FORM DE CADASTRO
     res.render('cadastro');

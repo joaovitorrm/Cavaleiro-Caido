@@ -190,8 +190,18 @@ function searchUser(nome, callback) {
         body: JSON.stringify({nome, "userId": userId})
     }).then(response => response.json()).then(response => {
         return callback(JSON.stringify(response))
-    })   
+    })
 }
+
+function addUser(userId) {
+    fetch('/addUser', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({"userId": userId})
+    });
+};
 
 let timerGetUsers;
 pesquisarInput.addEventListener('input', () => {
@@ -215,6 +225,11 @@ pesquisarInput.addEventListener('input', () => {
                     divAddIcone.innerText = "+";
                     divAddIcone.id = u.iduser;
                     divAddIcone.classList.add('adicionar-button');
+
+                    divAddIcone.addEventListener('click', () => {
+                        addUser(u.iduser);
+                        divAdicionar.remove()
+                    });
     
                     divAdicionar.append(divImg, divNome, divAddIcone);
                     pesquisarContainer.appendChild(divAdicionar);

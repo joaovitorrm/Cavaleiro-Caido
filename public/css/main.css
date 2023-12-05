@@ -191,7 +191,7 @@ aside, #chat-menu {
     right: 0;
     top: calc(100vw / 18);
     height: calc(100dvh - (100vw / 18) - (100vw / 9));
-    aspect-ratio: 5/9;    
+    aspect-ratio: 6/10;    
     background-color: #3f3f3f;
     flex-direction: column;
     overflow-y: auto;
@@ -270,6 +270,7 @@ aside, #chat-menu {
             border: 0.3vmin solid #111111;
             line-height: 200%;
             position: relative;
+            font-size: 0.7rem;
             & div:hover {
                 cursor: pointer;
                 text-decoration: underline;            
@@ -277,21 +278,23 @@ aside, #chat-menu {
             & div {
                 height: 4vh;
                 display: flex;
-                align-items: center;
-                gap: 5%;
+                align-items: center;                
                 margin: 3% 0%;
+                gap: 2%
+            };
+            & .amigo-chat {
+                flex: 1;
             }
             & img {
                 height: 100%;
             }
-            & .editar-amigo {
-                position: absolute;
-                right: 0;
-                transform: translateX(-100%);
-                border: 0.3vmin solid #1f1f1f;
-                padding: 2%;
+            & .editar-amigo {                
+                border: 0.3vmin solid #1f1f1f;                
                 border-radius: 1vmin;
-                width: 2rem;
+                width: 1.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 aspect-ratio: 1/1;
                 text-align: center;
                 align-items: start;

@@ -109,6 +109,17 @@ app.post('/pesquisarUsuarios', (req, res) => { 		//LISTA DOS CADASTRADOS
     });
 });
 
+app.post('/addUser', (req, res) => {
+    const {userId} = req.body;
+
+    const user = new Usuario();
+    user.id = req.session.userId;
+
+    user.adicionarAmigo(conexao, userId);
+
+    res.end();
+})
+
 app.get('/cadastro', function(req, res){ 			//PAGINA FORM DE CADASTRO
     res.render('cadastro');
 });

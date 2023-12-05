@@ -24,6 +24,12 @@ module.exports = class Usuario {
         });
     };
 
+    adicionarAmigo(conexao, id2, callback) {
+        conexao.query('INSERT INTO amigos (user_iduser, user_iduser1) VALUES (?, ?)', [this.id, id2], (err, result) => {
+            if (err) throw err;
+        });
+    };
+
     logar(conexao, callback) {
         conexao.query('SELECT * FROM user WHERE email = ? AND senha = ?', [this.email, this.senha], (err, result) => {
             if (err) throw err;
@@ -54,7 +60,8 @@ module.exports = class Usuario {
             )) \
             SELECT * \
             FROM filtrado_fim \
-            WHERE nome LIKE ?;", [this.id, this.id, this.id, this.id, this.nome], (err, result) => {
+            WHERE nome LIKE ? \
+                AND iduser <> ?;", [this.id, this.id, this.id, this.id, this.nome, this.id], (err, result) => {
                 if (err) throw err;
                 return callback(result);
         });

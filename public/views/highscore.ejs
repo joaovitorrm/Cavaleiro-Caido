@@ -6,29 +6,32 @@
 
 <body>
     <%- include ('./layout/header.ejs') %>
-
-    <table>
-        <caption>Placar de Líderes</caption>
-
-        <thead>
-            <tr>
-                <th>Posição</th>
-                <th>Jogador</th>
-                <th>Pontuação</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <% hs.forEach ((hs) => { %>
-            <tr>
-                <!-- <td><%= %></td> -->
-                <td><%= hs.user_iduser %></td>
-                <td><%= hs.pontuacao %></td>
-            </tr>
-            <% }); %>
-        </tbody>
-    </table>
-
+    <main id="cadastrados-main-container">
+        <div>
+            <table>
+                <caption> Placar de líderes</caption>
+                <thead>
+                    <tr class="cabecalho">
+                        <th>Posição</th>
+                        <th>Jogador</th>
+                        <th>Pontuação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let position = 1; %>
+                    <% hs.forEach ((hs) => { %>
+                    
+                    <tr>
+                        <td><%= position++ %></td>
+                        <td><%= hs.user_iduser %></td>
+                        <td><%= hs.pontuacao %></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <div id="barra-baixo"></div>
+        </div>    
+    </main>
     <%- include ('./layout/chat') %>
 
     <%- include ('./layout/footer.ejs') %>

@@ -9,6 +9,9 @@ import { Utils } from './Utils.js';
 
 
 // roda após as imagens serem carregadas
+
+
+
 addEventListener('load', function(){
     
     // elemento botão
@@ -46,6 +49,16 @@ addEventListener('load', function(){
             this.map.createMap([0, 0]);    
             this.timer = 0        
             setInterval(()=> this.timer +=1, 1000)
+        }
+
+        salvarPontuacao(pontuacao){
+            fetch('/insertPontuacao', {
+                method: 'POST',
+                body: JSON.stringify({ pontuacao }),
+                headers: {
+                    'Content-type':'application/json',
+                },
+            })
         }
 
         checkInput(){
@@ -98,8 +111,14 @@ addEventListener('load', function(){
             } else {
                 
                 jogarNovamente.style.visibility = 'visible'
-                jogarNovamente.addEventListener('click', ()=>{})
-                //jogarNovamente.addEventListener('click', ()=> {play.style.display = 'block'; descricao.style.display = 'flex'; canvas.style.display = 'none';jogarNovamente.style.visibility = 'hidden' });
+                game.salvarPontuacao(game.player.pontuacao) 
+                jogarNovamente.addEventListener('click', ()=> {
+                    play.style.display = 'block'; descricao.style.display = 'flex';
+                    canvas.style.display = 'none';
+                    jogarNovamente.style.visibility = 'hidden'; 
+
+                
+                });
                 //play.style.display = 'block'
                 //descricao.style.display = 'flex'
                 // faz o canvas ser visível

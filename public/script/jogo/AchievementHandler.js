@@ -56,7 +56,7 @@ export class AchievementHandler{
 
   
   fetchAchievements(userId, achievementId,condicao,img,recompensa,descricao, callback) {
-    console.log("fetch rodou!")
+
     const data = {
       achievementId,
       condicao,
@@ -87,7 +87,6 @@ export class AchievementHandler{
       headers: {
         'Content-Type': 'application/json',
       },
-       // Pass the achievement ID to the server
     });
 
     console.log(`Achievement ${achievementId} given to the user.`);
@@ -97,7 +96,6 @@ export class AchievementHandler{
       if (eval(data['condicao'])()) {
 
         this.giveAchievementToUser(data['achievementId']);
-        console.log(data.achievementId)
 
         this.achievementsAConcluir = this.achievementsAConcluir.filter(monke => monke.achievementId != data.achievementId);
         console.log(`achievement ${data['achievementId']} completo!, achievements a concluir: ${this.achievementsAConcluir.length}`);

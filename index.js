@@ -1,20 +1,3 @@
-/* salvarPontuacao() {
-    const data = {
-        jogo: 'brick-breaker',            
-        pontuacao: this.pontos,
-        total: this.nivel,
-    }
-
-    fetch('/inserirPontuacaoSimples', {
-        method: 'POST',
-        headers: {
-            'Content-type':'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-}
- */
-
 // SETUP EJS, EXPRESS E NODE
 const express = require('express');
 const mysql = require('mysql');
@@ -233,16 +216,6 @@ app.get('/contato', function(req, res){ 			//CONTATO
 app.get('/sobre', function(req, res){ 				//SOBRE
     res.render('sobre');
 });
-	
-
-
-app.get('/highscore', function (req, res) {			//PÁGINA LISTA DE HIGHSCORE
-    const hs = new HighScore();
-
-    hs.listar(conexao, (result) => {
-        res.render("highscore", {hs: result})
-    });
-})
 
 app.post('/getAchievementsNaoFeitos', (req, res) => {//SELECT ACHIEVEMENTS Ñ CONCLUIDOS
     let uha = new User_has_achievements();
@@ -276,7 +249,29 @@ app.post('/giveAchievementToUser', (req, res) => {	//CONCEDER ACHIEVEMENT
 
 })
 
-app.post('/insertPontuacao'), (req, res) => {
+app.post('/insertPontuacao', (req, res) => {       //INSERIR PONTUACAO NO DB
 
-}
+    if(req.session.userId){
+        const { pontuacao } = req.body;
 
+
+    
+        let highscore = new HighScore();
+    
+        highscore.usuario = req.session.userId
+        highscore.pontuacao = pontuacao
+    
+        highscore.inserir(conexao)
+
+    }
+})
+
+app.get('/highscore', function (req, res) {			//PÁGINA LISTA DE HIGHSCORE
+    
+    console.log('/highscore rodou!')
+    const hs = new HighScore();
+
+    hs.listar(conexao, (result) => {
+        res.render("highscore", {hs: result})
+    });
+})

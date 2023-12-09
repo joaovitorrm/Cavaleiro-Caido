@@ -15,7 +15,6 @@ module.exports = class User_has_achievements {
 }
 
   listarNConcluidos(conexao, callback) {
-    console.log("UHA.listar called")
     let sql = `
     SELECT * 
     FROM achievement

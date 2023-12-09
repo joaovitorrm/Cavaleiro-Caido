@@ -9,7 +9,7 @@ module.exports = class HighScore {
     }
 
     inserir (conexao) {
-        let sql = "insert into highscore (pontuacao, userId) values (?, ?)";
+        let sql = "insert into highscore (pontuacao, user_iduser) values (?, ?)";
 
         conexao.query(sql, [this.pontuacao, this.usuario], (err, result) => {
             if (err) throw err
@@ -17,11 +17,18 @@ module.exports = class HighScore {
     }
 
     listar (conexao, callback) {
-        let sql = "select * from highscore";
+        console.log('listar rodou!')
+        let sql = `
+        SELECT user_iduser, pontuacao 
+        FROM highscore
+        ORDER BY pontuacao DESC
+        LIMIT 15
+        
+        `;
 
         conexao.query(sql, (err, result) => {
             if (err) throw err;
-            return callback
+            return callback(result)
         });
     }
 }

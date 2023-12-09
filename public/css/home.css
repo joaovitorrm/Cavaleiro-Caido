@@ -34,9 +34,8 @@ main {
     }
     & canvas {
         display: none;        
-        background-color: var(--canva-bg-color);
-        max-width: 60%;
-        max-height: 60%;
+        background-color: var(--canva-bg-color);        
+        max-height: calc(100dvh - (100vw / 18) - (100vw / 9));
         border-style: dotted;
         border-color: var(--bio-bg-color);
     }

@@ -51,32 +51,47 @@ app.get('/', function(req, res){					//ABRIR HOME
 });
 
 // CADASTRO DE USUARIOS
-app.post('/cadastrarUsuario', (req, res) => { 		//FORM DO CADASTRO
-    const user = new Usuario();
-    user.nome = req.body.nome;
-    user.email = req.body.email;
-    user.senha = req.body.senha;
-    user.cargo = "user";
-    user.imagem = req.body.imagemURL;
+app.post('/salvarUsuario', (req, res) => { 		//FORM DO CADASTRO
+    const {id, nome, email, senha, imagem, acao} = req.body;
 
-    user.inserir(conexao, (err, result) => {
-        if (err) {
-            res.render('resultado', {mensagem: 'Erro ao cadastrar usuário!'});
-        } else {
-            res.render('resultado', {mensagem: 'Usuário cadastrado com sucesso!'});
-        }
-    });
+    const user = new Usuario();    
+    user.nome = nome;
+    user.email = email;
+    user.senha = senha;
+    user.imagem = imagem;
+    user.cargo = 'user'
+
+    if (acao == 'Cadastrar') {    
+        user.inserir(conexao, (err, result) => {
+            if (err) {
+                res.render('resultado', {mensagem: 'Erro ao cadastrar usuário!'});
+            } else {
+                res.render('resultado', {mensagem: 'Usuário cadastrado com sucesso!'});
+            };
+        });
+    } else if (acao == 'Atualizar') {
+        user.id = id;
+        console.log(id);
+        user.atualizar(conexao, () => {
+            res.redirect('/cadastrados');
+        });
+    };
+    
 });
 
 app.post('/processarUsuario', (req, res) => {		//EXCLUIR USER PAG. CADASTRADOS
     const {acao, userId} = req.body;
 
     const usuario = new Usuario();
+    usuario.id = userId;
 
-    if (acao == 'Excluir') {
-        usuario.id = userId;
+    if (acao == 'Excluir') {        
         usuario.excluir(conexao, (result) => {
             res.redirect('/cadastrados');
+        });
+    } else if (acao == 'Atualizar') {
+        usuario.pesquisar(conexao, (user) => {
+            res.render('cadastro', {acao: 'Atualizar', user: user[0]});
         });
     };
 });
@@ -104,7 +119,8 @@ app.post('/addUser', (req, res) => {
 })
 
 app.get('/cadastro', function(req, res){ 			//PAGINA FORM DE CADASTRO
-    res.render('cadastro');
+    const user = new Usuario();
+    res.render('cadastro', {acao: 'Cadastrar', user});
 });
 
 app.get('/entrar', function(req, res){ 				//PAGINA FORM DE LOGIN
@@ -112,14 +128,24 @@ app.get('/entrar', function(req, res){ 				//PAGINA FORM DE LOGIN
 });
 
 app.post('/getUsers', (req, res) => {
-    const {nome, userId} = req.body;
+    const {nome} = req.body;
 
     const usuario = new Usuario();
     usuario.nome = "%" + nome + "%";
-    usuario.id = userId;
+    usuario.id = req.session.userId;
 
-    usuario.pesquisar(conexao, (usuarios) => {
+    usuario.pesquisarAmigos(conexao, (usuarios) => {
         res.json(usuarios);
+        res.end();
+    });
+})
+
+app.post('/getFriends', (req, res) => {
+    const usuario = new Usuario();
+    usuario.id = req.session.userId;
+
+    usuario.listarAmigos(conexao, (amigos) => {
+        res.json(amigos);
         res.end();
     });
 })

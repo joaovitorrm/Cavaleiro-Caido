@@ -21,9 +21,11 @@
           <img src="../images/logos/logo.png">
         </div>
         
-        <form action="/cadastrarUsuario" method="post">
+        <form action="/salvarUsuario" method="post">
             
             <h2 class="cadastro-titulo">Cadastro</h2>
+
+            <input type="hidden" name="id" value="<%= user.iduser %>">
 
             <div class="imagem-container input-container">
                 <input type="file" accept="image/*" name="imgPerfil" id="imgPerfil">
@@ -33,34 +35,34 @@
 
             <div class="nome-container input-container">
                 <label for="nome">Nome:</label>
-                <input type="text" maxlength="30" name="nome" id="nome" required>                
+                <input type="text" maxlength="30" value="<%= user.nome %>" name="nome" id="nome" required>                
             </div>
 
             <div class="nascimento-container input-container">
                 <label for="dataNascimento">Data de Nascimento:</label>
-                <input type="date" name="dataNascimento" id="dataNascimento" required>
+                <input type="date" name="dataNascimento" value="<%= user.nascimento %>" id="dataNascimento">
             </div>
 
             <div class="email-container input-container">
                 <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" required>
+                <input type="email" name="email" value="<%= user.email %>" id="email" required>
             </div>
 
             <div class="senha-container input-container">
                 <label for="Senha">Senha:</label>
-                <input type="password" name="senha" id="senha" required>
+                <input type='<%= acao == "Cadastrar" ? "password":"text" %>' value="<%= user.senha %>" name="senha" id="senha" required>
             </div>
 
             <div class="confirmar-container input-container">
                 <label for="Confirmar Senha">Confirmar Senha:</label>
-                <input type="password" name="confirmarSenha" id="confirmarSenha" required>
+                <input type='<%= acao == "Cadastrar" ? "password":"text" %>' value="<%= user.senha %>" name="confirmarSenha" id="confirmarSenha" required>
             </div>
 
             <a href="/entrar" class="possui-cadastro-container">
                 Já é cadastrado? Faça login.
             </a>
 
-            <input type="submit" name="acao" value="Cadastrar" class="confirmar-input">
+            <input type="submit" name="acao" value="<%= acao %>" class="confirmar-input">
         </form>
 
       </div>

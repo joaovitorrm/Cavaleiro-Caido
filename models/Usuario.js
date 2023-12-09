@@ -16,6 +16,13 @@ module.exports = class Usuario {
         });
     };
 
+    atualizar(conexao, callback) {
+        conexao.query('UPDATE user SET nome = ?, email = ?, senha = ?, imagemURL = ? WHERE iduser = ?', [this.nome, this.email, this.senha, this.imagem, this.id], (err, result) => {
+            if (err) throw err;
+            return callback();
+        })
+    }
+
     listar(conexao, callback){
         const sql = "select * from user";
         conexao.query(sql, (err, result) => {
@@ -24,9 +31,44 @@ module.exports = class Usuario {
         });
     };
 
+    pesquisar(conexao, callback) {
+        conexao.query('SELECT * FROM user WHERE iduser = ?', [this.id], (err, result) => {
+            if (err) throw err;
+            return callback(result);
+        })
+    }
+
     adicionarAmigo(conexao, id2, callback) {
         conexao.query('INSERT INTO amigos (user_iduser, user_iduser1) VALUES (?, ?)', [this.id, id2], (err, result) => {
             if (err) throw err;
+        });
+    };
+
+    listarAmigos(conexao, callback) {
+        conexao.query('WITH amigos_session AS ( \
+            SELECT * FROM amigos  \
+            WHERE user_iduser = ? OR user_iduser1 = ? \
+            ), \
+            nao_session AS ( \
+                SELECT u.iduser, u.nome \
+                FROM user u \
+                LEFT JOIN amigos a1 ON u.iduser = a1.user_iduser \
+                LEFT JOIN amigos a2 ON u.iduser = a2.user_iduser1 \
+                WHERE (a1.user_iduser <> ?) \
+                OR (a2.user_iduser1 <> ?) \
+            ), \
+            filtrado_fim AS ( \
+            SELECT * \
+            FROM nao_session \
+            WHERE EXISTS ( \
+                SELECT * \
+                FROM amigos_session  \
+                WHERE amigos_session.user_iduser = nao_session.iduser OR amigos_session.user_iduser1 = nao_session.iduser \
+            )) \
+            SELECT DISTINCT * \
+            FROM filtrado_fim;', [this.id, this.id, this.id, this.id], (err, result) => {
+            if (err) throw err; 
+            return callback(result);
         });
     };
 
@@ -37,7 +79,7 @@ module.exports = class Usuario {
         });
     };
 
-    pesquisar(conexao, callback) {
+    pesquisarAmigos(conexao, callback) {
         conexao.query("WITH amigos_session AS ( \
             SELECT * FROM amigos \
             WHERE user_iduser = ? OR user_iduser1 = ? \
@@ -58,7 +100,7 @@ module.exports = class Usuario {
                 FROM amigos_session \
                 WHERE amigos_session.user_iduser = nao_session.iduser OR amigos_session.user_iduser1 = nao_session.iduser \
             )) \
-            SELECT * \
+            SELECT DISTINCT * \
             FROM filtrado_fim \
             WHERE nome LIKE ? \
                 AND iduser <> ?;", [this.id, this.id, this.id, this.id, this.nome, this.id], (err, result) => {
@@ -66,7 +108,7 @@ module.exports = class Usuario {
                 return callback(result);
         });
     };
-
+    
     excluir(conexao, callback) {
         conexao.query('DELETE FROM user WHERE iduser = ?', [this.id], (err, result) => {
             if (err) throw err;

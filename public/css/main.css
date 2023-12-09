@@ -270,11 +270,7 @@ aside, #chat-menu {
             border: 0.3vmin solid #111111;
             line-height: 200%;
             position: relative;
-            font-size: 0.7rem;
-            & div:hover {
-                cursor: pointer;
-                text-decoration: underline;            
-            }
+            font-size: 0.8rem;
             & div {
                 height: 4vh;
                 display: flex;
@@ -284,6 +280,10 @@ aside, #chat-menu {
             };
             & .amigo-chat {
                 flex: 1;
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
             }
             & img {
                 height: 100%;
@@ -291,13 +291,19 @@ aside, #chat-menu {
             & .editar-amigo {                
                 border: 0.3vmin solid #1f1f1f;                
                 border-radius: 1vmin;
-                width: 1.5rem;
+                height: 90%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 aspect-ratio: 1/1;
                 text-align: center;
                 align-items: start;
+                &:hover {
+                    cursor: pointer;
+                    cursor: pointer;
+                    background-color: brown;
+                    transition: 0.4s background-color;
+                }
             }
         }        
     }

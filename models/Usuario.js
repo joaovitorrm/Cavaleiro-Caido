@@ -17,7 +17,7 @@ module.exports = class Usuario {
     };
 
     atualizar(conexao, callback) {
-        conexao.query('UPDATE user SET nome = ?, email = ?, senha = ?, imagemURL = ? WHERE iduser = ?', [this.nome, this.email, this.senha, this.imagem, this.id], (err, result) => {
+        conexao.query('UPDATE user SET nome = ?, email = ?, senha = ?, imagemURL = ?, cargo = ? WHERE iduser = ?', [this.nome, this.email, this.senha, this.imagem, this.cargo, this.id], (err, result) => {
             if (err) throw err;
             return callback();
         })

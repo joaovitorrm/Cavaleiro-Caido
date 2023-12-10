@@ -52,14 +52,19 @@ app.get('/', function(req, res){					//ABRIR HOME
 
 // CADASTRO DE USUARIOS
 app.post('/salvarUsuario', (req, res) => { 		//FORM DO CADASTRO
-    const {id, nome, email, senha, imagem, acao} = req.body;
+    let {id, nome, email, senha, imagem, cargo, acao} = req.body;
 
     const user = new Usuario();    
     user.nome = nome;
     user.email = email;
     user.senha = senha;
     user.imagem = imagem;
-    user.cargo = 'user'
+
+    if(cargo == ""){
+        cargo = "user";
+    }
+
+    user.cargo = cargo
 
     if (acao == 'Cadastrar') {    
         user.inserir(conexao, (err, result) => {
@@ -93,7 +98,10 @@ app.post('/processarUsuario', (req, res) => {		//EXCLUIR USER PAG. CADASTRADOS
         usuario.pesquisar(conexao, (user) => {
             res.render('cadastro', {acao: 'Atualizar', user: user[0]});
         });
+    }else if (acao == 'Inserir') {
+        res.redirect('/cadastro')
     };
+    
 });
 
 app.post('/pesquisarUsuarios', (req, res) => { 		//LISTA DOS CADASTRADOS
@@ -107,7 +115,7 @@ app.post('/pesquisarUsuarios', (req, res) => { 		//LISTA DOS CADASTRADOS
     });
 });
 
-app.post('/addUser', (req, res) => {
+app.post('/addUser', (req, res) => {                //ADICIONAR AMIGO
     const {userId} = req.body;
 
     const user = new Usuario();
@@ -260,9 +268,9 @@ app.get('/sobre', function(req, res){ 				//SOBRE
 
 app.post('/getAchievementsNaoFeitos', (req, res) => {//SELECT ACHIEVEMENTS Ñ CONCLUIDOS
     let uha = new User_has_achievements();
-    const { userId, achievementId, condicao, img, recompensa, descricao } = req.body; // Assuming you receive the user's ID in the request body
+    const {achievementId, condicao, img, recompensa, descricao } = req.body; // Assuming you receive the user's ID in the request body
     
-    uha.userId = userId;
+    uha.userId = req.session.userId;
     uha.achievement.achievementId = achievementId;
     uha.achievement.condicao = condicao;
     uha.achievement.img = img;
@@ -275,18 +283,20 @@ app.post('/getAchievementsNaoFeitos', (req, res) => {//SELECT ACHIEVEMENTS Ñ CO
         res.end();
     });
 });
-
 app.post('/giveAchievementToUser', (req, res) => {	//CONCEDER ACHIEVEMENT
 
-    const { achievementId } = req.body;
 
-    let uha = new User_has_achievements();
+    if(req.session.userId){
+        const { achievementId } = req.body;
 
-    uha.userId = 2
-    uha.achievementId = achievementId
+        let uha = new User_has_achievements();
+    
+        uha.userId = req.session.userId
+        uha.achievementId = achievementId
+    
+        uha.inserirAchievementCompleto(conexao);
 
-    uha.inserirAchievementCompleto(conexao);
-
+    }
 
 })
 

@@ -57,7 +57,15 @@
                 <label for="Confirmar Senha">Confirmar Senha:</label>
                 <input type='<%= acao == "Cadastrar" ? "password":"text" %>' value="<%= user.senha %>" name="confirmarSenha" id="confirmarSenha" required>
             </div>
-
+            <% if (admin == true & acao == "Atualizar") {%>
+                <div class=" input-container">
+                    <h2> Cargo:</h2>
+                    <label for="cargo1"><%= user.cargo%></label>
+                    <input type="radio" name="cargo" value='<%= user.cargo%>' id="cargo1" checked>
+                    <label for="cargo2"><%= user.cargo == "admin" ? "user" : "admin" %></label>
+                    <input type="radio" name="cargo" value='<%= user.cargo == "admin" ? "user" : "admin" %>' id="cargo2">
+            </div>
+            <% }; %>
             <a href="/entrar" class="possui-cadastro-container">
                 Já é cadastrado? Faça login.
             </a>

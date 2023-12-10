@@ -32,9 +32,15 @@ main {
         justify-content: center;
         flex-direction: column;
     }
+    & #game-container {
+        max-height: calc(100dvh - (100vw / 18) - (100vw / 9));
+        aspect-ratio: 16/9;
+        box-sizing: border-box;
+        position: relative;
+    }
     & canvas {
         display: none;        
-        background-color: var(--canva-bg-color);        
+        background-color: var(--canva-bg-color);
         max-height: calc(100dvh - (100vw / 18) - (100vw / 9));
         border-style: dotted;
         border-color: var(--bio-bg-color);
@@ -42,8 +48,8 @@ main {
     & #overlayEndGame{
         opacity: 50%;
         background-color: red;
-        width: 60%;
-        height: 95.5%;
+        width: 100%;
+        height: 100%;
         position: absolute;
         display: flex;
         visibility: hidden;

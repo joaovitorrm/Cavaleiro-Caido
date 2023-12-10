@@ -5,7 +5,7 @@ import { Map } from './Map.js';
 import { Player } from './Player.js';
 import { AchievementHandler } from './AchievementHandler.js';
 
-import { Utils } from './Utils.js';
+import { HUD } from './HUD.js';
 
 
 // roda após as imagens serem carregadas
@@ -19,7 +19,7 @@ addEventListener('load', function(){
     // elemento descricao
     const descricao = document.getElementById('descricao');
     // elemento canvas
-    const canvas = document.getElementById('game');
+    const canvas = document.getElementById('game-canvas');
     // jogar novamente
     const jogarNovamente = document.getElementById('overlayEndGame');
 
@@ -44,7 +44,7 @@ addEventListener('load', function(){
             this.map = new Map(this);
             this.entity = new Entity(this);
             this.achievementHandler = new AchievementHandler(this);
-            this.utils = new Utils(this);
+            this.hud = new HUD(this);
             
             this.map.createMap([0, 0]);    
             this.timer = 0        
@@ -75,16 +75,13 @@ addEventListener('load', function(){
             this.player.update();
             this.enemies.forEach((e) => e.update())
             this.achievementHandler.update()
-            
-
         }
 
         draw(context){
             this.map.draw(context)
             this.player.draw(context)            
             this.enemies.forEach((e) => e.draw(context))
-            this.utils.drawTextPontuacao(ctx, `Pontuação: ${this.player.pontuacao}`, 50, 50, 'black')
-            this.utils.drawTextPontuacao(ctx, `tempo: ${this.timer}`, 50, 100, 'black')
+            this.hud.draw(context);
         }
     }
     

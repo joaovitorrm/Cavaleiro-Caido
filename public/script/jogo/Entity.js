@@ -1,12 +1,10 @@
 import { Enemy } from "./Enemy.js";
-import { Utils } from "./Utils.js";
 import enemiesJson from './json/enemies.json' assert {type: 'json'}
 
 export class Entity{
   // Definições das entidades
   constructor(game){
     this.game = game;
-    this.utils = new Utils();
     this.entities = enemiesJson;
   }
   
@@ -21,14 +19,6 @@ export class Entity{
   }
   move_right(speed){
     this.x += speed;
-  }
-
-  drawLife(context){
-    context.fillStyle = "red";
-    context.fillRect(this.x, this.y, this.w, this.h / 10);
-    context.fillStyle = "green";
-    context.fillRect(this.x, this.y, 1 / (this.config.maxHealth / this.config.currentHealth) * this.w, this.h / 10);
-    this.utils.drawStrokedText(context, `${this.config.currentHealth}/${this.config.maxHealth}`, this.x + 5, this.y - 5);
   }
 
   dealDamage(source, target, who="both", amount=source.config.physicalDamage){

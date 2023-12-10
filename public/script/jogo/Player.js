@@ -204,8 +204,6 @@ export class Player extends Entity{
 
     // Desenha o player na tela    
     draw(context) {
-        this.drawLife(context)
         context.drawImage(this.sprite_atual, this.x, this.y, this.w, this.h);
-        
     }
 }

@@ -14,7 +14,7 @@ let idioma = document.getElementById("idiomas");
 
 //TRADUTOR 
 function translate(idioma) {
-    for (const div of traduzir) {        
+    for (const div of traduzir) {
         div.innerText = idiomas[div.classList[1]][idioma];
     };
 };

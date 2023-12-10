@@ -21,16 +21,16 @@
         "portugues": "Tutoriais",
         "simp_chinese": "教程"
     },
-    "minijogos": {
-        "deutsch": "Minispiele",
-        "english": "Mini-Games",
-        "espanol": "Mini Juegos",
-        "francais": "Mini Jeux",
-        "greek": "Μίνι παιχνίδια",
+    "pontuacao": {
+        "deutsch": "Ergebnis",
+        "english": "Highscore",
+        "espanol": "puntuación",
+        "francais": "score",
+        "greek": "σκορ",
         "hebrew": "משחקים קטנים",
         "irish": "Múinteoirí",
-        "portugues": "Mini-Jogos",
-        "simp_chinese": "迷你游戏"
+        "portugues": "Pontuação",
+        "simp_chinese": "总谱"
     },
     "entrar": {
         "deutsch": "Anmelden",

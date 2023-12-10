@@ -194,6 +194,21 @@ app.post('/login', function(req, res){ 				//ATRIBUIR EMAIL
 	
 });
 
+app.get('/perfil', (req, res) => {    
+    if (req.session.logado) {
+        const u = new Usuario();   
+        u.id = req.session.userId;
+
+        u.pesquisar(conexao, (result) => {
+            res.render('cadastro', {user: result[0], acao: "Atualizar"});
+        });
+    } else {
+        res.redirect('/entrar')
+    }
+    
+
+});
+
 app.get('/sair', function(req, res){ 				//DESATRIBUIR EMAIL
 	req.session.logado = false;
     req.session.admin = false;

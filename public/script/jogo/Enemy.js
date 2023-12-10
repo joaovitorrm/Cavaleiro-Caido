@@ -35,11 +35,17 @@ export class Enemy extends Entity{
         context.fillRect(this.x, this.y, this.w, this.h / 10);
         context.fillStyle = "green";
         context.fillRect(this.x, this.y, 1 / (this.config.maxHealth / this.config.currentHealth) * this.w, this.h / 10);
+
         let life = new DrawText();
-        life.text = `${this.config.currentHealth}/${this.config.maxHealth}`;
-        life.x = this.x + 5;
-        life.y = this.y - 5;
-        life.color = "white";
+        Object.assign(life, {
+            text: `${this.config.currentHealth}/${this.config.maxHealth}`,
+            textAlign: "center",
+            x: this.x + this.w / 2,
+            y: this.y - 5, 
+            fontStyle: "bold",
+            color: "white",
+            fontSize: 20,
+        })
         life.drawStrokedText(context);
     }
 

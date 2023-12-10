@@ -10,7 +10,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema cavaleiro
 -- -----------------------------------------------------
-
+url
 -- -----------------------------------------------------
 -- Schema cavaleiro
 -- -----------------------------------------------------
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`user` (
   `email` VARCHAR(100) NULL,
   `senha` VARCHAR(255) NULL,
   `cargo` ENUM('admin', 'user') NULL,
-  `imagemURL` DATE NULL,
+  `imagemURL` BLOB NULL,
   PRIMARY KEY (`iduser`))
 ENGINE = InnoDB;
 
@@ -60,20 +60,8 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`chat` (
   CONSTRAINT `fk_chat_user1`
     FOREIGN KEY (`remetente`)
     REFERENCES `cavaleiro`.`user` (`iduser`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `cavaleiro`.`minigame`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cavaleiro`.`minigame` (
-  `idminigame` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  `imagemURL` VARCHAR(45) NULL,
-  `minigamecol` VARCHAR(45) NULL,
-  PRIMARY KEY (`idminigame`))
 ENGINE = InnoDB;
 
 
@@ -84,19 +72,12 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`highscore` (
   `idhighscore` INT NOT NULL AUTO_INCREMENT,
   `pontuacao` VARCHAR(45) NULL,
   `user_iduser` INT NOT NULL,
-  `minigame_idminigame` INT NOT NULL,
   PRIMARY KEY (`idhighscore`, `user_iduser`),
   INDEX `fk_highscore_user1_idx` (`user_iduser` ASC),
-  INDEX `fk_highscore_minigame1_idx` (`minigame_idminigame` ASC),
   CONSTRAINT `fk_highscore_user1`
     FOREIGN KEY (`user_iduser`)
     REFERENCES `cavaleiro`.`user` (`iduser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_highscore_minigame1`
-    FOREIGN KEY (`minigame_idminigame`)
-    REFERENCES `cavaleiro`.`minigame` (`idminigame`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -113,12 +94,12 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`user_has_achievement` (
   CONSTRAINT `fk_user_has_achievement_user`
     FOREIGN KEY (`user_iduser`)
     REFERENCES `cavaleiro`.`user` (`iduser`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_achievement_achievement1`
     FOREIGN KEY (`achievement_achievementId`)
     REFERENCES `cavaleiro`.`achievement` (`achievementId`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -148,3 +129,14 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- Insert a placeholder into the `user` table
+INSERT INTO `cavaleiro`.`user` (`nome`, `email`, `senha`, `cargo`, `imagemURL`)
+VALUES 
+('root', 'root@email.com', 'root', 'admin', 'placeholderURL.blob');
+-- Insert a placeholder into the `achievement` table
+INSERT INTO `cavaleiro`.`achievement` (`condicao`, `img`, `descricao`)
+VALUES 
+('()=>{if(this.stats.enemiesKilled == 1){return(true)}}', './a', ''),
+('()=>{if(this.stats.enemiesKilled == 5){return(true)}}', './a', ''),
+('()=>{if(this.stats.enemiesKilled == 10){return(true)}}', './a', '');

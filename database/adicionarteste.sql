@@ -1,9 +1,7 @@
 -- Insert a placeholder into the `user` table
 INSERT INTO `cavaleiro`.`user` (`nome`, `email`, `senha`, `cargo`, `imagemURL`)
 VALUES 
-('PlaceholderName', 'placeholder@email.com', 'placeholderpassword', 'user', 'placeholderURL'),
-('PlaceholderName1', 'placeholder1@email.com', 'placeholder1password', 'user', 'placeholderURL');
-
+('root', 'root@email.com', 'root', 'root', 'placeholderURL')
 -- Insert a placeholder into the `achievement` table
 INSERT INTO `cavaleiro`.`achievement` (`condicao`, `img`, `descricao`)
 VALUES 

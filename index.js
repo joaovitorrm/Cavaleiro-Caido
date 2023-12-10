@@ -126,6 +126,15 @@ app.post('/addUser', (req, res) => {                //ADICIONAR AMIGO
     res.end();
 })
 
+app.post('/excluirAmigo', (req, res) => {
+    const {amigoId} = req.body;
+
+    const u = new Usuario();
+    u.id = req.session.userId;
+
+    u.excluirAmigo(conexao, amigoId);
+})
+
 app.get('/cadastro', function(req, res){ 			//PAGINA FORM DE CADASTRO
     const user = new Usuario();
     res.render('cadastro', {acao: 'Cadastrar', user});

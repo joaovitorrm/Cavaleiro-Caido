@@ -50,15 +50,16 @@ amigosSeta.addEventListener('click', () => {
             const nome = document.createElement('div');
             nome.classList.add('message-chat', 'amigo-chat');
             nome.id = u.iduser;
-            nome.innerText = u.nome;            
+            nome.innerText = u.nome;
+            nome.addEventListener('click', () => {abrirChat(nome)})
 
             const editar = document.createElement('div');
             editar.classList.add('editar-amigo');
-            editar.id = u.iduser;
             editar.innerText = '-';
+            editar.id = u.iduser;
+            editar.addEventListener('click', () => {excluirAmigo(editar)});
 
-            mainDiv.append(img, nome, editar);
-            nome.addEventListener('click', () => {abrirChat(mainDiv)})
+            mainDiv.append(img, nome, editar);            
             amigosContainer.appendChild(mainDiv);
         };
     });
@@ -75,17 +76,27 @@ for (let x = 0; x < 2; x++) {
 };
 
 // ALTERA ENTRE AS CATEGORIAS E O CHAT 
-function abrirChat(d) {
-    let nome = d.querySelector('.amigo-chat');
+function abrirChat(div) {
     globalIdPlacehold = 0;
-    destinatarioId = nome.id;
-    nomeConversa.innerText = nome.innerText;
+    destinatarioId = div.id;
+    nomeConversa.innerText = div.innerText;
     chatsContainer.classList.toggle('visible');
     chatsContainer.classList.toggle('invisible');
     conversaContainer.classList.toggle('visible');
     conversaContainer.classList.toggle('invisible');        
     firstOpenChat(globalIdPlacehold, userId, destinatarioId);
     startChatInterval(globalIdPlacehold, userId, destinatarioId)
+};
+
+function excluirAmigo(div) {
+    fetch('/excluirAmigo', {
+        method: 'POST',
+        body: JSON.stringify({amigoId: div.id}),
+        headers: {
+            'Content-type': 'application/json'
+        },
+    });
+    amigosContainer.removeChild(div.parentElement);    
 }
 
 // ALTERA ENTRE AS CATEGORIAS E O CHAT GLOBAL

@@ -116,4 +116,10 @@ module.exports = class Usuario {
         });
     };
 
+    excluirAmigo(conexao, id2) {
+        conexao.query('DELETE FROM amigos WHERE (user_iduser = ? AND user_iduser1 = ?) OR (user_iduser = ? AND user_iduser1 = ?)', [this.id, id2, id2, this.id], (err, result) => {
+            if (err) throw err;
+        })
+    }
+
 }

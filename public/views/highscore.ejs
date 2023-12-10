@@ -15,6 +15,7 @@
                         <th>Posição</th>
                         <th>Jogador</th>
                         <th>Pontuação</th>
+                        <th>Tempo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,8 +24,9 @@
                     
                     <tr>
                         <td><%= position++ %></td>
-                        <td><%= hs.user_iduser %></td>
-                        <td><%= hs.pontuacao %></td>
+                        <td><%= hs.nome %></td>
+                        <td><%= hs.pontuacao + " pontos" %></td>
+                        <td><%= hs.timer + "s" %></td>
                     </tr>
                     <% }); %>
                 </tbody>

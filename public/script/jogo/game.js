@@ -51,10 +51,10 @@ addEventListener('load', function(){
             setInterval(()=> this.timer +=1, 1000)
         }
 
-        salvarPontuacao(pontuacao){
+        salvarPontuacao(pontuacao, timer){
             fetch('/insertPontuacao', {
                 method: 'POST',
-                body: JSON.stringify({ pontuacao }),
+                body: JSON.stringify({ pontuacao, timer }),
                 headers: {
                     'Content-type':'application/json',
                 },
@@ -108,7 +108,7 @@ addEventListener('load', function(){
             } else {
                 
                 jogarNovamente.style.visibility = 'visible'
-                game.salvarPontuacao(game.player.pontuacao) 
+                game.salvarPontuacao(game.player.pontuacao, game.timer) 
                 jogarNovamente.addEventListener('click', ()=> {
                     play.style.display = 'block'; descricao.style.display = 'flex';
                     canvas.style.display = 'none';

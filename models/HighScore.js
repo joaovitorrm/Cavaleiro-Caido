@@ -4,14 +4,16 @@ const Usuario = require('./Usuario');
 module.exports = class HighScore {
     constructor () {
         this.pontuacao = 0;
+        this.timer = 0
         this.usuario = new Usuario();
+        
 
     }
 
     inserir (conexao) {
-        let sql = "insert into highscore (pontuacao, user_iduser) values (?, ?)";
+        let sql = "insert into highscore (pontuacao, user_iduser, timer) values (?, ?, ?)";
 
-        conexao.query(sql, [this.pontuacao, this.usuario], (err, result) => {
+        conexao.query(sql, [this.pontuacao, this.usuario, this.timer], (err, result) => {
             if (err) throw err
         });
     }
@@ -19,10 +21,11 @@ module.exports = class HighScore {
     listar (conexao, callback) {
         console.log('listar rodou!')
         let sql = `
-        SELECT user_iduser, pontuacao 
-        FROM highscore
-        ORDER BY pontuacao DESC
-        LIMIT 15
+        SELECT  highscore.user_iduser, user.nome, highscore.pontuacao, highscore.timer
+        FROM highscore 
+        LEFT JOIN user ON highscore.user_iduser = user.iduser
+        ORDER BY highscore.pontuacao DESC, highscore.timer
+        LIMIT 15;            
         
         `;
 

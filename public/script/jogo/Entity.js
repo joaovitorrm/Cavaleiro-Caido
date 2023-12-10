@@ -48,6 +48,17 @@ export class Entity{
     return false;
   }
 
+  checkObjectsCollision(x, y, w, h) {
+    if (Object.keys(this.game.map.objects).length > 0){
+      for (const [name, value] of Object.entries(this.game.map.objects)){
+          if (this.checkCollision(x, y, w, h, value.pos.x, value.pos.y, value.pos.w, value.pos.h)){
+              return true;
+          }
+        }
+      }
+    }
+  
+
   //método que checa a colisão com a parede
   checkScreenCollision(canvas, xa, ya, wa, ha){
     if(xa < 0 + 150 || xa + wa > canvas.width - 150 || ya < 0 + 100|| ya + ha > canvas.height - 100){

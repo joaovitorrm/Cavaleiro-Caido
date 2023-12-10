@@ -25,7 +25,7 @@ export class Player extends Entity{
             armor: 0,
             magicResistance: 0,
             maxHealth: 150,
-            currentHealth: 20,
+            currentHealth: 150,
             speed: 5,
             physicalDamage: 2,
             magicDamage: 0

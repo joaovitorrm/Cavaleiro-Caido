@@ -52,7 +52,10 @@ export class Enemy extends Entity{
     checkEnemyCollision(){
         if (this.checkScreenCollision(this.game.canvas, this.x, this.y, this.w, this.h)){
             this.config.speed *= -1;            
-        }
+        };
+        if (this.checkObjectsCollision(this.x, this.y, this.w, this.h)){
+            this.config.speed *= -1;
+        };
         if (this.checkCollision(this.game.player.x + this.game.player.hitbox_x, this.game.player.y + this.game.player.hitbox_y, this.game.player.hitbox_w, this.game.player.hitbox_h, this.x, this.y, this.w, this.h)){
             this.config.speed = 0;
             return;

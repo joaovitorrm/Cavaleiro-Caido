@@ -14,7 +14,6 @@ const amigosSeta = document.querySelector('.amigos').querySelector('.down-arrow'
 const amigosContainer = document.querySelector('.amigos-container');
 
 let userId;
-let directChats;
 
 // pega o textarea e adiciona um evento que vigia as teclas pressionadas
 const texto = document.getElementById('texto')
@@ -54,14 +53,14 @@ amigosSeta.addEventListener('click', () => {
             nome.innerText = u.nome;            
 
             const editar = document.createElement('div');
-            editar.classList.add('editar-amigo', u.iduser);
-            editar.innerText = '-'
+            editar.classList.add('editar-amigo');
+            editar.id = u.iduser;
+            editar.innerText = '-';
 
             mainDiv.append(img, nome, editar);
             nome.addEventListener('click', () => {abrirChat(mainDiv)})
             amigosContainer.appendChild(mainDiv);
         };
-        directChats = document.getElementsByClassName('amigo-chat');
     });
 });
 
@@ -75,7 +74,7 @@ for (let x = 0; x < 2; x++) {
     });
 };
 
-// ALTERA ENTRE AS CATEGORIAS E O CHAT PRIVADO
+// ALTERA ENTRE AS CATEGORIAS E O CHAT 
 function abrirChat(d) {
     let nome = d.querySelector('.amigo-chat');
     globalIdPlacehold = 0;
@@ -126,8 +125,6 @@ function addTextChat(text){
     conversa.appendChild(msg);
 
     conversa.scrollTop = conversa.scrollHeight;
-
-    texto.value = '';
 }
 
 // FUNÇÃO PARA ENVIAR AS MENSAGENS
@@ -156,6 +153,7 @@ document.getElementById('enviar-mensagem').onclick = () => {
     if (texto.value != ''){
         enviarMensagem(texto.value);
         addTextChat(texto.value);
+        texto.value = '';
     }
 }
 
@@ -165,6 +163,7 @@ function sendMessage(e){
         if (texto.value != ''){   
             enviarMensagem(texto.value);
             addTextChat(texto.value);
+            texto.value = '';
         }
         // impede que o usuario desça de linha
         e.preventDefault();            

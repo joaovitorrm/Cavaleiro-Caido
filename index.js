@@ -304,7 +304,7 @@ app.post('/giveAchievementToUser', (req, res) => {	//CONCEDER ACHIEVEMENT
 app.post('/insertPontuacao', (req, res) => {       //INSERIR PONTUACAO NO DB
 
     if(req.session.userId){
-        const { pontuacao } = req.body;
+        const { pontuacao, timer } = req.body;
 
 
     
@@ -312,7 +312,8 @@ app.post('/insertPontuacao', (req, res) => {       //INSERIR PONTUACAO NO DB
     
         highscore.usuario = req.session.userId
         highscore.pontuacao = pontuacao
-    
+        highscore.timer = timer
+        console.log(timer)
         highscore.inserir(conexao)
 
     }

@@ -24,8 +24,8 @@ export class Player extends Entity{
         this.config = {
             armor: 0,
             magicResistance: 0,
-            maxHealth: 150,
-            currentHealth: 20,
+            maxHealth: 100,
+            currentHealth: 10,
             speed: 5,
             physicalDamage: 2,
             magicDamage: 0

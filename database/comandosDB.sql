@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`highscore` (
   `idhighscore` INT NOT NULL AUTO_INCREMENT,
   `pontuacao` VARCHAR(45) NULL,
   `user_iduser` INT NOT NULL,
+  `timer` INT NULL AFTER,
   PRIMARY KEY (`idhighscore`, `user_iduser`),
   INDEX `fk_highscore_user1_idx` (`user_iduser` ASC),
   CONSTRAINT `fk_highscore_user1`
@@ -116,12 +117,12 @@ CREATE TABLE IF NOT EXISTS `cavaleiro`.`amigos` (
   CONSTRAINT `fk_user_has_user_user1`
     FOREIGN KEY (`user_iduser`)
     REFERENCES `cavaleiro`.`user` (`iduser`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_user_user2`
     FOREIGN KEY (`user_iduser1`)
     REFERENCES `cavaleiro`.`user` (`iduser`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

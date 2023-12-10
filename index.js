@@ -60,13 +60,10 @@ app.post('/salvarUsuario', (req, res) => { 		//FORM DO CADASTRO
     user.senha = senha;
     user.imagem = imagem;
 
-    if(cargo == ""){
-        cargo = "user";
-    }
-
-    user.cargo = cargo
+    
 
     if (acao == 'Cadastrar') {    
+        user.cargo = "user";
         user.inserir(conexao, (err, result) => {
             if (err) {
                 res.render('resultado', {mensagem: 'Erro ao cadastrar usuário!'});
@@ -76,6 +73,7 @@ app.post('/salvarUsuario', (req, res) => { 		//FORM DO CADASTRO
         });
     } else if (acao == 'Atualizar') {
         user.id = id;
+        user.cargo = cargo;
         console.log(id);
         user.atualizar(conexao, () => {
             res.redirect('/cadastrados');
@@ -89,8 +87,10 @@ app.post('/processarUsuario', (req, res) => {		//EXCLUIR USER PAG. CADASTRADOS
 
     const usuario = new Usuario();
     usuario.id = userId;
-
-    if (acao == 'Excluir') {        
+    if(usuario == undefined){
+        alert("selecione um user");
+        res.end();
+    } else if (acao == 'Excluir') {        
         usuario.excluir(conexao, (result) => {
             res.redirect('/cadastrados');
         });
@@ -280,6 +280,7 @@ app.post('/getAchievementsNaoFeitos', (req, res) => {//SELECT ACHIEVEMENTS Ñ CO
     uha.listarNConcluidos(conexao, (result) => {
 
         res.json(result) //results == idachievement, condicao,img,recompensa,descricao
+        
         res.end();
     });
 });

@@ -60,10 +60,10 @@
             <% if (admin == true & acao == "Atualizar") {%>
                 <div class=" input-container">
                     <h2> Cargo:</h2>
-                    <label for="cargo1"><%= user.cargo%></label>
-                    <input type="radio" name="cargo" value='<%= user.cargo%>' id="cargo1" checked>
-                    <label for="cargo2"><%= user.cargo == "admin" ? "user" : "admin" %></label>
-                    <input type="radio" name="cargo" value='<%= user.cargo == "admin" ? "user" : "admin" %>' id="cargo2">
+                    <label for="cargo1">user</label>
+                    <input type="radio" name="cargo" value="user" id="cargo1" <% user.cargo === "" ? "checked" : user.cargo === "user" ? "checked" : ""%>>
+                    <label for="cargo2">admin</label>
+                    <input type="radio" name="cargo" value="admin" id="cargo2" <%= user.cargo === "admin" ? "checked" : "" %>>
             </div>
             <% }; %>
             <a href="/entrar" class="possui-cadastro-container">

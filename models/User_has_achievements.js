@@ -3,7 +3,7 @@ const Achievement = require('./Achievement');
 
 module.exports = class User_has_achievements {
   constructor() {
-    this.userId = 2;
+    this.userId = new Usuario();
     this.achievement = new Achievement();
   }
   
@@ -20,11 +20,11 @@ module.exports = class User_has_achievements {
     FROM achievement
     LEFT JOIN user_has_achievement 
     ON achievement.achievementId = user_has_achievement.achievement_achievementId 
-       AND user_has_achievement.user_iduser = 2
+       AND user_has_achievement.user_iduser = ?
     WHERE user_has_achievement.user_iduser IS NULL
     `;
 
-    conexao.query(sql, (err, result) => {
+    conexao.query(sql, [this.userId],(err, result) => {
       if (err) throw err;
       return callback(result);
     });
